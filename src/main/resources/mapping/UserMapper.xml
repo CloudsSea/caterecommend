@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.njtu.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="edu.njtu.model.User" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="review_count" property="reviewCount" jdbcType="INTEGER" />
+    <result column="yelping_since" property="yelpingSince" jdbcType="TIMESTAMP" />
+    <result column="useful" property="useful" jdbcType="INTEGER" />
+    <result column="funny" property="funny" jdbcType="INTEGER" />
+    <result column="cool" property="cool" jdbcType="INTEGER" />
+    <result column="fans" property="fans" jdbcType="INTEGER" />
+    <result column="average_stars" property="averageStars" jdbcType="REAL" />
+    <result column="compliment_hot" property="complimentHot" jdbcType="INTEGER" />
+    <result column="compliment_more" property="complimentMore" jdbcType="INTEGER" />
+    <result column="compliment_profile" property="complimentProfile" jdbcType="INTEGER" />
+    <result column="compliment_cute" property="complimentCute" jdbcType="INTEGER" />
+    <result column="compliment_list" property="complimentList" jdbcType="INTEGER" />
+    <result column="compliment_note" property="complimentNote" jdbcType="INTEGER" />
+    <result column="compliment_plain" property="complimentPlain" jdbcType="INTEGER" />
+    <result column="compliment_cool" property="complimentCool" jdbcType="INTEGER" />
+    <result column="compliment_funny" property="complimentFunny" jdbcType="INTEGER" />
+    <result column="compliment_writer" property="complimentWriter" jdbcType="INTEGER" />
+    <result column="compliment_photos" property="complimentPhotos" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, review_count, yelping_since, useful, funny, cool, fans, average_stars, 
+    compliment_hot, compliment_more, compliment_profile, compliment_cute, compliment_list, 
+    compliment_note, compliment_plain, compliment_cool, compliment_funny, compliment_writer, 
+    compliment_photos
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="edu.njtu.model.User" >
+    insert into user (id, name, review_count, 
+      yelping_since, useful, funny, 
+      cool, fans, average_stars, 
+      compliment_hot, compliment_more, compliment_profile, 
+      compliment_cute, compliment_list, compliment_note, 
+      compliment_plain, compliment_cool, compliment_funny, 
+      compliment_writer, compliment_photos)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{reviewCount,jdbcType=INTEGER}, 
+      #{yelpingSince,jdbcType=TIMESTAMP}, #{useful,jdbcType=INTEGER}, #{funny,jdbcType=INTEGER}, 
+      #{cool,jdbcType=INTEGER}, #{fans,jdbcType=INTEGER}, #{averageStars,jdbcType=REAL}, 
+      #{complimentHot,jdbcType=INTEGER}, #{complimentMore,jdbcType=INTEGER}, #{complimentProfile,jdbcType=INTEGER}, 
+      #{complimentCute,jdbcType=INTEGER}, #{complimentList,jdbcType=INTEGER}, #{complimentNote,jdbcType=INTEGER}, 
+      #{complimentPlain,jdbcType=INTEGER}, #{complimentCool,jdbcType=INTEGER}, #{complimentFunny,jdbcType=INTEGER}, 
+      #{complimentWriter,jdbcType=INTEGER}, #{complimentPhotos,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="edu.njtu.model.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="reviewCount != null" >
+        review_count,
+      </if>
+      <if test="yelpingSince != null" >
+        yelping_since,
+      </if>
+      <if test="useful != null" >
+        useful,
+      </if>
+      <if test="funny != null" >
+        funny,
+      </if>
+      <if test="cool != null" >
+        cool,
+      </if>
+      <if test="fans != null" >
+        fans,
+      </if>
+      <if test="averageStars != null" >
+        average_stars,
+      </if>
+      <if test="complimentHot != null" >
+        compliment_hot,
+      </if>
+      <if test="complimentMore != null" >
+        compliment_more,
+      </if>
+      <if test="complimentProfile != null" >
+        compliment_profile,
+      </if>
+      <if test="complimentCute != null" >
+        compliment_cute,
+      </if>
+      <if test="complimentList != null" >
+        compliment_list,
+      </if>
+      <if test="complimentNote != null" >
+        compliment_note,
+      </if>
+      <if test="complimentPlain != null" >
+        compliment_plain,
+      </if>
+      <if test="complimentCool != null" >
+        compliment_cool,
+      </if>
+      <if test="complimentFunny != null" >
+        compliment_funny,
+      </if>
+      <if test="complimentWriter != null" >
+        compliment_writer,
+      </if>
+      <if test="complimentPhotos != null" >
+        compliment_photos,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewCount != null" >
+        #{reviewCount,jdbcType=INTEGER},
+      </if>
+      <if test="yelpingSince != null" >
+        #{yelpingSince,jdbcType=TIMESTAMP},
+      </if>
+      <if test="useful != null" >
+        #{useful,jdbcType=INTEGER},
+      </if>
+      <if test="funny != null" >
+        #{funny,jdbcType=INTEGER},
+      </if>
+      <if test="cool != null" >
+        #{cool,jdbcType=INTEGER},
+      </if>
+      <if test="fans != null" >
+        #{fans,jdbcType=INTEGER},
+      </if>
+      <if test="averageStars != null" >
+        #{averageStars,jdbcType=REAL},
+      </if>
+      <if test="complimentHot != null" >
+        #{complimentHot,jdbcType=INTEGER},
+      </if>
+      <if test="complimentMore != null" >
+        #{complimentMore,jdbcType=INTEGER},
+      </if>
+      <if test="complimentProfile != null" >
+        #{complimentProfile,jdbcType=INTEGER},
+      </if>
+      <if test="complimentCute != null" >
+        #{complimentCute,jdbcType=INTEGER},
+      </if>
+      <if test="complimentList != null" >
+        #{complimentList,jdbcType=INTEGER},
+      </if>
+      <if test="complimentNote != null" >
+        #{complimentNote,jdbcType=INTEGER},
+      </if>
+      <if test="complimentPlain != null" >
+        #{complimentPlain,jdbcType=INTEGER},
+      </if>
+      <if test="complimentCool != null" >
+        #{complimentCool,jdbcType=INTEGER},
+      </if>
+      <if test="complimentFunny != null" >
+        #{complimentFunny,jdbcType=INTEGER},
+      </if>
+      <if test="complimentWriter != null" >
+        #{complimentWriter,jdbcType=INTEGER},
+      </if>
+      <if test="complimentPhotos != null" >
+        #{complimentPhotos,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.njtu.model.User" >
+    update user
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="reviewCount != null" >
+        review_count = #{reviewCount,jdbcType=INTEGER},
+      </if>
+      <if test="yelpingSince != null" >
+        yelping_since = #{yelpingSince,jdbcType=TIMESTAMP},
+      </if>
+      <if test="useful != null" >
+        useful = #{useful,jdbcType=INTEGER},
+      </if>
+      <if test="funny != null" >
+        funny = #{funny,jdbcType=INTEGER},
+      </if>
+      <if test="cool != null" >
+        cool = #{cool,jdbcType=INTEGER},
+      </if>
+      <if test="fans != null" >
+        fans = #{fans,jdbcType=INTEGER},
+      </if>
+      <if test="averageStars != null" >
+        average_stars = #{averageStars,jdbcType=REAL},
+      </if>
+      <if test="complimentHot != null" >
+        compliment_hot = #{complimentHot,jdbcType=INTEGER},
+      </if>
+      <if test="complimentMore != null" >
+        compliment_more = #{complimentMore,jdbcType=INTEGER},
+      </if>
+      <if test="complimentProfile != null" >
+        compliment_profile = #{complimentProfile,jdbcType=INTEGER},
+      </if>
+      <if test="complimentCute != null" >
+        compliment_cute = #{complimentCute,jdbcType=INTEGER},
+      </if>
+      <if test="complimentList != null" >
+        compliment_list = #{complimentList,jdbcType=INTEGER},
+      </if>
+      <if test="complimentNote != null" >
+        compliment_note = #{complimentNote,jdbcType=INTEGER},
+      </if>
+      <if test="complimentPlain != null" >
+        compliment_plain = #{complimentPlain,jdbcType=INTEGER},
+      </if>
+      <if test="complimentCool != null" >
+        compliment_cool = #{complimentCool,jdbcType=INTEGER},
+      </if>
+      <if test="complimentFunny != null" >
+        compliment_funny = #{complimentFunny,jdbcType=INTEGER},
+      </if>
+      <if test="complimentWriter != null" >
+        compliment_writer = #{complimentWriter,jdbcType=INTEGER},
+      </if>
+      <if test="complimentPhotos != null" >
+        compliment_photos = #{complimentPhotos,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.njtu.model.User" >
+    update user
+    set name = #{name,jdbcType=VARCHAR},
+      review_count = #{reviewCount,jdbcType=INTEGER},
+      yelping_since = #{yelpingSince,jdbcType=TIMESTAMP},
+      useful = #{useful,jdbcType=INTEGER},
+      funny = #{funny,jdbcType=INTEGER},
+      cool = #{cool,jdbcType=INTEGER},
+      fans = #{fans,jdbcType=INTEGER},
+      average_stars = #{averageStars,jdbcType=REAL},
+      compliment_hot = #{complimentHot,jdbcType=INTEGER},
+      compliment_more = #{complimentMore,jdbcType=INTEGER},
+      compliment_profile = #{complimentProfile,jdbcType=INTEGER},
+      compliment_cute = #{complimentCute,jdbcType=INTEGER},
+      compliment_list = #{complimentList,jdbcType=INTEGER},
+      compliment_note = #{complimentNote,jdbcType=INTEGER},
+      compliment_plain = #{complimentPlain,jdbcType=INTEGER},
+      compliment_cool = #{complimentCool,jdbcType=INTEGER},
+      compliment_funny = #{complimentFunny,jdbcType=INTEGER},
+      compliment_writer = #{complimentWriter,jdbcType=INTEGER},
+      compliment_photos = #{complimentPhotos,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

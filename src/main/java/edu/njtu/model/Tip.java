@@ -1,57 +1,55 @@
 package edu.njtu.model;
 
+import java.util.Date;
 
 public class Tip {
+    private String userId;
 
-  private String userId;
-  private String businessId;
-  private String text;
-  private java.sql.Timestamp date;
-  private long likes;
+    private String businessId;
 
+    private Date date;
 
-  public String getUserId() {
-    return userId;
-  }
+    private Integer likes;
 
-  public void setUserId(String userId) {
-    this.userId = userId;
-  }
+    private String text;
 
+    public String getUserId() {
+        return userId;
+    }
 
-  public String getBusinessId() {
-    return businessId;
-  }
+    public void setUserId(String userId) {
+        this.userId = userId == null ? null : userId.trim();
+    }
 
-  public void setBusinessId(String businessId) {
-    this.businessId = businessId;
-  }
+    public String getBusinessId() {
+        return businessId;
+    }
 
+    public void setBusinessId(String businessId) {
+        this.businessId = businessId == null ? null : businessId.trim();
+    }
 
-  public String getText() {
-    return text;
-  }
+    public Date getDate() {
+        return date;
+    }
 
-  public void setText(String text) {
-    this.text = text;
-  }
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
+    public Integer getLikes() {
+        return likes;
+    }
 
-  public java.sql.Timestamp getDate() {
-    return date;
-  }
+    public void setLikes(Integer likes) {
+        this.likes = likes;
+    }
 
-  public void setDate(java.sql.Timestamp date) {
-    this.date = date;
-  }
+    public String getText() {
+        return text;
+    }
 
-
-  public long getLikes() {
-    return likes;
-  }
-
-  public void setLikes(long likes) {
-    this.likes = likes;
-  }
-
+    public void setText(String text) {
+        this.text = text == null ? null : text.trim();
+    }
 }

@@ -1,97 +1,95 @@
 package edu.njtu.model;
 
+import java.util.Date;
 
 public class Review {
+    private String id;
 
-  private String id;
-  private long stars;
-  private java.sql.Timestamp date;
-  private String text;
-  private long useful;
-  private long funny;
-  private long cool;
-  private String businessId;
-  private String userId;
+    private Integer stars;
 
+    private Date date;
 
-  public String getId() {
-    return id;
-  }
+    private Integer useful;
 
-  public void setId(String id) {}
-    this.id = id;
-  }
+    private Integer funny;
 
+    private Integer cool;
 
-  public long getStars() {
-    return stars;
-  }
+    private String businessId;
 
-  public void setStars(long stars) {}
-    this.stars = stars;
-  }
+    private String userId;
 
+    private String text;
 
-  public java.sql.Timestamp getDate() {
-    return date;
-  }
+    public String getId() {
+        return id;
+    }
 
-  public void setDate(java.sql.Timestamp date) {}
-    this.date = date;
-  }
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
+    }
 
+    public Integer getStars() {
+        return stars;
+    }
 
-  public String getText() {
-    return text;
-  }
+    public void setStars(Integer stars) {
+        this.stars = stars;
+    }
 
-  public void setText(String text) {}
-    this.text = text;
-  }
+    public Date getDate() {
+        return date;
+    }
 
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
-  public long getUseful() {
-    return useful;
-  }
+    public Integer getUseful() {
+        return useful;
+    }
 
-  public void setUseful(long useful) {}
-    this.useful = useful;
-  }
+    public void setUseful(Integer useful) {
+        this.useful = useful;
+    }
 
+    public Integer getFunny() {
+        return funny;
+    }
 
-  public long getFunny() {
-    return funny;
-  }
+    public void setFunny(Integer funny) {
+        this.funny = funny;
+    }
 
-  public void setFunny(long funny) {}
-    this.funny = funny;
-  }
+    public Integer getCool() {
+        return cool;
+    }
 
+    public void setCool(Integer cool) {
+        this.cool = cool;
+    }
 
-  public long getCool() {
-    return cool;
-  }
+    public String getBusinessId() {
+        return businessId;
+    }
 
-  public void setCool(long cool) {}
-    this.cool = cool;
-  }
+    public void setBusinessId(String businessId) {
+        this.businessId = businessId == null ? null : businessId.trim();
+    }
 
+    public String getUserId() {
+        return userId;
+    }
 
-  public String getBusinessId() {
-    return businessId;
-  }
+    public void setUserId(String userId) {
+        this.userId = userId == null ? null : userId.trim();
+    }
 
-  public void setBusinessId(String businessId) {}
-    this.businessId = businessId;
-  }
+    public String getText() {
+        return text;
+    }
 
-
-  public String getUserId() {
-    return userId;
-  }
-
-  public void setUserId(String userId) {}
-    this.userId = userId;
-  }
-
+    public void setText(String text) {
+        this.text = text == null ? null : text.trim();
+    }
 }

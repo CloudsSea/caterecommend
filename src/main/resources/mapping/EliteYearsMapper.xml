@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.njtu.mapper.EliteYearsMapper" >
+  <resultMap id="BaseResultMap" type="edu.njtu.model.EliteYears" >
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="year" property="year" jdbcType="CHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="edu.njtu.model.EliteYears" >
+    insert into elite_years (user_id, year)
+    values (#{userId,jdbcType=VARCHAR}, #{year,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="edu.njtu.model.EliteYears" >
+    insert into elite_years
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="year != null" >
+        year,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null" >
+        #{year,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

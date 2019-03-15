@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.njtu.mapper.ReviewMapper" >
+  <resultMap id="BaseResultMap" type="edu.njtu.model.Review" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="stars" property="stars" jdbcType="INTEGER" />
+    <result column="date" property="date" jdbcType="TIMESTAMP" />
+    <result column="useful" property="useful" jdbcType="INTEGER" />
+    <result column="funny" property="funny" jdbcType="INTEGER" />
+    <result column="cool" property="cool" jdbcType="INTEGER" />
+    <result column="business_id" property="businessId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="edu.njtu.model.Review" extends="BaseResultMap" >
+    <result column="text" property="text" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, stars, date, useful, funny, cool, business_id, user_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    text
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from review
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from review
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="edu.njtu.model.Review" >
+    insert into review (id, stars, date, 
+      useful, funny, cool, 
+      business_id, user_id, text
+      )
+    values (#{id,jdbcType=VARCHAR}, #{stars,jdbcType=INTEGER}, #{date,jdbcType=TIMESTAMP}, 
+      #{useful,jdbcType=INTEGER}, #{funny,jdbcType=INTEGER}, #{cool,jdbcType=INTEGER}, 
+      #{businessId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{text,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="edu.njtu.model.Review" >
+    insert into review
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="stars != null" >
+        stars,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="useful != null" >
+        useful,
+      </if>
+      <if test="funny != null" >
+        funny,
+      </if>
+      <if test="cool != null" >
+        cool,
+      </if>
+      <if test="businessId != null" >
+        business_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="text != null" >
+        text,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="stars != null" >
+        #{stars,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="useful != null" >
+        #{useful,jdbcType=INTEGER},
+      </if>
+      <if test="funny != null" >
+        #{funny,jdbcType=INTEGER},
+      </if>
+      <if test="cool != null" >
+        #{cool,jdbcType=INTEGER},
+      </if>
+      <if test="businessId != null" >
+        #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="text != null" >
+        #{text,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.njtu.model.Review" >
+    update review
+    <set >
+      <if test="stars != null" >
+        stars = #{stars,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="useful != null" >
+        useful = #{useful,jdbcType=INTEGER},
+      </if>
+      <if test="funny != null" >
+        funny = #{funny,jdbcType=INTEGER},
+      </if>
+      <if test="cool != null" >
+        cool = #{cool,jdbcType=INTEGER},
+      </if>
+      <if test="businessId != null" >
+        business_id = #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="text != null" >
+        text = #{text,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="edu.njtu.model.Review" >
+    update review
+    set stars = #{stars,jdbcType=INTEGER},
+      date = #{date,jdbcType=TIMESTAMP},
+      useful = #{useful,jdbcType=INTEGER},
+      funny = #{funny,jdbcType=INTEGER},
+      cool = #{cool,jdbcType=INTEGER},
+      business_id = #{businessId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      text = #{text,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.njtu.model.Review" >
+    update review
+    set stars = #{stars,jdbcType=INTEGER},
+      date = #{date,jdbcType=TIMESTAMP},
+      useful = #{useful,jdbcType=INTEGER},
+      funny = #{funny,jdbcType=INTEGER},
+      cool = #{cool,jdbcType=INTEGER},
+      business_id = #{businessId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

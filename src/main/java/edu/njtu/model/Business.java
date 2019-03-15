@@ -1,127 +1,123 @@
 package edu.njtu.model;
 
-
 public class Business {
+    private String id;
 
-  private String id;
-  private String name;
-  private String neighborhood;
-  private String address;
-  private String city;
-  private String state;
-  private String postalCode;
-  private double latitude;
-  private double longitude;
-  private double stars;
-  private long reviewCount;
-  private long isOpen;
+    private String name;
 
+    private String neighborhood;
 
-  public String getId() {
-    return id;
-  }
+    private String address;
 
-  public void setId(String id) {
-    this.id = id;
-  }
+    private String city;
 
+    private String state;
 
-  public String getName() {
-    return name;
-  }
+    private String postalCode;
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    private Float latitude;
 
+    private Float longitude;
 
-  public String getNeighborhood() {
-    return neighborhood;
-  }
+    private Float stars;
 
-  public void setNeighborhood(String neighborhood) {
-    this.neighborhood = neighborhood;
-  }
+    private Integer reviewCount;
 
+    private Byte isOpen;
 
-  public String getAddress() {
-    return address;
-  }
+    public String getId() {
+        return id;
+    }
 
-  public void setAddress(String address) {
-    this.address = address;
-  }
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
+    }
 
+    public String getName() {
+        return name;
+    }
 
-  public String getCity() {
-    return city;
-  }
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
 
-  public void setCity(String city) {
-    this.city = city;
-  }
+    public String getNeighborhood() {
+        return neighborhood;
+    }
 
+    public void setNeighborhood(String neighborhood) {
+        this.neighborhood = neighborhood == null ? null : neighborhood.trim();
+    }
 
-  public String getState() {
-    return state;
-  }
+    public String getAddress() {
+        return address;
+    }
 
-  public void setState(String state) {
-    this.state = state;
-  }
+    public void setAddress(String address) {
+        this.address = address == null ? null : address.trim();
+    }
 
+    public String getCity() {
+        return city;
+    }
 
-  public String getPostalCode() {
-    return postalCode;
-  }
+    public void setCity(String city) {
+        this.city = city == null ? null : city.trim();
+    }
 
-  public void setPostalCode(String postalCode) {
-    this.postalCode = postalCode;
-  }
+    public String getState() {
+        return state;
+    }
 
+    public void setState(String state) {
+        this.state = state == null ? null : state.trim();
+    }
 
-  public double getLatitude() {
-    return latitude;
-  }
+    public String getPostalCode() {
+        return postalCode;
+    }
 
-  public void setLatitude(double latitude) {
-    this.latitude = latitude;
-  }
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode == null ? null : postalCode.trim();
+    }
 
+    public Float getLatitude() {
+        return latitude;
+    }
 
-  public double getLongitude() {
-    return longitude;
-  }
+    public void setLatitude(Float latitude) {
+        this.latitude = latitude;
+    }
 
-  public void setLongitude(double longitude) {
-    this.longitude = longitude;
-  }
+    public Float getLongitude() {
+        return longitude;
+    }
 
+    public void setLongitude(Float longitude) {
+        this.longitude = longitude;
+    }
 
-  public double getStars() {
-    return stars;
-  }
+    public Float getStars() {
+        return stars;
+    }
 
-  public void setStars(double stars) {
-    this.stars = stars;
-  }
+    public void setStars(Float stars) {
+        this.stars = stars;
+    }
 
+    public Integer getReviewCount() {
+        return reviewCount;
+    }
 
-  public long getReviewCount() {
-    return reviewCount;
-  }
+    public void setReviewCount(Integer reviewCount) {
+        this.reviewCount = reviewCount;
+    }
 
-  public void setReviewCount(long reviewCount) {
-    this.reviewCount = reviewCount;
-  }
+    public Byte getIsOpen() {
+        return isOpen;
+    }
 
-
-  public long getIsOpen() {
-    return isOpen;
-  }
-
-  public void setIsOpen(long isOpen) {
-    this.isOpen = isOpen;
-  }
-
+    public void setIsOpen(Byte isOpen) {
+        this.isOpen = isOpen;
+    }
 }
