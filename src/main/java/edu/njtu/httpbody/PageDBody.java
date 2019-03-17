@@ -1,8 +1,8 @@
-package edu.njtu.response;
+package edu.njtu.httpbody;
 
 import java.io.Serializable;
 
-public class PageResponse extends CommonResponse implements Serializable {
+public class PageDBody extends CommonDBody implements Serializable {
     private Integer pageNumber = Integer.valueOf(1);
     private Integer pageSize = Integer.valueOf(10);
     private Integer total;

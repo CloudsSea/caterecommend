@@ -1,11 +1,11 @@
-package edu.njtu.response;
+package edu.njtu.httpbody;
 
 import org.thymeleaf.util.StringUtils;
 
 import java.io.Serializable;
 import java.util.Map;
 
-public class CommonResponse implements Serializable {
+public class CommonDBody implements Serializable {
     private static final long serialVersionUID = 7771113371610430171L;
 
     private String              code;
