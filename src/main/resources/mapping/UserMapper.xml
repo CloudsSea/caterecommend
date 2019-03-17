@@ -23,12 +23,84 @@
     <result column="compliment_writer" property="complimentWriter" jdbcType="INTEGER" />
     <result column="compliment_photos" property="complimentPhotos" jdbcType="INTEGER" />
   </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
   <sql id="Base_Column_List" >
     id, name, review_count, yelping_since, useful, funny, cool, fans, average_stars, 
     compliment_hot, compliment_more, compliment_profile, compliment_cute, compliment_list, 
     compliment_note, compliment_plain, compliment_cool, compliment_funny, compliment_writer, 
     compliment_photos
   </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="edu.njtu.model.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
@@ -38,6 +110,12 @@
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from user
     where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="edu.njtu.model.UserExample" >
+    delete from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
   </delete>
   <insert id="insert" parameterType="edu.njtu.model.User" >
     insert into user (id, name, review_count, 
@@ -182,6 +260,106 @@
       </if>
     </trim>
   </insert>
+  <select id="countByExample" parameterType="edu.njtu.model.UserExample" resultType="java.lang.Integer" >
+    select count(*) from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reviewCount != null" >
+        review_count = #{record.reviewCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.yelpingSince != null" >
+        yelping_since = #{record.yelpingSince,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.useful != null" >
+        useful = #{record.useful,jdbcType=INTEGER},
+      </if>
+      <if test="record.funny != null" >
+        funny = #{record.funny,jdbcType=INTEGER},
+      </if>
+      <if test="record.cool != null" >
+        cool = #{record.cool,jdbcType=INTEGER},
+      </if>
+      <if test="record.fans != null" >
+        fans = #{record.fans,jdbcType=INTEGER},
+      </if>
+      <if test="record.averageStars != null" >
+        average_stars = #{record.averageStars,jdbcType=REAL},
+      </if>
+      <if test="record.complimentHot != null" >
+        compliment_hot = #{record.complimentHot,jdbcType=INTEGER},
+      </if>
+      <if test="record.complimentMore != null" >
+        compliment_more = #{record.complimentMore,jdbcType=INTEGER},
+      </if>
+      <if test="record.complimentProfile != null" >
+        compliment_profile = #{record.complimentProfile,jdbcType=INTEGER},
+      </if>
+      <if test="record.complimentCute != null" >
+        compliment_cute = #{record.complimentCute,jdbcType=INTEGER},
+      </if>
+      <if test="record.complimentList != null" >
+        compliment_list = #{record.complimentList,jdbcType=INTEGER},
+      </if>
+      <if test="record.complimentNote != null" >
+        compliment_note = #{record.complimentNote,jdbcType=INTEGER},
+      </if>
+      <if test="record.complimentPlain != null" >
+        compliment_plain = #{record.complimentPlain,jdbcType=INTEGER},
+      </if>
+      <if test="record.complimentCool != null" >
+        compliment_cool = #{record.complimentCool,jdbcType=INTEGER},
+      </if>
+      <if test="record.complimentFunny != null" >
+        compliment_funny = #{record.complimentFunny,jdbcType=INTEGER},
+      </if>
+      <if test="record.complimentWriter != null" >
+        compliment_writer = #{record.complimentWriter,jdbcType=INTEGER},
+      </if>
+      <if test="record.complimentPhotos != null" >
+        compliment_photos = #{record.complimentPhotos,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user
+    set id = #{record.id,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      review_count = #{record.reviewCount,jdbcType=INTEGER},
+      yelping_since = #{record.yelpingSince,jdbcType=TIMESTAMP},
+      useful = #{record.useful,jdbcType=INTEGER},
+      funny = #{record.funny,jdbcType=INTEGER},
+      cool = #{record.cool,jdbcType=INTEGER},
+      fans = #{record.fans,jdbcType=INTEGER},
+      average_stars = #{record.averageStars,jdbcType=REAL},
+      compliment_hot = #{record.complimentHot,jdbcType=INTEGER},
+      compliment_more = #{record.complimentMore,jdbcType=INTEGER},
+      compliment_profile = #{record.complimentProfile,jdbcType=INTEGER},
+      compliment_cute = #{record.complimentCute,jdbcType=INTEGER},
+      compliment_list = #{record.complimentList,jdbcType=INTEGER},
+      compliment_note = #{record.complimentNote,jdbcType=INTEGER},
+      compliment_plain = #{record.complimentPlain,jdbcType=INTEGER},
+      compliment_cool = #{record.complimentCool,jdbcType=INTEGER},
+      compliment_funny = #{record.complimentFunny,jdbcType=INTEGER},
+      compliment_writer = #{record.complimentWriter,jdbcType=INTEGER},
+      compliment_photos = #{record.complimentPhotos,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
   <update id="updateByPrimaryKeySelective" parameterType="edu.njtu.model.User" >
     update user
     <set >
