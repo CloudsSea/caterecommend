@@ -47,7 +47,7 @@ public class RestaurantController {
     @ResponseBody
     @RequestMapping("/detail")
     public RestaurantDetailDBody restaurantDetail(RestaurantDetailABody restaurantDetailABody) {
-        RestaurantDetailDBody restaurantInsertDBody = restaurantService.restaurantDetail(restaurantDetailABody);
+        RestaurantDetailDBody restaurantDetailDBody = restaurantService.restaurantDetail(restaurantDetailABody);
         return null;
     }
 
