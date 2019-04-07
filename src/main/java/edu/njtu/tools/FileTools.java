@@ -22,6 +22,7 @@ public class FileTools {
 
             String content = "";
             int index = 0;
+            int indexSon = 0;
             while ((tempString = reader.readLine()) != null) {
                 // 显示行号
                 //System.out.println("line " + line + ": " + tempString);
@@ -29,12 +30,17 @@ public class FileTools {
                 tempString = doFormat(tempString, formatType);
                 content += tempString + "\r\n";
                 logger.info(++index +"");
-            }
-            File newFile = new File(filePath + fileName + "_format." + fileType);
-            BufferedWriter writer = new BufferedWriter(new FileWriter(newFile));
-            writer.write(content);
+                if (index != 1 && index%10000 == 1) {
+                    File newFile = new File(filePath + fileName + indexSon + "_format." + fileType);
+                    BufferedWriter writer = new BufferedWriter(new FileWriter(newFile));
+                    writer.write(content);
+                    writer.close();
 
-            writer.close();
+                    content = "";
+                    indexSon ++;
+                    logger.info(indexSon+"");
+                }
+            }
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
