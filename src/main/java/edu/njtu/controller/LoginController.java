@@ -94,7 +94,7 @@ public class LoginController {
     public InsertTableTools insertTableTools;
     @RequestMapping("/insert")
     public String insertTable(){
-//        insertTableTools.readFile();
+        insertTableTools.readFile();
         return "index.html";
     }
 
@@ -103,9 +103,9 @@ public class LoginController {
         try {
             String filePath = this.getClass().getResource("/").getPath()+File.separator;
             logger.info(filePath);
-            String fileName= "FilteredReview1";
+            String fileName= "FilteredReview";
             String formatType = "review";
-//            FileTools.fileFormat(filePath, fileName, "json", formatType);
+            FileTools.fileFormat(filePath, fileName, "json", formatType);
             System.out.println("over4");
         } catch (Exception e) {
             e.printStackTrace();
