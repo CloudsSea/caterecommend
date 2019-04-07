@@ -10,17 +10,21 @@ public interface AttributeMapper {
 
     int deleteByExample(AttributeExample example);
 
+    int deleteByPrimaryKey(String businessId);
+
     int insert(Attribute record);
 
     int insertSelective(Attribute record);
 
-    List<Attribute> selectByExampleWithBLOBs(AttributeExample example);
-
     List<Attribute> selectByExample(AttributeExample example);
+
+    Attribute selectByPrimaryKey(String businessId);
 
     int updateByExampleSelective(@Param("record") Attribute record, @Param("example") AttributeExample example);
 
-    int updateByExampleWithBLOBs(@Param("record") Attribute record, @Param("example") AttributeExample example);
-
     int updateByExample(@Param("record") Attribute record, @Param("example") AttributeExample example);
+
+    int updateByPrimaryKeySelective(Attribute record);
+
+    int updateByPrimaryKey(Attribute record);
 }

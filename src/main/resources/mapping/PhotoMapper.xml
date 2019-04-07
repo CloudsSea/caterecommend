@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu.njtu.mapper.PhotoMapper" >
   <resultMap id="BaseResultMap" type="edu.njtu.model.Photo" >
-    <id column="id" property="id" jdbcType="VARCHAR" />
+    <id column="photo_id" property="photoId" jdbcType="VARCHAR" />
     <result column="business_id" property="businessId" jdbcType="VARCHAR" />
     <result column="caption" property="caption" jdbcType="VARCHAR" />
     <result column="label" property="label" jdbcType="VARCHAR" />
@@ -66,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, business_id, caption, label
+    photo_id, business_id, caption, label
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="edu.njtu.model.PhotoExample" >
     select
@@ -86,11 +86,11 @@
     select 
     <include refid="Base_Column_List" />
     from photo
-    where id = #{id,jdbcType=VARCHAR}
+    where photo_id = #{photoId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from photo
-    where id = #{id,jdbcType=VARCHAR}
+    where photo_id = #{photoId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="edu.njtu.model.PhotoExample" >
     delete from photo
@@ -99,16 +99,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="edu.njtu.model.Photo" >
-    insert into photo (id, business_id, caption, 
+    insert into photo (photo_id, business_id, caption, 
       label)
-    values (#{id,jdbcType=VARCHAR}, #{businessId,jdbcType=VARCHAR}, #{caption,jdbcType=VARCHAR}, 
+    values (#{photoId,jdbcType=VARCHAR}, #{businessId,jdbcType=VARCHAR}, #{caption,jdbcType=VARCHAR}, 
       #{label,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="edu.njtu.model.Photo" >
     insert into photo
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
+      <if test="photoId != null" >
+        photo_id,
       </if>
       <if test="businessId != null" >
         business_id,
@@ -121,8 +121,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
+      <if test="photoId != null" >
+        #{photoId,jdbcType=VARCHAR},
       </if>
       <if test="businessId != null" >
         #{businessId,jdbcType=VARCHAR},
@@ -144,8 +144,8 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update photo
     <set >
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=VARCHAR},
+      <if test="record.photoId != null" >
+        photo_id = #{record.photoId,jdbcType=VARCHAR},
       </if>
       <if test="record.businessId != null" >
         business_id = #{record.businessId,jdbcType=VARCHAR},
@@ -163,7 +163,7 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update photo
-    set id = #{record.id,jdbcType=VARCHAR},
+    set photo_id = #{record.photoId,jdbcType=VARCHAR},
       business_id = #{record.businessId,jdbcType=VARCHAR},
       caption = #{record.caption,jdbcType=VARCHAR},
       label = #{record.label,jdbcType=VARCHAR}
@@ -184,13 +184,13 @@
         label = #{label,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR}
+    where photo_id = #{photoId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="edu.njtu.model.Photo" >
     update photo
     set business_id = #{businessId,jdbcType=VARCHAR},
       caption = #{caption,jdbcType=VARCHAR},
       label = #{label,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=VARCHAR}
+    where photo_id = #{photoId,jdbcType=VARCHAR}
   </update>
 </mapper>

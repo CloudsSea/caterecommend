@@ -1,6 +1,6 @@
 package edu.njtu.mapper;
 
-import edu.njtu.model.Category;
+import edu.njtu.model.Categories;
 import edu.njtu.model.CategoryExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -10,13 +10,13 @@ public interface CategoryMapper {
 
     int deleteByExample(CategoryExample example);
 
-    int insert(Category record);
+    int insert(Categories record);
 
-    int insertSelective(Category record);
+    int insertSelective(Categories record);
 
-    List<Category> selectByExample(CategoryExample example);
+    List<Categories> selectByExample(CategoryExample example);
 
-    int updateByExampleSelective(@Param("record") Category record, @Param("example") CategoryExample example);
+    int updateByExampleSelective(@Param("record") Categories record, @Param("example") CategoryExample example);
 
-    int updateByExample(@Param("record") Category record, @Param("example") CategoryExample example);
+    int updateByExample(@Param("record") Categories record, @Param("example") CategoryExample example);
 }

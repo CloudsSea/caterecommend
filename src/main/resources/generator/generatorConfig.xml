@@ -31,15 +31,27 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
-        <table tableName="attribute" domainObjectName="Attribute"></table>
         <table tableName="business" domainObjectName="Business"></table>
-        <table tableName="category" domainObjectName="Category"></table>
-        <table tableName="checkin" domainObjectName="CheckIn"></table>
-        <table tableName="elite_years" domainObjectName="EliteYears"></table>
-        <table tableName="hours" domainObjectName="Hours"></table>
-        <table tableName="photo" domainObjectName="Photo"></table>
-        <table tableName="review" domainObjectName="Review"></table>
-        <table tableName="tip" domainObjectName="Tip"></table>
-        <table tableName="user" domainObjectName="User"></table>
+        <!--<table tableName="bus_ambience" domainObjectName="Ambience"></table>-->
+        <!--<table tableName="bus_attribute" domainObjectName="Attribute"></table>-->
+        <!--<table tableName="bus_category" domainObjectName="Categories"></table>-->
+        <!--<table tableName="bus_dietary_restrictions" domainObjectName="DietaryRestrictions"></table>-->
+        <!--<table tableName="bus_good_for" domainObjectName="GoodFor"></table>-->
+        <!--<table tableName="bus_hair_types_specialized_in" domainObjectName="HairTypesSpecializedIn"></table>-->
+        <!--<table tableName="bus_hours" domainObjectName="Hours"></table>-->
+        <!--<table tableName="bus_mid_category" domainObjectName="BusMidCategory"></table>-->
+        <!--<table tableName="bus_music" domainObjectName="Music"></table>-->
+        <!--<table tableName="bus_neighborhood" domainObjectName="Neighborhood"></table>-->
+        <!--<table tableName="bus_parking" domainObjectName="Parking"></table>-->
+
+        <table tableName="users" domainObjectName="User"></table>
+        <!--<table tableName="review" domainObjectName="Review"></table>-->
+        <!--<table tableName="votes" domainObjectName="Vote"></table>-->
+        <!--<table tableName="user_compliments" domainObjectName="Compliment"></table>-->
+        <!--<table tableName="user_friends" domainObjectName="Friend"></table>-->
+        <!--<table tableName="user_elite" domainObjectName="Elite"></table>-->
+        <!--<table tableName="user_fans" domainObjectName="Fans"></table>-->
+
+
     </context>
 </generatorConfiguration>

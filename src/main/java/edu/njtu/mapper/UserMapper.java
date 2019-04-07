@@ -2,6 +2,7 @@ package edu.njtu.mapper;
 
 import edu.njtu.model.User;
 import edu.njtu.model.UserExample;
+import edu.njtu.model.UserKey;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,7 +11,7 @@ public interface UserMapper {
 
     int deleteByExample(UserExample example);
 
-    int deleteByPrimaryKey(String id);
+    int deleteByPrimaryKey(UserKey key);
 
     int insert(User record);
 
@@ -18,7 +19,7 @@ public interface UserMapper {
 
     List<User> selectByExample(UserExample example);
 
-    User selectByPrimaryKey(String id);
+    User selectByPrimaryKey(UserKey key);
 
     int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
 

@@ -1,54 +1,148 @@
 package edu.njtu.model;
 
-import java.util.Date;
+public class User extends UserKey {
+    private Double averageStars;
 
-public class User {
-    private String id;
+    private Integer complimentsCool;
+
+    private Integer complimentsCute;
+
+    private Integer complimentsFunny;
+
+    private Integer complimentsHot;
+
+    private Integer complimentsList;
+
+    private Integer complimentsMore;
+
+    private Integer complimentsNote;
+
+    private Integer complimentsPhotos;
+
+    private Integer complimentsPlain;
+
+    private Integer complimentsProfile;
+
+    private Integer complimentsWriter;
+
+    private Integer fans;
 
     private String name;
 
     private Integer reviewCount;
 
-    private Date yelpingSince;
+    private String type;
 
-    private Integer useful;
+    private Integer votesCool;
 
-    private Integer funny;
+    private Integer votesFunny;
 
-    private Integer cool;
+    private Integer votesUseful;
 
-    private Integer fans;
+    private String yelpingSince;
 
-    private Float averageStars;
-
-    private Integer complimentHot;
-
-    private Integer complimentMore;
-
-    private Integer complimentProfile;
-
-    private Integer complimentCute;
-
-    private Integer complimentList;
-
-    private Integer complimentNote;
-
-    private Integer complimentPlain;
-
-    private Integer complimentCool;
-
-    private Integer complimentFunny;
-
-    private Integer complimentWriter;
-
-    private Integer complimentPhotos;
-
-    public String getId() {
-        return id;
+    public Double getAverageStars() {
+        return averageStars;
     }
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setAverageStars(Double averageStars) {
+        this.averageStars = averageStars;
+    }
+
+    public Integer getComplimentsCool() {
+        return complimentsCool;
+    }
+
+    public void setComplimentsCool(Integer complimentsCool) {
+        this.complimentsCool = complimentsCool;
+    }
+
+    public Integer getComplimentsCute() {
+        return complimentsCute;
+    }
+
+    public void setComplimentsCute(Integer complimentsCute) {
+        this.complimentsCute = complimentsCute;
+    }
+
+    public Integer getComplimentsFunny() {
+        return complimentsFunny;
+    }
+
+    public void setComplimentsFunny(Integer complimentsFunny) {
+        this.complimentsFunny = complimentsFunny;
+    }
+
+    public Integer getComplimentsHot() {
+        return complimentsHot;
+    }
+
+    public void setComplimentsHot(Integer complimentsHot) {
+        this.complimentsHot = complimentsHot;
+    }
+
+    public Integer getComplimentsList() {
+        return complimentsList;
+    }
+
+    public void setComplimentsList(Integer complimentsList) {
+        this.complimentsList = complimentsList;
+    }
+
+    public Integer getComplimentsMore() {
+        return complimentsMore;
+    }
+
+    public void setComplimentsMore(Integer complimentsMore) {
+        this.complimentsMore = complimentsMore;
+    }
+
+    public Integer getComplimentsNote() {
+        return complimentsNote;
+    }
+
+    public void setComplimentsNote(Integer complimentsNote) {
+        this.complimentsNote = complimentsNote;
+    }
+
+    public Integer getComplimentsPhotos() {
+        return complimentsPhotos;
+    }
+
+    public void setComplimentsPhotos(Integer complimentsPhotos) {
+        this.complimentsPhotos = complimentsPhotos;
+    }
+
+    public Integer getComplimentsPlain() {
+        return complimentsPlain;
+    }
+
+    public void setComplimentsPlain(Integer complimentsPlain) {
+        this.complimentsPlain = complimentsPlain;
+    }
+
+    public Integer getComplimentsProfile() {
+        return complimentsProfile;
+    }
+
+    public void setComplimentsProfile(Integer complimentsProfile) {
+        this.complimentsProfile = complimentsProfile;
+    }
+
+    public Integer getComplimentsWriter() {
+        return complimentsWriter;
+    }
+
+    public void setComplimentsWriter(Integer complimentsWriter) {
+        this.complimentsWriter = complimentsWriter;
+    }
+
+    public Integer getFans() {
+        return fans;
+    }
+
+    public void setFans(Integer fans) {
+        this.fans = fans;
     }
 
     public String getName() {
@@ -67,139 +161,43 @@ public class User {
         this.reviewCount = reviewCount;
     }
 
-    public Date getYelpingSince() {
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type == null ? null : type.trim();
+    }
+
+    public Integer getVotesCool() {
+        return votesCool;
+    }
+
+    public void setVotesCool(Integer votesCool) {
+        this.votesCool = votesCool;
+    }
+
+    public Integer getVotesFunny() {
+        return votesFunny;
+    }
+
+    public void setVotesFunny(Integer votesFunny) {
+        this.votesFunny = votesFunny;
+    }
+
+    public Integer getVotesUseful() {
+        return votesUseful;
+    }
+
+    public void setVotesUseful(Integer votesUseful) {
+        this.votesUseful = votesUseful;
+    }
+
+    public String getYelpingSince() {
         return yelpingSince;
     }
 
-    public void setYelpingSince(Date yelpingSince) {
-        this.yelpingSince = yelpingSince;
-    }
-
-    public Integer getUseful() {
-        return useful;
-    }
-
-    public void setUseful(Integer useful) {
-        this.useful = useful;
-    }
-
-    public Integer getFunny() {
-        return funny;
-    }
-
-    public void setFunny(Integer funny) {
-        this.funny = funny;
-    }
-
-    public Integer getCool() {
-        return cool;
-    }
-
-    public void setCool(Integer cool) {
-        this.cool = cool;
-    }
-
-    public Integer getFans() {
-        return fans;
-    }
-
-    public void setFans(Integer fans) {
-        this.fans = fans;
-    }
-
-    public Float getAverageStars() {
-        return averageStars;
-    }
-
-    public void setAverageStars(Float averageStars) {
-        this.averageStars = averageStars;
-    }
-
-    public Integer getComplimentHot() {
-        return complimentHot;
-    }
-
-    public void setComplimentHot(Integer complimentHot) {
-        this.complimentHot = complimentHot;
-    }
-
-    public Integer getComplimentMore() {
-        return complimentMore;
-    }
-
-    public void setComplimentMore(Integer complimentMore) {
-        this.complimentMore = complimentMore;
-    }
-
-    public Integer getComplimentProfile() {
-        return complimentProfile;
-    }
-
-    public void setComplimentProfile(Integer complimentProfile) {
-        this.complimentProfile = complimentProfile;
-    }
-
-    public Integer getComplimentCute() {
-        return complimentCute;
-    }
-
-    public void setComplimentCute(Integer complimentCute) {
-        this.complimentCute = complimentCute;
-    }
-
-    public Integer getComplimentList() {
-        return complimentList;
-    }
-
-    public void setComplimentList(Integer complimentList) {
-        this.complimentList = complimentList;
-    }
-
-    public Integer getComplimentNote() {
-        return complimentNote;
-    }
-
-    public void setComplimentNote(Integer complimentNote) {
-        this.complimentNote = complimentNote;
-    }
-
-    public Integer getComplimentPlain() {
-        return complimentPlain;
-    }
-
-    public void setComplimentPlain(Integer complimentPlain) {
-        this.complimentPlain = complimentPlain;
-    }
-
-    public Integer getComplimentCool() {
-        return complimentCool;
-    }
-
-    public void setComplimentCool(Integer complimentCool) {
-        this.complimentCool = complimentCool;
-    }
-
-    public Integer getComplimentFunny() {
-        return complimentFunny;
-    }
-
-    public void setComplimentFunny(Integer complimentFunny) {
-        this.complimentFunny = complimentFunny;
-    }
-
-    public Integer getComplimentWriter() {
-        return complimentWriter;
-    }
-
-    public void setComplimentWriter(Integer complimentWriter) {
-        this.complimentWriter = complimentWriter;
-    }
-
-    public Integer getComplimentPhotos() {
-        return complimentPhotos;
-    }
-
-    public void setComplimentPhotos(Integer complimentPhotos) {
-        this.complimentPhotos = complimentPhotos;
+    public void setYelpingSince(String yelpingSince) {
+        this.yelpingSince = yelpingSince == null ? null : yelpingSince.trim();
     }
 }

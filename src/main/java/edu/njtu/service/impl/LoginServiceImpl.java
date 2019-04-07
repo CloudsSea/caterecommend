@@ -27,7 +27,7 @@ public class LoginServiceImpl implements LoginService {
 
     public List<User> getUserList(){
         UserExample userExample = new UserExample();
-        userExample.createCriteria().andIdIsNotNull();
+//        userExample.createCriteria().andIdUserIsNotNull();
         return userMapper.selectByExample(userExample);
     }
 

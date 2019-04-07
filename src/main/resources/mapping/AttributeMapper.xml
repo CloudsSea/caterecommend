@@ -2,11 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu.njtu.mapper.AttributeMapper" >
   <resultMap id="BaseResultMap" type="edu.njtu.model.Attribute" >
-    <result column="business_id" property="businessId" jdbcType="VARCHAR" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="edu.njtu.model.Attribute" extends="BaseResultMap" >
-    <result column="value" property="value" jdbcType="LONGVARCHAR" />
+    <id column="business_id" property="businessId" jdbcType="VARCHAR" />
+    <result column="accepts_credit_cards" property="acceptsCreditCards" jdbcType="BIT" />
+    <result column="accepts_insurance" property="acceptsInsurance" jdbcType="BIT" />
+    <result column="ages_allowed" property="agesAllowed" jdbcType="VARCHAR" />
+    <result column="alcohol" property="alcohol" jdbcType="VARCHAR" />
+    <result column="attire" property="attire" jdbcType="VARCHAR" />
+    <result column="byob" property="byob" jdbcType="BIT" />
+    <result column="byob_corkage" property="byobCorkage" jdbcType="VARCHAR" />
+    <result column="by_appointment_only" property="byAppointmentOnly" jdbcType="BIT" />
+    <result column="caters" property="caters" jdbcType="BIT" />
+    <result column="coat_check" property="coatCheck" jdbcType="BIT" />
+    <result column="corkage" property="corkage" jdbcType="BIT" />
+    <result column="delivery" property="delivery" jdbcType="BIT" />
+    <result column="dogs_allowed" property="dogsAllowed" jdbcType="BIT" />
+    <result column="drive_thru" property="driveThru" jdbcType="BIT" />
+    <result column="good_for_dancing" property="goodForDancing" jdbcType="BIT" />
+    <result column="good_for_groups" property="goodForGroups" jdbcType="BIT" />
+    <result column="good_for_kids" property="goodForKids" jdbcType="BIT" />
+    <result column="happy_hour" property="happyHour" jdbcType="BIT" />
+    <result column="has_tv" property="hasTv" jdbcType="BIT" />
+    <result column="noise_level" property="noiseLevel" jdbcType="VARCHAR" />
+    <result column="open_24_hours" property="open24Hours" jdbcType="BIT" />
+    <result column="order_at_counter" property="orderAtCounter" jdbcType="BIT" />
+    <result column="outdoor_seating" property="outdoorSeating" jdbcType="BIT" />
+    <result column="price_range" property="priceRange" jdbcType="BIT" />
+    <result column="smoking" property="smoking" jdbcType="VARCHAR" />
+    <result column="take_out" property="takeOut" jdbcType="BIT" />
+    <result column="takes_reservations" property="takesReservations" jdbcType="BIT" />
+    <result column="waiter_service" property="waiterService" jdbcType="BIT" />
+    <result column="wheelchair_accessible" property="wheelchairAccessible" jdbcType="BIT" />
+    <result column="wi_fi" property="wiFi" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,34 +93,19 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    business_id, name
+    business_id, accepts_credit_cards, accepts_insurance, ages_allowed, alcohol, attire, 
+    byob, byob_corkage, by_appointment_only, caters, coat_check, corkage, delivery, dogs_allowed, 
+    drive_thru, good_for_dancing, good_for_groups, good_for_kids, happy_hour, has_tv, 
+    noise_level, open_24_hours, order_at_counter, outdoor_seating, price_range, smoking, 
+    take_out, takes_reservations, waiter_service, wheelchair_accessible, wi_fi
   </sql>
-  <sql id="Blob_Column_List" >
-    value
-  </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="edu.njtu.model.AttributeExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from attribute
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="edu.njtu.model.AttributeExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from attribute
+    from bus_attribute
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -102,81 +113,511 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from bus_attribute
+    where business_id = #{businessId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from bus_attribute
+    where business_id = #{businessId,jdbcType=VARCHAR}
+  </delete>
   <delete id="deleteByExample" parameterType="edu.njtu.model.AttributeExample" >
-    delete from attribute
+    delete from bus_attribute
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="edu.njtu.model.Attribute" >
-    insert into attribute (business_id, name, value
+    insert into bus_attribute (business_id, accepts_credit_cards, accepts_insurance, 
+      ages_allowed, alcohol, attire, 
+      byob, byob_corkage, by_appointment_only, 
+      caters, coat_check, corkage, delivery, 
+      dogs_allowed, drive_thru, good_for_dancing, 
+      good_for_groups, good_for_kids, happy_hour, 
+      has_tv, noise_level, open_24_hours, 
+      order_at_counter, outdoor_seating, price_range, 
+      smoking, take_out, takes_reservations, 
+      waiter_service, wheelchair_accessible, wi_fi
       )
-    values (#{businessId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{value,jdbcType=LONGVARCHAR}
+    values (#{businessId,jdbcType=VARCHAR}, #{acceptsCreditCards,jdbcType=BIT}, #{acceptsInsurance,jdbcType=BIT}, 
+      #{agesAllowed,jdbcType=VARCHAR}, #{alcohol,jdbcType=VARCHAR}, #{attire,jdbcType=VARCHAR}, 
+      #{byob,jdbcType=BIT}, #{byobCorkage,jdbcType=VARCHAR}, #{byAppointmentOnly,jdbcType=BIT}, 
+      #{caters,jdbcType=BIT}, #{coatCheck,jdbcType=BIT}, #{corkage,jdbcType=BIT}, #{delivery,jdbcType=BIT}, 
+      #{dogsAllowed,jdbcType=BIT}, #{driveThru,jdbcType=BIT}, #{goodForDancing,jdbcType=BIT}, 
+      #{goodForGroups,jdbcType=BIT}, #{goodForKids,jdbcType=BIT}, #{happyHour,jdbcType=BIT}, 
+      #{hasTv,jdbcType=BIT}, #{noiseLevel,jdbcType=VARCHAR}, #{open24Hours,jdbcType=BIT}, 
+      #{orderAtCounter,jdbcType=BIT}, #{outdoorSeating,jdbcType=BIT}, #{priceRange,jdbcType=BIT}, 
+      #{smoking,jdbcType=VARCHAR}, #{takeOut,jdbcType=BIT}, #{takesReservations,jdbcType=BIT}, 
+      #{waiterService,jdbcType=BIT}, #{wheelchairAccessible,jdbcType=BIT}, #{wiFi,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="edu.njtu.model.Attribute" >
-    insert into attribute
+    insert into bus_attribute
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="businessId != null" >
         business_id,
       </if>
-      <if test="name != null" >
-        name,
+      <if test="acceptsCreditCards != null" >
+        accepts_credit_cards,
       </if>
-      <if test="value != null" >
-        value,
+      <if test="acceptsInsurance != null" >
+        accepts_insurance,
+      </if>
+      <if test="agesAllowed != null" >
+        ages_allowed,
+      </if>
+      <if test="alcohol != null" >
+        alcohol,
+      </if>
+      <if test="attire != null" >
+        attire,
+      </if>
+      <if test="byob != null" >
+        byob,
+      </if>
+      <if test="byobCorkage != null" >
+        byob_corkage,
+      </if>
+      <if test="byAppointmentOnly != null" >
+        by_appointment_only,
+      </if>
+      <if test="caters != null" >
+        caters,
+      </if>
+      <if test="coatCheck != null" >
+        coat_check,
+      </if>
+      <if test="corkage != null" >
+        corkage,
+      </if>
+      <if test="delivery != null" >
+        delivery,
+      </if>
+      <if test="dogsAllowed != null" >
+        dogs_allowed,
+      </if>
+      <if test="driveThru != null" >
+        drive_thru,
+      </if>
+      <if test="goodForDancing != null" >
+        good_for_dancing,
+      </if>
+      <if test="goodForGroups != null" >
+        good_for_groups,
+      </if>
+      <if test="goodForKids != null" >
+        good_for_kids,
+      </if>
+      <if test="happyHour != null" >
+        happy_hour,
+      </if>
+      <if test="hasTv != null" >
+        has_tv,
+      </if>
+      <if test="noiseLevel != null" >
+        noise_level,
+      </if>
+      <if test="open24Hours != null" >
+        open_24_hours,
+      </if>
+      <if test="orderAtCounter != null" >
+        order_at_counter,
+      </if>
+      <if test="outdoorSeating != null" >
+        outdoor_seating,
+      </if>
+      <if test="priceRange != null" >
+        price_range,
+      </if>
+      <if test="smoking != null" >
+        smoking,
+      </if>
+      <if test="takeOut != null" >
+        take_out,
+      </if>
+      <if test="takesReservations != null" >
+        takes_reservations,
+      </if>
+      <if test="waiterService != null" >
+        waiter_service,
+      </if>
+      <if test="wheelchairAccessible != null" >
+        wheelchair_accessible,
+      </if>
+      <if test="wiFi != null" >
+        wi_fi,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="businessId != null" >
         #{businessId,jdbcType=VARCHAR},
       </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
+      <if test="acceptsCreditCards != null" >
+        #{acceptsCreditCards,jdbcType=BIT},
       </if>
-      <if test="value != null" >
-        #{value,jdbcType=LONGVARCHAR},
+      <if test="acceptsInsurance != null" >
+        #{acceptsInsurance,jdbcType=BIT},
+      </if>
+      <if test="agesAllowed != null" >
+        #{agesAllowed,jdbcType=VARCHAR},
+      </if>
+      <if test="alcohol != null" >
+        #{alcohol,jdbcType=VARCHAR},
+      </if>
+      <if test="attire != null" >
+        #{attire,jdbcType=VARCHAR},
+      </if>
+      <if test="byob != null" >
+        #{byob,jdbcType=BIT},
+      </if>
+      <if test="byobCorkage != null" >
+        #{byobCorkage,jdbcType=VARCHAR},
+      </if>
+      <if test="byAppointmentOnly != null" >
+        #{byAppointmentOnly,jdbcType=BIT},
+      </if>
+      <if test="caters != null" >
+        #{caters,jdbcType=BIT},
+      </if>
+      <if test="coatCheck != null" >
+        #{coatCheck,jdbcType=BIT},
+      </if>
+      <if test="corkage != null" >
+        #{corkage,jdbcType=BIT},
+      </if>
+      <if test="delivery != null" >
+        #{delivery,jdbcType=BIT},
+      </if>
+      <if test="dogsAllowed != null" >
+        #{dogsAllowed,jdbcType=BIT},
+      </if>
+      <if test="driveThru != null" >
+        #{driveThru,jdbcType=BIT},
+      </if>
+      <if test="goodForDancing != null" >
+        #{goodForDancing,jdbcType=BIT},
+      </if>
+      <if test="goodForGroups != null" >
+        #{goodForGroups,jdbcType=BIT},
+      </if>
+      <if test="goodForKids != null" >
+        #{goodForKids,jdbcType=BIT},
+      </if>
+      <if test="happyHour != null" >
+        #{happyHour,jdbcType=BIT},
+      </if>
+      <if test="hasTv != null" >
+        #{hasTv,jdbcType=BIT},
+      </if>
+      <if test="noiseLevel != null" >
+        #{noiseLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="open24Hours != null" >
+        #{open24Hours,jdbcType=BIT},
+      </if>
+      <if test="orderAtCounter != null" >
+        #{orderAtCounter,jdbcType=BIT},
+      </if>
+      <if test="outdoorSeating != null" >
+        #{outdoorSeating,jdbcType=BIT},
+      </if>
+      <if test="priceRange != null" >
+        #{priceRange,jdbcType=BIT},
+      </if>
+      <if test="smoking != null" >
+        #{smoking,jdbcType=VARCHAR},
+      </if>
+      <if test="takeOut != null" >
+        #{takeOut,jdbcType=BIT},
+      </if>
+      <if test="takesReservations != null" >
+        #{takesReservations,jdbcType=BIT},
+      </if>
+      <if test="waiterService != null" >
+        #{waiterService,jdbcType=BIT},
+      </if>
+      <if test="wheelchairAccessible != null" >
+        #{wheelchairAccessible,jdbcType=BIT},
+      </if>
+      <if test="wiFi != null" >
+        #{wiFi,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="edu.njtu.model.AttributeExample" resultType="java.lang.Integer" >
-    select count(*) from attribute
+    select count(*) from bus_attribute
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update attribute
+    update bus_attribute
     <set >
       <if test="record.businessId != null" >
         business_id = #{record.businessId,jdbcType=VARCHAR},
       </if>
-      <if test="record.name != null" >
-        name = #{record.name,jdbcType=VARCHAR},
+      <if test="record.acceptsCreditCards != null" >
+        accepts_credit_cards = #{record.acceptsCreditCards,jdbcType=BIT},
       </if>
-      <if test="record.value != null" >
-        value = #{record.value,jdbcType=LONGVARCHAR},
+      <if test="record.acceptsInsurance != null" >
+        accepts_insurance = #{record.acceptsInsurance,jdbcType=BIT},
+      </if>
+      <if test="record.agesAllowed != null" >
+        ages_allowed = #{record.agesAllowed,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alcohol != null" >
+        alcohol = #{record.alcohol,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attire != null" >
+        attire = #{record.attire,jdbcType=VARCHAR},
+      </if>
+      <if test="record.byob != null" >
+        byob = #{record.byob,jdbcType=BIT},
+      </if>
+      <if test="record.byobCorkage != null" >
+        byob_corkage = #{record.byobCorkage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.byAppointmentOnly != null" >
+        by_appointment_only = #{record.byAppointmentOnly,jdbcType=BIT},
+      </if>
+      <if test="record.caters != null" >
+        caters = #{record.caters,jdbcType=BIT},
+      </if>
+      <if test="record.coatCheck != null" >
+        coat_check = #{record.coatCheck,jdbcType=BIT},
+      </if>
+      <if test="record.corkage != null" >
+        corkage = #{record.corkage,jdbcType=BIT},
+      </if>
+      <if test="record.delivery != null" >
+        delivery = #{record.delivery,jdbcType=BIT},
+      </if>
+      <if test="record.dogsAllowed != null" >
+        dogs_allowed = #{record.dogsAllowed,jdbcType=BIT},
+      </if>
+      <if test="record.driveThru != null" >
+        drive_thru = #{record.driveThru,jdbcType=BIT},
+      </if>
+      <if test="record.goodForDancing != null" >
+        good_for_dancing = #{record.goodForDancing,jdbcType=BIT},
+      </if>
+      <if test="record.goodForGroups != null" >
+        good_for_groups = #{record.goodForGroups,jdbcType=BIT},
+      </if>
+      <if test="record.goodForKids != null" >
+        good_for_kids = #{record.goodForKids,jdbcType=BIT},
+      </if>
+      <if test="record.happyHour != null" >
+        happy_hour = #{record.happyHour,jdbcType=BIT},
+      </if>
+      <if test="record.hasTv != null" >
+        has_tv = #{record.hasTv,jdbcType=BIT},
+      </if>
+      <if test="record.noiseLevel != null" >
+        noise_level = #{record.noiseLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.open24Hours != null" >
+        open_24_hours = #{record.open24Hours,jdbcType=BIT},
+      </if>
+      <if test="record.orderAtCounter != null" >
+        order_at_counter = #{record.orderAtCounter,jdbcType=BIT},
+      </if>
+      <if test="record.outdoorSeating != null" >
+        outdoor_seating = #{record.outdoorSeating,jdbcType=BIT},
+      </if>
+      <if test="record.priceRange != null" >
+        price_range = #{record.priceRange,jdbcType=BIT},
+      </if>
+      <if test="record.smoking != null" >
+        smoking = #{record.smoking,jdbcType=VARCHAR},
+      </if>
+      <if test="record.takeOut != null" >
+        take_out = #{record.takeOut,jdbcType=BIT},
+      </if>
+      <if test="record.takesReservations != null" >
+        takes_reservations = #{record.takesReservations,jdbcType=BIT},
+      </if>
+      <if test="record.waiterService != null" >
+        waiter_service = #{record.waiterService,jdbcType=BIT},
+      </if>
+      <if test="record.wheelchairAccessible != null" >
+        wheelchair_accessible = #{record.wheelchairAccessible,jdbcType=BIT},
+      </if>
+      <if test="record.wiFi != null" >
+        wi_fi = #{record.wiFi,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map" >
-    update attribute
+  <update id="updateByExample" parameterType="map" >
+    update bus_attribute
     set business_id = #{record.businessId,jdbcType=VARCHAR},
-      name = #{record.name,jdbcType=VARCHAR},
-      value = #{record.value,jdbcType=LONGVARCHAR}
+      accepts_credit_cards = #{record.acceptsCreditCards,jdbcType=BIT},
+      accepts_insurance = #{record.acceptsInsurance,jdbcType=BIT},
+      ages_allowed = #{record.agesAllowed,jdbcType=VARCHAR},
+      alcohol = #{record.alcohol,jdbcType=VARCHAR},
+      attire = #{record.attire,jdbcType=VARCHAR},
+      byob = #{record.byob,jdbcType=BIT},
+      byob_corkage = #{record.byobCorkage,jdbcType=VARCHAR},
+      by_appointment_only = #{record.byAppointmentOnly,jdbcType=BIT},
+      caters = #{record.caters,jdbcType=BIT},
+      coat_check = #{record.coatCheck,jdbcType=BIT},
+      corkage = #{record.corkage,jdbcType=BIT},
+      delivery = #{record.delivery,jdbcType=BIT},
+      dogs_allowed = #{record.dogsAllowed,jdbcType=BIT},
+      drive_thru = #{record.driveThru,jdbcType=BIT},
+      good_for_dancing = #{record.goodForDancing,jdbcType=BIT},
+      good_for_groups = #{record.goodForGroups,jdbcType=BIT},
+      good_for_kids = #{record.goodForKids,jdbcType=BIT},
+      happy_hour = #{record.happyHour,jdbcType=BIT},
+      has_tv = #{record.hasTv,jdbcType=BIT},
+      noise_level = #{record.noiseLevel,jdbcType=VARCHAR},
+      open_24_hours = #{record.open24Hours,jdbcType=BIT},
+      order_at_counter = #{record.orderAtCounter,jdbcType=BIT},
+      outdoor_seating = #{record.outdoorSeating,jdbcType=BIT},
+      price_range = #{record.priceRange,jdbcType=BIT},
+      smoking = #{record.smoking,jdbcType=VARCHAR},
+      take_out = #{record.takeOut,jdbcType=BIT},
+      takes_reservations = #{record.takesReservations,jdbcType=BIT},
+      waiter_service = #{record.waiterService,jdbcType=BIT},
+      wheelchair_accessible = #{record.wheelchairAccessible,jdbcType=BIT},
+      wi_fi = #{record.wiFi,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map" >
-    update attribute
-    set business_id = #{record.businessId,jdbcType=VARCHAR},
-      name = #{record.name,jdbcType=VARCHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.njtu.model.Attribute" >
+    update bus_attribute
+    <set >
+      <if test="acceptsCreditCards != null" >
+        accepts_credit_cards = #{acceptsCreditCards,jdbcType=BIT},
+      </if>
+      <if test="acceptsInsurance != null" >
+        accepts_insurance = #{acceptsInsurance,jdbcType=BIT},
+      </if>
+      <if test="agesAllowed != null" >
+        ages_allowed = #{agesAllowed,jdbcType=VARCHAR},
+      </if>
+      <if test="alcohol != null" >
+        alcohol = #{alcohol,jdbcType=VARCHAR},
+      </if>
+      <if test="attire != null" >
+        attire = #{attire,jdbcType=VARCHAR},
+      </if>
+      <if test="byob != null" >
+        byob = #{byob,jdbcType=BIT},
+      </if>
+      <if test="byobCorkage != null" >
+        byob_corkage = #{byobCorkage,jdbcType=VARCHAR},
+      </if>
+      <if test="byAppointmentOnly != null" >
+        by_appointment_only = #{byAppointmentOnly,jdbcType=BIT},
+      </if>
+      <if test="caters != null" >
+        caters = #{caters,jdbcType=BIT},
+      </if>
+      <if test="coatCheck != null" >
+        coat_check = #{coatCheck,jdbcType=BIT},
+      </if>
+      <if test="corkage != null" >
+        corkage = #{corkage,jdbcType=BIT},
+      </if>
+      <if test="delivery != null" >
+        delivery = #{delivery,jdbcType=BIT},
+      </if>
+      <if test="dogsAllowed != null" >
+        dogs_allowed = #{dogsAllowed,jdbcType=BIT},
+      </if>
+      <if test="driveThru != null" >
+        drive_thru = #{driveThru,jdbcType=BIT},
+      </if>
+      <if test="goodForDancing != null" >
+        good_for_dancing = #{goodForDancing,jdbcType=BIT},
+      </if>
+      <if test="goodForGroups != null" >
+        good_for_groups = #{goodForGroups,jdbcType=BIT},
+      </if>
+      <if test="goodForKids != null" >
+        good_for_kids = #{goodForKids,jdbcType=BIT},
+      </if>
+      <if test="happyHour != null" >
+        happy_hour = #{happyHour,jdbcType=BIT},
+      </if>
+      <if test="hasTv != null" >
+        has_tv = #{hasTv,jdbcType=BIT},
+      </if>
+      <if test="noiseLevel != null" >
+        noise_level = #{noiseLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="open24Hours != null" >
+        open_24_hours = #{open24Hours,jdbcType=BIT},
+      </if>
+      <if test="orderAtCounter != null" >
+        order_at_counter = #{orderAtCounter,jdbcType=BIT},
+      </if>
+      <if test="outdoorSeating != null" >
+        outdoor_seating = #{outdoorSeating,jdbcType=BIT},
+      </if>
+      <if test="priceRange != null" >
+        price_range = #{priceRange,jdbcType=BIT},
+      </if>
+      <if test="smoking != null" >
+        smoking = #{smoking,jdbcType=VARCHAR},
+      </if>
+      <if test="takeOut != null" >
+        take_out = #{takeOut,jdbcType=BIT},
+      </if>
+      <if test="takesReservations != null" >
+        takes_reservations = #{takesReservations,jdbcType=BIT},
+      </if>
+      <if test="waiterService != null" >
+        waiter_service = #{waiterService,jdbcType=BIT},
+      </if>
+      <if test="wheelchairAccessible != null" >
+        wheelchair_accessible = #{wheelchairAccessible,jdbcType=BIT},
+      </if>
+      <if test="wiFi != null" >
+        wi_fi = #{wiFi,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where business_id = #{businessId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.njtu.model.Attribute" >
+    update bus_attribute
+    set accepts_credit_cards = #{acceptsCreditCards,jdbcType=BIT},
+      accepts_insurance = #{acceptsInsurance,jdbcType=BIT},
+      ages_allowed = #{agesAllowed,jdbcType=VARCHAR},
+      alcohol = #{alcohol,jdbcType=VARCHAR},
+      attire = #{attire,jdbcType=VARCHAR},
+      byob = #{byob,jdbcType=BIT},
+      byob_corkage = #{byobCorkage,jdbcType=VARCHAR},
+      by_appointment_only = #{byAppointmentOnly,jdbcType=BIT},
+      caters = #{caters,jdbcType=BIT},
+      coat_check = #{coatCheck,jdbcType=BIT},
+      corkage = #{corkage,jdbcType=BIT},
+      delivery = #{delivery,jdbcType=BIT},
+      dogs_allowed = #{dogsAllowed,jdbcType=BIT},
+      drive_thru = #{driveThru,jdbcType=BIT},
+      good_for_dancing = #{goodForDancing,jdbcType=BIT},
+      good_for_groups = #{goodForGroups,jdbcType=BIT},
+      good_for_kids = #{goodForKids,jdbcType=BIT},
+      happy_hour = #{happyHour,jdbcType=BIT},
+      has_tv = #{hasTv,jdbcType=BIT},
+      noise_level = #{noiseLevel,jdbcType=VARCHAR},
+      open_24_hours = #{open24Hours,jdbcType=BIT},
+      order_at_counter = #{orderAtCounter,jdbcType=BIT},
+      outdoor_seating = #{outdoorSeating,jdbcType=BIT},
+      price_range = #{priceRange,jdbcType=BIT},
+      smoking = #{smoking,jdbcType=VARCHAR},
+      take_out = #{takeOut,jdbcType=BIT},
+      takes_reservations = #{takesReservations,jdbcType=BIT},
+      waiter_service = #{waiterService,jdbcType=BIT},
+      wheelchair_accessible = #{wheelchairAccessible,jdbcType=BIT},
+      wi_fi = #{wiFi,jdbcType=VARCHAR}
+    where business_id = #{businessId,jdbcType=VARCHAR}
   </update>
 </mapper>

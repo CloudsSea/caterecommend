@@ -3,6 +3,8 @@ package edu.njtu.controller;
 import edu.njtu.httpbody.login.*;
 import edu.njtu.model.User;
 import edu.njtu.service.LoginService;
+import edu.njtu.tools.FileTools;
+import edu.njtu.tools.InsertTableTools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -86,5 +89,28 @@ public class LoginController {
         return loginService.getUserList();
     }
 
+
+    @Resource
+    public InsertTableTools insertTableTools;
+    @RequestMapping("/insert")
+    public String insertTable(){
+//        insertTableTools.readFile();
+        return "index.html";
+    }
+
+    @RequestMapping("/create")
+    public String createFile(){
+        try {
+            String filePath = this.getClass().getResource("/").getPath()+File.separator;
+            logger.info(filePath);
+            String fileName= "FilteredReview1";
+            String formatType = "review";
+//            FileTools.fileFormat(filePath, fileName, "json", formatType);
+            System.out.println("over4");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "index.html";
+    }
 }
 

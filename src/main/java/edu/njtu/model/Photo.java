@@ -1,7 +1,7 @@
 package edu.njtu.model;
 
 public class Photo {
-    private String id;
+    private String photoId;
 
     private String businessId;
 
@@ -9,12 +9,12 @@ public class Photo {
 
     private String label;
 
-    public String getId() {
-        return id;
+    public String getPhotoId() {
+        return photoId;
     }
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setPhotoId(String photoId) {
+        this.photoId = photoId == null ? null : photoId.trim();
     }
 
     public String getBusinessId() {

@@ -2,8 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu.njtu.mapper.HoursMapper" >
   <resultMap id="BaseResultMap" type="edu.njtu.model.Hours" >
-    <result column="hours" property="hours" jdbcType="VARCHAR" />
     <result column="business_id" property="businessId" jdbcType="VARCHAR" />
+    <result column="monday_open" property="mondayOpen" jdbcType="VARCHAR" />
+    <result column="monday_close" property="mondayClose" jdbcType="VARCHAR" />
+    <result column="thursday_open" property="thursdayOpen" jdbcType="VARCHAR" />
+    <result column="thursday_close" property="thursdayClose" jdbcType="VARCHAR" />
+    <result column="wednesday_open" property="wednesdayOpen" jdbcType="VARCHAR" />
+    <result column="wednesday_close" property="wednesdayClose" jdbcType="VARCHAR" />
+    <result column="saturday_open" property="saturdayOpen" jdbcType="VARCHAR" />
+    <result column="saturday_close" property="saturdayClose" jdbcType="VARCHAR" />
+    <result column="friday_open" property="fridayOpen" jdbcType="VARCHAR" />
+    <result column="friday_close" property="fridayClose" jdbcType="VARCHAR" />
+    <result column="tuesday_open" property="tuesdayOpen" jdbcType="VARCHAR" />
+    <result column="tuesday_close" property="tuesdayClose" jdbcType="VARCHAR" />
+    <result column="sunday_open" property="sundayOpen" jdbcType="VARCHAR" />
+    <result column="sunday_close" property="sundayClose" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -64,7 +77,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    hours, business_id
+    business_id, monday_open, monday_close, thursday_open, thursday_close, wednesday_open, 
+    wednesday_close, saturday_open, saturday_close, friday_open, friday_close, tuesday_open, 
+    tuesday_close, sunday_open, sunday_close
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="edu.njtu.model.HoursExample" >
     select
@@ -72,7 +87,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from hours
+    from bus_hours
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -81,48 +96,175 @@
     </if>
   </select>
   <delete id="deleteByExample" parameterType="edu.njtu.model.HoursExample" >
-    delete from hours
+    delete from bus_hours
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="edu.njtu.model.Hours" >
-    insert into hours (hours, business_id)
-    values (#{hours,jdbcType=VARCHAR}, #{businessId,jdbcType=VARCHAR})
+    insert into bus_hours (business_id, monday_open, monday_close, 
+      thursday_open, thursday_close, wednesday_open, 
+      wednesday_close, saturday_open, saturday_close, 
+      friday_open, friday_close, tuesday_open, 
+      tuesday_close, sunday_open, sunday_close
+      )
+    values (#{businessId,jdbcType=VARCHAR}, #{mondayOpen,jdbcType=VARCHAR}, #{mondayClose,jdbcType=VARCHAR}, 
+      #{thursdayOpen,jdbcType=VARCHAR}, #{thursdayClose,jdbcType=VARCHAR}, #{wednesdayOpen,jdbcType=VARCHAR}, 
+      #{wednesdayClose,jdbcType=VARCHAR}, #{saturdayOpen,jdbcType=VARCHAR}, #{saturdayClose,jdbcType=VARCHAR}, 
+      #{fridayOpen,jdbcType=VARCHAR}, #{fridayClose,jdbcType=VARCHAR}, #{tuesdayOpen,jdbcType=VARCHAR}, 
+      #{tuesdayClose,jdbcType=VARCHAR}, #{sundayOpen,jdbcType=VARCHAR}, #{sundayClose,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="edu.njtu.model.Hours" >
-    insert into hours
+    insert into bus_hours
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="hours != null" >
-        hours,
-      </if>
       <if test="businessId != null" >
         business_id,
       </if>
+      <if test="mondayOpen != null" >
+        monday_open,
+      </if>
+      <if test="mondayClose != null" >
+        monday_close,
+      </if>
+      <if test="thursdayOpen != null" >
+        thursday_open,
+      </if>
+      <if test="thursdayClose != null" >
+        thursday_close,
+      </if>
+      <if test="wednesdayOpen != null" >
+        wednesday_open,
+      </if>
+      <if test="wednesdayClose != null" >
+        wednesday_close,
+      </if>
+      <if test="saturdayOpen != null" >
+        saturday_open,
+      </if>
+      <if test="saturdayClose != null" >
+        saturday_close,
+      </if>
+      <if test="fridayOpen != null" >
+        friday_open,
+      </if>
+      <if test="fridayClose != null" >
+        friday_close,
+      </if>
+      <if test="tuesdayOpen != null" >
+        tuesday_open,
+      </if>
+      <if test="tuesdayClose != null" >
+        tuesday_close,
+      </if>
+      <if test="sundayOpen != null" >
+        sunday_open,
+      </if>
+      <if test="sundayClose != null" >
+        sunday_close,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="hours != null" >
-        #{hours,jdbcType=VARCHAR},
-      </if>
       <if test="businessId != null" >
         #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="mondayOpen != null" >
+        #{mondayOpen,jdbcType=VARCHAR},
+      </if>
+      <if test="mondayClose != null" >
+        #{mondayClose,jdbcType=VARCHAR},
+      </if>
+      <if test="thursdayOpen != null" >
+        #{thursdayOpen,jdbcType=VARCHAR},
+      </if>
+      <if test="thursdayClose != null" >
+        #{thursdayClose,jdbcType=VARCHAR},
+      </if>
+      <if test="wednesdayOpen != null" >
+        #{wednesdayOpen,jdbcType=VARCHAR},
+      </if>
+      <if test="wednesdayClose != null" >
+        #{wednesdayClose,jdbcType=VARCHAR},
+      </if>
+      <if test="saturdayOpen != null" >
+        #{saturdayOpen,jdbcType=VARCHAR},
+      </if>
+      <if test="saturdayClose != null" >
+        #{saturdayClose,jdbcType=VARCHAR},
+      </if>
+      <if test="fridayOpen != null" >
+        #{fridayOpen,jdbcType=VARCHAR},
+      </if>
+      <if test="fridayClose != null" >
+        #{fridayClose,jdbcType=VARCHAR},
+      </if>
+      <if test="tuesdayOpen != null" >
+        #{tuesdayOpen,jdbcType=VARCHAR},
+      </if>
+      <if test="tuesdayClose != null" >
+        #{tuesdayClose,jdbcType=VARCHAR},
+      </if>
+      <if test="sundayOpen != null" >
+        #{sundayOpen,jdbcType=VARCHAR},
+      </if>
+      <if test="sundayClose != null" >
+        #{sundayClose,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="edu.njtu.model.HoursExample" resultType="java.lang.Integer" >
-    select count(*) from hours
+    select count(*) from bus_hours
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update hours
+    update bus_hours
     <set >
-      <if test="record.hours != null" >
-        hours = #{record.hours,jdbcType=VARCHAR},
-      </if>
       <if test="record.businessId != null" >
         business_id = #{record.businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mondayOpen != null" >
+        monday_open = #{record.mondayOpen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mondayClose != null" >
+        monday_close = #{record.mondayClose,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thursdayOpen != null" >
+        thursday_open = #{record.thursdayOpen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thursdayClose != null" >
+        thursday_close = #{record.thursdayClose,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wednesdayOpen != null" >
+        wednesday_open = #{record.wednesdayOpen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wednesdayClose != null" >
+        wednesday_close = #{record.wednesdayClose,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saturdayOpen != null" >
+        saturday_open = #{record.saturdayOpen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saturdayClose != null" >
+        saturday_close = #{record.saturdayClose,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fridayOpen != null" >
+        friday_open = #{record.fridayOpen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fridayClose != null" >
+        friday_close = #{record.fridayClose,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tuesdayOpen != null" >
+        tuesday_open = #{record.tuesdayOpen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tuesdayClose != null" >
+        tuesday_close = #{record.tuesdayClose,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sundayOpen != null" >
+        sunday_open = #{record.sundayOpen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sundayClose != null" >
+        sunday_close = #{record.sundayClose,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -130,9 +272,22 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update hours
-    set hours = #{record.hours,jdbcType=VARCHAR},
-      business_id = #{record.businessId,jdbcType=VARCHAR}
+    update bus_hours
+    set business_id = #{record.businessId,jdbcType=VARCHAR},
+      monday_open = #{record.mondayOpen,jdbcType=VARCHAR},
+      monday_close = #{record.mondayClose,jdbcType=VARCHAR},
+      thursday_open = #{record.thursdayOpen,jdbcType=VARCHAR},
+      thursday_close = #{record.thursdayClose,jdbcType=VARCHAR},
+      wednesday_open = #{record.wednesdayOpen,jdbcType=VARCHAR},
+      wednesday_close = #{record.wednesdayClose,jdbcType=VARCHAR},
+      saturday_open = #{record.saturdayOpen,jdbcType=VARCHAR},
+      saturday_close = #{record.saturdayClose,jdbcType=VARCHAR},
+      friday_open = #{record.fridayOpen,jdbcType=VARCHAR},
+      friday_close = #{record.fridayClose,jdbcType=VARCHAR},
+      tuesday_open = #{record.tuesdayOpen,jdbcType=VARCHAR},
+      tuesday_close = #{record.tuesdayClose,jdbcType=VARCHAR},
+      sunday_open = #{record.sundayOpen,jdbcType=VARCHAR},
+      sunday_close = #{record.sundayClose,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>

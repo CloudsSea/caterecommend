@@ -1,36 +1,56 @@
 package edu.njtu.model;
 
-public class Business {
-    private String id;
+public class Business extends BusinessKey {
+    private String city;
+
+    private String fullAddress;
+
+    private String latitude;
+
+    private String longitude;
 
     private String name;
 
-    private String neighborhood;
+    private Boolean open;
 
-    private String address;
+    private Long reviewCount;
 
-    private String city;
+    private Long stars;
 
     private String state;
 
-    private String postalCode;
+    private String type;
 
-    private Float latitude;
-
-    private Float longitude;
-
-    private Float stars;
-
-    private Integer reviewCount;
-
-    private Byte isOpen;
-
-    public String getId() {
-        return id;
+    public String getCity() {
+        return city;
     }
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setCity(String city) {
+        this.city = city == null ? null : city.trim();
+    }
+
+    public String getFullAddress() {
+        return fullAddress;
+    }
+
+    public void setFullAddress(String fullAddress) {
+        this.fullAddress = fullAddress == null ? null : fullAddress.trim();
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude == null ? null : latitude.trim();
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude == null ? null : longitude.trim();
     }
 
     public String getName() {
@@ -41,28 +61,28 @@ public class Business {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getNeighborhood() {
-        return neighborhood;
+    public Boolean getOpen() {
+        return open;
     }
 
-    public void setNeighborhood(String neighborhood) {
-        this.neighborhood = neighborhood == null ? null : neighborhood.trim();
+    public void setOpen(Boolean open) {
+        this.open = open;
     }
 
-    public String getAddress() {
-        return address;
+    public Long getReviewCount() {
+        return reviewCount;
     }
 
-    public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
+    public void setReviewCount(Long reviewCount) {
+        this.reviewCount = reviewCount;
     }
 
-    public String getCity() {
-        return city;
+    public Long getStars() {
+        return stars;
     }
 
-    public void setCity(String city) {
-        this.city = city == null ? null : city.trim();
+    public void setStars(Long stars) {
+        this.stars = stars;
     }
 
     public String getState() {
@@ -73,51 +93,11 @@ public class Business {
         this.state = state == null ? null : state.trim();
     }
 
-    public String getPostalCode() {
-        return postalCode;
+    public String getType() {
+        return type;
     }
 
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode == null ? null : postalCode.trim();
-    }
-
-    public Float getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(Float latitude) {
-        this.latitude = latitude;
-    }
-
-    public Float getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(Float longitude) {
-        this.longitude = longitude;
-    }
-
-    public Float getStars() {
-        return stars;
-    }
-
-    public void setStars(Float stars) {
-        this.stars = stars;
-    }
-
-    public Integer getReviewCount() {
-        return reviewCount;
-    }
-
-    public void setReviewCount(Integer reviewCount) {
-        this.reviewCount = reviewCount;
-    }
-
-    public Byte getIsOpen() {
-        return isOpen;
-    }
-
-    public void setIsOpen(Byte isOpen) {
-        this.isOpen = isOpen;
+    public void setType(String type) {
+        this.type = type == null ? null : type.trim();
     }
 }

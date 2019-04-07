@@ -2,18 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="edu.njtu.mapper.BusinessMapper" >
   <resultMap id="BaseResultMap" type="edu.njtu.model.Business" >
-    <id column="id" property="id" jdbcType="VARCHAR" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="neighborhood" property="neighborhood" jdbcType="VARCHAR" />
-    <result column="address" property="address" jdbcType="VARCHAR" />
+    <id column="business_id_int" property="businessIdInt" jdbcType="BIGINT" />
+    <id column="business_id" property="businessId" jdbcType="VARCHAR" />
     <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="full_address" property="fullAddress" jdbcType="VARCHAR" />
+    <result column="latitude" property="latitude" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="open" property="open" jdbcType="BIT" />
+    <result column="review_count" property="reviewCount" jdbcType="BIGINT" />
+    <result column="stars" property="stars" jdbcType="BIGINT" />
     <result column="state" property="state" jdbcType="VARCHAR" />
-    <result column="postal_code" property="postalCode" jdbcType="VARCHAR" />
-    <result column="latitude" property="latitude" jdbcType="REAL" />
-    <result column="longitude" property="longitude" jdbcType="REAL" />
-    <result column="stars" property="stars" jdbcType="REAL" />
-    <result column="review_count" property="reviewCount" jdbcType="INTEGER" />
-    <result column="is_open" property="isOpen" jdbcType="TINYINT" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -74,8 +74,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, neighborhood, address, city, state, postal_code, latitude, longitude, stars, 
-    review_count, is_open
+    business_id_int, business_id, city, full_address, latitude, longitude, name, open, 
+    review_count, stars, state, type
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="edu.njtu.model.BusinessExample" >
     select
@@ -91,15 +91,17 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="edu.njtu.model.BusinessKey" >
     select 
     <include refid="Base_Column_List" />
     from business
-    where id = #{id,jdbcType=VARCHAR}
+    where business_id_int = #{businessIdInt,jdbcType=BIGINT}
+      and business_id = #{businessId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="edu.njtu.model.BusinessKey" >
     delete from business
-    where id = #{id,jdbcType=VARCHAR}
+    where business_id_int = #{businessIdInt,jdbcType=BIGINT}
+      and business_id = #{businessId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="edu.njtu.model.BusinessExample" >
     delete from business
@@ -108,40 +110,29 @@
     </if>
   </delete>
   <insert id="insert" parameterType="edu.njtu.model.Business" >
-    insert into business (id, name, neighborhood, 
-      address, city, state, 
-      postal_code, latitude, longitude, 
-      stars, review_count, is_open
-      )
-    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{neighborhood,jdbcType=VARCHAR}, 
-      #{address,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, 
-      #{postalCode,jdbcType=VARCHAR}, #{latitude,jdbcType=REAL}, #{longitude,jdbcType=REAL}, 
-      #{stars,jdbcType=REAL}, #{reviewCount,jdbcType=INTEGER}, #{isOpen,jdbcType=TINYINT}
-      )
+    insert into business (business_id_int, business_id, city, 
+      full_address, latitude, longitude, 
+      name, open, review_count, 
+      stars, state, type)
+    values (#{businessIdInt,jdbcType=BIGINT}, #{businessId,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{fullAddress,jdbcType=VARCHAR}, #{latitude,jdbcType=VARCHAR}, #{longitude,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{open,jdbcType=BIT}, #{reviewCount,jdbcType=BIGINT}, 
+      #{stars,jdbcType=BIGINT}, #{state,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="edu.njtu.model.Business" >
     insert into business
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
+      <if test="businessIdInt != null" >
+        business_id_int,
       </if>
-      <if test="name != null" >
-        name,
-      </if>
-      <if test="neighborhood != null" >
-        neighborhood,
-      </if>
-      <if test="address != null" >
-        address,
+      <if test="businessId != null" >
+        business_id,
       </if>
       <if test="city != null" >
         city,
       </if>
-      <if test="state != null" >
-        state,
-      </if>
-      <if test="postalCode != null" >
-        postal_code,
+      <if test="fullAddress != null" >
+        full_address,
       </if>
       <if test="latitude != null" >
         latitude,
@@ -149,52 +140,61 @@
       <if test="longitude != null" >
         longitude,
       </if>
-      <if test="stars != null" >
-        stars,
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="open != null" >
+        open,
       </if>
       <if test="reviewCount != null" >
         review_count,
       </if>
-      <if test="isOpen != null" >
-        is_open,
+      <if test="stars != null" >
+        stars,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="type != null" >
+        type,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
+      <if test="businessIdInt != null" >
+        #{businessIdInt,jdbcType=BIGINT},
       </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="neighborhood != null" >
-        #{neighborhood,jdbcType=VARCHAR},
-      </if>
-      <if test="address != null" >
-        #{address,jdbcType=VARCHAR},
+      <if test="businessId != null" >
+        #{businessId,jdbcType=VARCHAR},
       </if>
       <if test="city != null" >
         #{city,jdbcType=VARCHAR},
       </if>
+      <if test="fullAddress != null" >
+        #{fullAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="open != null" >
+        #{open,jdbcType=BIT},
+      </if>
+      <if test="reviewCount != null" >
+        #{reviewCount,jdbcType=BIGINT},
+      </if>
+      <if test="stars != null" >
+        #{stars,jdbcType=BIGINT},
+      </if>
       <if test="state != null" >
         #{state,jdbcType=VARCHAR},
       </if>
-      <if test="postalCode != null" >
-        #{postalCode,jdbcType=VARCHAR},
-      </if>
-      <if test="latitude != null" >
-        #{latitude,jdbcType=REAL},
-      </if>
-      <if test="longitude != null" >
-        #{longitude,jdbcType=REAL},
-      </if>
-      <if test="stars != null" >
-        #{stars,jdbcType=REAL},
-      </if>
-      <if test="reviewCount != null" >
-        #{reviewCount,jdbcType=INTEGER},
-      </if>
-      <if test="isOpen != null" >
-        #{isOpen,jdbcType=TINYINT},
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -207,41 +207,41 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update business
     <set >
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=VARCHAR},
+      <if test="record.businessIdInt != null" >
+        business_id_int = #{record.businessIdInt,jdbcType=BIGINT},
       </if>
-      <if test="record.name != null" >
-        name = #{record.name,jdbcType=VARCHAR},
-      </if>
-      <if test="record.neighborhood != null" >
-        neighborhood = #{record.neighborhood,jdbcType=VARCHAR},
-      </if>
-      <if test="record.address != null" >
-        address = #{record.address,jdbcType=VARCHAR},
+      <if test="record.businessId != null" >
+        business_id = #{record.businessId,jdbcType=VARCHAR},
       </if>
       <if test="record.city != null" >
         city = #{record.city,jdbcType=VARCHAR},
       </if>
+      <if test="record.fullAddress != null" >
+        full_address = #{record.fullAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.latitude != null" >
+        latitude = #{record.latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.longitude != null" >
+        longitude = #{record.longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.open != null" >
+        open = #{record.open,jdbcType=BIT},
+      </if>
+      <if test="record.reviewCount != null" >
+        review_count = #{record.reviewCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.stars != null" >
+        stars = #{record.stars,jdbcType=BIGINT},
+      </if>
       <if test="record.state != null" >
         state = #{record.state,jdbcType=VARCHAR},
       </if>
-      <if test="record.postalCode != null" >
-        postal_code = #{record.postalCode,jdbcType=VARCHAR},
-      </if>
-      <if test="record.latitude != null" >
-        latitude = #{record.latitude,jdbcType=REAL},
-      </if>
-      <if test="record.longitude != null" >
-        longitude = #{record.longitude,jdbcType=REAL},
-      </if>
-      <if test="record.stars != null" >
-        stars = #{record.stars,jdbcType=REAL},
-      </if>
-      <if test="record.reviewCount != null" >
-        review_count = #{record.reviewCount,jdbcType=INTEGER},
-      </if>
-      <if test="record.isOpen != null" >
-        is_open = #{record.isOpen,jdbcType=TINYINT},
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -250,18 +250,18 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update business
-    set id = #{record.id,jdbcType=VARCHAR},
-      name = #{record.name,jdbcType=VARCHAR},
-      neighborhood = #{record.neighborhood,jdbcType=VARCHAR},
-      address = #{record.address,jdbcType=VARCHAR},
+    set business_id_int = #{record.businessIdInt,jdbcType=BIGINT},
+      business_id = #{record.businessId,jdbcType=VARCHAR},
       city = #{record.city,jdbcType=VARCHAR},
+      full_address = #{record.fullAddress,jdbcType=VARCHAR},
+      latitude = #{record.latitude,jdbcType=VARCHAR},
+      longitude = #{record.longitude,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      open = #{record.open,jdbcType=BIT},
+      review_count = #{record.reviewCount,jdbcType=BIGINT},
+      stars = #{record.stars,jdbcType=BIGINT},
       state = #{record.state,jdbcType=VARCHAR},
-      postal_code = #{record.postalCode,jdbcType=VARCHAR},
-      latitude = #{record.latitude,jdbcType=REAL},
-      longitude = #{record.longitude,jdbcType=REAL},
-      stars = #{record.stars,jdbcType=REAL},
-      review_count = #{record.reviewCount,jdbcType=INTEGER},
-      is_open = #{record.isOpen,jdbcType=TINYINT}
+      type = #{record.type,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -269,55 +269,53 @@
   <update id="updateByPrimaryKeySelective" parameterType="edu.njtu.model.Business" >
     update business
     <set >
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="fullAddress != null" >
+        full_address = #{fullAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="neighborhood != null" >
-        neighborhood = #{neighborhood,jdbcType=VARCHAR},
+      <if test="open != null" >
+        open = #{open,jdbcType=BIT},
       </if>
-      <if test="address != null" >
-        address = #{address,jdbcType=VARCHAR},
+      <if test="reviewCount != null" >
+        review_count = #{reviewCount,jdbcType=BIGINT},
       </if>
-      <if test="city != null" >
-        city = #{city,jdbcType=VARCHAR},
+      <if test="stars != null" >
+        stars = #{stars,jdbcType=BIGINT},
       </if>
       <if test="state != null" >
         state = #{state,jdbcType=VARCHAR},
       </if>
-      <if test="postalCode != null" >
-        postal_code = #{postalCode,jdbcType=VARCHAR},
-      </if>
-      <if test="latitude != null" >
-        latitude = #{latitude,jdbcType=REAL},
-      </if>
-      <if test="longitude != null" >
-        longitude = #{longitude,jdbcType=REAL},
-      </if>
-      <if test="stars != null" >
-        stars = #{stars,jdbcType=REAL},
-      </if>
-      <if test="reviewCount != null" >
-        review_count = #{reviewCount,jdbcType=INTEGER},
-      </if>
-      <if test="isOpen != null" >
-        is_open = #{isOpen,jdbcType=TINYINT},
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR}
+    where business_id_int = #{businessIdInt,jdbcType=BIGINT}
+      and business_id = #{businessId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="edu.njtu.model.Business" >
     update business
-    set name = #{name,jdbcType=VARCHAR},
-      neighborhood = #{neighborhood,jdbcType=VARCHAR},
-      address = #{address,jdbcType=VARCHAR},
-      city = #{city,jdbcType=VARCHAR},
+    set city = #{city,jdbcType=VARCHAR},
+      full_address = #{fullAddress,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      open = #{open,jdbcType=BIT},
+      review_count = #{reviewCount,jdbcType=BIGINT},
+      stars = #{stars,jdbcType=BIGINT},
       state = #{state,jdbcType=VARCHAR},
-      postal_code = #{postalCode,jdbcType=VARCHAR},
-      latitude = #{latitude,jdbcType=REAL},
-      longitude = #{longitude,jdbcType=REAL},
-      stars = #{stars,jdbcType=REAL},
-      review_count = #{reviewCount,jdbcType=INTEGER},
-      is_open = #{isOpen,jdbcType=TINYINT}
-    where id = #{id,jdbcType=VARCHAR}
+      type = #{type,jdbcType=VARCHAR}
+    where business_id_int = #{businessIdInt,jdbcType=BIGINT}
+      and business_id = #{businessId,jdbcType=VARCHAR}
   </update>
 </mapper>

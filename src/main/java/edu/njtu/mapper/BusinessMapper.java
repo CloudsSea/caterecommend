@@ -2,6 +2,7 @@ package edu.njtu.mapper;
 
 import edu.njtu.model.Business;
 import edu.njtu.model.BusinessExample;
+import edu.njtu.model.BusinessKey;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,7 +11,7 @@ public interface BusinessMapper {
 
     int deleteByExample(BusinessExample example);
 
-    int deleteByPrimaryKey(String id);
+    int deleteByPrimaryKey(BusinessKey key);
 
     int insert(Business record);
 
@@ -18,7 +19,7 @@ public interface BusinessMapper {
 
     List<Business> selectByExample(BusinessExample example);
 
-    Business selectByPrimaryKey(String id);
+    Business selectByPrimaryKey(BusinessKey key);
 
     int updateByExampleSelective(@Param("record") Business record, @Param("example") BusinessExample example);
 

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 
 
-@RequestMapping("/restaurant")
+@RequestMapping("/review")
 @Controller
 public class ReviewController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
