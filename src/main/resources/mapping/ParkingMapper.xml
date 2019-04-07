@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.njtu.mapper.ParkingMapper" >
+  <resultMap id="BaseResultMap" type="edu.njtu.model.Parking" >
+    <result column="business_id" property="businessId" jdbcType="VARCHAR" />
+    <result column="garage" property="garage" jdbcType="BIT" />
+    <result column="lot" property="lot" jdbcType="BIT" />
+    <result column="street" property="street" jdbcType="BIT" />
+    <result column="valet" property="valet" jdbcType="BIT" />
+    <result column="validated" property="validated" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    business_id, garage, lot, street, valet, validated
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="edu.njtu.model.ParkingExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bus_parking
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="edu.njtu.model.ParkingExample" >
+    delete from bus_parking
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="edu.njtu.model.Parking" >
+    insert into bus_parking (business_id, garage, lot, 
+      street, valet, validated)
+    values (#{businessId,jdbcType=VARCHAR}, #{garage,jdbcType=BIT}, #{lot,jdbcType=BIT}, 
+      #{street,jdbcType=BIT}, #{valet,jdbcType=BIT}, #{validated,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="edu.njtu.model.Parking" >
+    insert into bus_parking
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="businessId != null" >
+        business_id,
+      </if>
+      <if test="garage != null" >
+        garage,
+      </if>
+      <if test="lot != null" >
+        lot,
+      </if>
+      <if test="street != null" >
+        street,
+      </if>
+      <if test="valet != null" >
+        valet,
+      </if>
+      <if test="validated != null" >
+        validated,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="businessId != null" >
+        #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="garage != null" >
+        #{garage,jdbcType=BIT},
+      </if>
+      <if test="lot != null" >
+        #{lot,jdbcType=BIT},
+      </if>
+      <if test="street != null" >
+        #{street,jdbcType=BIT},
+      </if>
+      <if test="valet != null" >
+        #{valet,jdbcType=BIT},
+      </if>
+      <if test="validated != null" >
+        #{validated,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.njtu.model.ParkingExample" resultType="java.lang.Integer" >
+    select count(*) from bus_parking
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update bus_parking
+    <set >
+      <if test="record.businessId != null" >
+        business_id = #{record.businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.garage != null" >
+        garage = #{record.garage,jdbcType=BIT},
+      </if>
+      <if test="record.lot != null" >
+        lot = #{record.lot,jdbcType=BIT},
+      </if>
+      <if test="record.street != null" >
+        street = #{record.street,jdbcType=BIT},
+      </if>
+      <if test="record.valet != null" >
+        valet = #{record.valet,jdbcType=BIT},
+      </if>
+      <if test="record.validated != null" >
+        validated = #{record.validated,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update bus_parking
+    set business_id = #{record.businessId,jdbcType=VARCHAR},
+      garage = #{record.garage,jdbcType=BIT},
+      lot = #{record.lot,jdbcType=BIT},
+      street = #{record.street,jdbcType=BIT},
+      valet = #{record.valet,jdbcType=BIT},
+      validated = #{record.validated,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

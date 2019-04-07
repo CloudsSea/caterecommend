@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.njtu.mapper.GoodForMapper" >
+  <resultMap id="BaseResultMap" type="edu.njtu.model.GoodFor" >
+    <result column="business_id" property="businessId" jdbcType="VARCHAR" />
+    <result column="breakfast" property="breakfast" jdbcType="BIT" />
+    <result column="brunch" property="brunch" jdbcType="BIT" />
+    <result column="dessert" property="dessert" jdbcType="BIT" />
+    <result column="dinner" property="dinner" jdbcType="BIT" />
+    <result column="latenight" property="latenight" jdbcType="BIT" />
+    <result column="lunch" property="lunch" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    business_id, breakfast, brunch, dessert, dinner, latenight, lunch
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="edu.njtu.model.GoodForExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bus_good_for
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="edu.njtu.model.GoodForExample" >
+    delete from bus_good_for
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="edu.njtu.model.GoodFor" >
+    insert into bus_good_for (business_id, breakfast, brunch, 
+      dessert, dinner, latenight, lunch
+      )
+    values (#{businessId,jdbcType=VARCHAR}, #{breakfast,jdbcType=BIT}, #{brunch,jdbcType=BIT}, 
+      #{dessert,jdbcType=BIT}, #{dinner,jdbcType=BIT}, #{latenight,jdbcType=BIT}, #{lunch,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="edu.njtu.model.GoodFor" >
+    insert into bus_good_for
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="businessId != null" >
+        business_id,
+      </if>
+      <if test="breakfast != null" >
+        breakfast,
+      </if>
+      <if test="brunch != null" >
+        brunch,
+      </if>
+      <if test="dessert != null" >
+        dessert,
+      </if>
+      <if test="dinner != null" >
+        dinner,
+      </if>
+      <if test="latenight != null" >
+        latenight,
+      </if>
+      <if test="lunch != null" >
+        lunch,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="businessId != null" >
+        #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="breakfast != null" >
+        #{breakfast,jdbcType=BIT},
+      </if>
+      <if test="brunch != null" >
+        #{brunch,jdbcType=BIT},
+      </if>
+      <if test="dessert != null" >
+        #{dessert,jdbcType=BIT},
+      </if>
+      <if test="dinner != null" >
+        #{dinner,jdbcType=BIT},
+      </if>
+      <if test="latenight != null" >
+        #{latenight,jdbcType=BIT},
+      </if>
+      <if test="lunch != null" >
+        #{lunch,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.njtu.model.GoodForExample" resultType="java.lang.Integer" >
+    select count(*) from bus_good_for
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update bus_good_for
+    <set >
+      <if test="record.businessId != null" >
+        business_id = #{record.businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.breakfast != null" >
+        breakfast = #{record.breakfast,jdbcType=BIT},
+      </if>
+      <if test="record.brunch != null" >
+        brunch = #{record.brunch,jdbcType=BIT},
+      </if>
+      <if test="record.dessert != null" >
+        dessert = #{record.dessert,jdbcType=BIT},
+      </if>
+      <if test="record.dinner != null" >
+        dinner = #{record.dinner,jdbcType=BIT},
+      </if>
+      <if test="record.latenight != null" >
+        latenight = #{record.latenight,jdbcType=BIT},
+      </if>
+      <if test="record.lunch != null" >
+        lunch = #{record.lunch,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update bus_good_for
+    set business_id = #{record.businessId,jdbcType=VARCHAR},
+      breakfast = #{record.breakfast,jdbcType=BIT},
+      brunch = #{record.brunch,jdbcType=BIT},
+      dessert = #{record.dessert,jdbcType=BIT},
+      dinner = #{record.dinner,jdbcType=BIT},
+      latenight = #{record.latenight,jdbcType=BIT},
+      lunch = #{record.lunch,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

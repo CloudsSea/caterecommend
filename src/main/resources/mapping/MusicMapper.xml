@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.njtu.mapper.MusicMapper" >
+  <resultMap id="BaseResultMap" type="edu.njtu.model.Music" >
+    <result column="business_id" property="businessId" jdbcType="VARCHAR" />
+    <result column="background_music" property="backgroundMusic" jdbcType="BIT" />
+    <result column="dj" property="dj" jdbcType="BIT" />
+    <result column="jukebox" property="jukebox" jdbcType="BIT" />
+    <result column="karaoke" property="karaoke" jdbcType="BIT" />
+    <result column="live" property="live" jdbcType="BIT" />
+    <result column="video" property="video" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    business_id, background_music, dj, jukebox, karaoke, live, video
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="edu.njtu.model.MusicExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bus_music
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="edu.njtu.model.MusicExample" >
+    delete from bus_music
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="edu.njtu.model.Music" >
+    insert into bus_music (business_id, background_music, dj, 
+      jukebox, karaoke, live, video
+      )
+    values (#{businessId,jdbcType=VARCHAR}, #{backgroundMusic,jdbcType=BIT}, #{dj,jdbcType=BIT}, 
+      #{jukebox,jdbcType=BIT}, #{karaoke,jdbcType=BIT}, #{live,jdbcType=BIT}, #{video,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="edu.njtu.model.Music" >
+    insert into bus_music
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="businessId != null" >
+        business_id,
+      </if>
+      <if test="backgroundMusic != null" >
+        background_music,
+      </if>
+      <if test="dj != null" >
+        dj,
+      </if>
+      <if test="jukebox != null" >
+        jukebox,
+      </if>
+      <if test="karaoke != null" >
+        karaoke,
+      </if>
+      <if test="live != null" >
+        live,
+      </if>
+      <if test="video != null" >
+        video,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="businessId != null" >
+        #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="backgroundMusic != null" >
+        #{backgroundMusic,jdbcType=BIT},
+      </if>
+      <if test="dj != null" >
+        #{dj,jdbcType=BIT},
+      </if>
+      <if test="jukebox != null" >
+        #{jukebox,jdbcType=BIT},
+      </if>
+      <if test="karaoke != null" >
+        #{karaoke,jdbcType=BIT},
+      </if>
+      <if test="live != null" >
+        #{live,jdbcType=BIT},
+      </if>
+      <if test="video != null" >
+        #{video,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.njtu.model.MusicExample" resultType="java.lang.Integer" >
+    select count(*) from bus_music
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update bus_music
+    <set >
+      <if test="record.businessId != null" >
+        business_id = #{record.businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.backgroundMusic != null" >
+        background_music = #{record.backgroundMusic,jdbcType=BIT},
+      </if>
+      <if test="record.dj != null" >
+        dj = #{record.dj,jdbcType=BIT},
+      </if>
+      <if test="record.jukebox != null" >
+        jukebox = #{record.jukebox,jdbcType=BIT},
+      </if>
+      <if test="record.karaoke != null" >
+        karaoke = #{record.karaoke,jdbcType=BIT},
+      </if>
+      <if test="record.live != null" >
+        live = #{record.live,jdbcType=BIT},
+      </if>
+      <if test="record.video != null" >
+        video = #{record.video,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update bus_music
+    set business_id = #{record.businessId,jdbcType=VARCHAR},
+      background_music = #{record.backgroundMusic,jdbcType=BIT},
+      dj = #{record.dj,jdbcType=BIT},
+      jukebox = #{record.jukebox,jdbcType=BIT},
+      karaoke = #{record.karaoke,jdbcType=BIT},
+      live = #{record.live,jdbcType=BIT},
+      video = #{record.video,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

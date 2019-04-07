@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.njtu.mapper.HairTypesSpecializedInMapper" >
+  <resultMap id="BaseResultMap" type="edu.njtu.model.HairTypesSpecializedIn" >
+    <result column="business_id" property="businessId" jdbcType="VARCHAR" />
+    <result column="africanamerican" property="africanamerican" jdbcType="BIT" />
+    <result column="asian" property="asian" jdbcType="BIT" />
+    <result column="coloring" property="coloring" jdbcType="BIT" />
+    <result column="curly" property="curly" jdbcType="BIT" />
+    <result column="extensions" property="extensions" jdbcType="BIT" />
+    <result column="kids" property="kids" jdbcType="BIT" />
+    <result column="perms" property="perms" jdbcType="BIT" />
+    <result column="straightperms" property="straightperms" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    business_id, africanamerican, asian, coloring, curly, extensions, kids, perms, straightperms
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="edu.njtu.model.HairTypesSpecializedInExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bus_hair_types_specialized_in
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="edu.njtu.model.HairTypesSpecializedInExample" >
+    delete from bus_hair_types_specialized_in
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="edu.njtu.model.HairTypesSpecializedIn" >
+    insert into bus_hair_types_specialized_in (business_id, africanamerican, asian, 
+      coloring, curly, extensions, kids, 
+      perms, straightperms)
+    values (#{businessId,jdbcType=VARCHAR}, #{africanamerican,jdbcType=BIT}, #{asian,jdbcType=BIT}, 
+      #{coloring,jdbcType=BIT}, #{curly,jdbcType=BIT}, #{extensions,jdbcType=BIT}, #{kids,jdbcType=BIT}, 
+      #{perms,jdbcType=BIT}, #{straightperms,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="edu.njtu.model.HairTypesSpecializedIn" >
+    insert into bus_hair_types_specialized_in
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="businessId != null" >
+        business_id,
+      </if>
+      <if test="africanamerican != null" >
+        africanamerican,
+      </if>
+      <if test="asian != null" >
+        asian,
+      </if>
+      <if test="coloring != null" >
+        coloring,
+      </if>
+      <if test="curly != null" >
+        curly,
+      </if>
+      <if test="extensions != null" >
+        extensions,
+      </if>
+      <if test="kids != null" >
+        kids,
+      </if>
+      <if test="perms != null" >
+        perms,
+      </if>
+      <if test="straightperms != null" >
+        straightperms,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="businessId != null" >
+        #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="africanamerican != null" >
+        #{africanamerican,jdbcType=BIT},
+      </if>
+      <if test="asian != null" >
+        #{asian,jdbcType=BIT},
+      </if>
+      <if test="coloring != null" >
+        #{coloring,jdbcType=BIT},
+      </if>
+      <if test="curly != null" >
+        #{curly,jdbcType=BIT},
+      </if>
+      <if test="extensions != null" >
+        #{extensions,jdbcType=BIT},
+      </if>
+      <if test="kids != null" >
+        #{kids,jdbcType=BIT},
+      </if>
+      <if test="perms != null" >
+        #{perms,jdbcType=BIT},
+      </if>
+      <if test="straightperms != null" >
+        #{straightperms,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.njtu.model.HairTypesSpecializedInExample" resultType="java.lang.Integer" >
+    select count(*) from bus_hair_types_specialized_in
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update bus_hair_types_specialized_in
+    <set >
+      <if test="record.businessId != null" >
+        business_id = #{record.businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.africanamerican != null" >
+        africanamerican = #{record.africanamerican,jdbcType=BIT},
+      </if>
+      <if test="record.asian != null" >
+        asian = #{record.asian,jdbcType=BIT},
+      </if>
+      <if test="record.coloring != null" >
+        coloring = #{record.coloring,jdbcType=BIT},
+      </if>
+      <if test="record.curly != null" >
+        curly = #{record.curly,jdbcType=BIT},
+      </if>
+      <if test="record.extensions != null" >
+        extensions = #{record.extensions,jdbcType=BIT},
+      </if>
+      <if test="record.kids != null" >
+        kids = #{record.kids,jdbcType=BIT},
+      </if>
+      <if test="record.perms != null" >
+        perms = #{record.perms,jdbcType=BIT},
+      </if>
+      <if test="record.straightperms != null" >
+        straightperms = #{record.straightperms,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update bus_hair_types_specialized_in
+    set business_id = #{record.businessId,jdbcType=VARCHAR},
+      africanamerican = #{record.africanamerican,jdbcType=BIT},
+      asian = #{record.asian,jdbcType=BIT},
+      coloring = #{record.coloring,jdbcType=BIT},
+      curly = #{record.curly,jdbcType=BIT},
+      extensions = #{record.extensions,jdbcType=BIT},
+      kids = #{record.kids,jdbcType=BIT},
+      perms = #{record.perms,jdbcType=BIT},
+      straightperms = #{record.straightperms,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

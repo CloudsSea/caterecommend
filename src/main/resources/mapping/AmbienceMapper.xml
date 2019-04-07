@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.njtu.mapper.AmbienceMapper" >
+  <resultMap id="BaseResultMap" type="edu.njtu.model.Ambience" >
+    <result column="business_id" property="businessId" jdbcType="VARCHAR" />
+    <result column="casual" property="casual" jdbcType="BIT" />
+    <result column="classy" property="classy" jdbcType="BIT" />
+    <result column="divey" property="divey" jdbcType="BIT" />
+    <result column="hipster" property="hipster" jdbcType="BIT" />
+    <result column="intimate" property="intimate" jdbcType="BIT" />
+    <result column="romantic" property="romantic" jdbcType="BIT" />
+    <result column="touristy" property="touristy" jdbcType="BIT" />
+    <result column="trendy" property="trendy" jdbcType="BIT" />
+    <result column="upscale" property="upscale" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    business_id, casual, classy, divey, hipster, intimate, romantic, touristy, trendy, 
+    upscale
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="edu.njtu.model.AmbienceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bus_ambience
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="edu.njtu.model.AmbienceExample" >
+    delete from bus_ambience
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="edu.njtu.model.Ambience" >
+    insert into bus_ambience (business_id, casual, classy, 
+      divey, hipster, intimate, romantic, 
+      touristy, trendy, upscale)
+    values (#{businessId,jdbcType=VARCHAR}, #{casual,jdbcType=BIT}, #{classy,jdbcType=BIT}, 
+      #{divey,jdbcType=BIT}, #{hipster,jdbcType=BIT}, #{intimate,jdbcType=BIT}, #{romantic,jdbcType=BIT}, 
+      #{touristy,jdbcType=BIT}, #{trendy,jdbcType=BIT}, #{upscale,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="edu.njtu.model.Ambience" >
+    insert into bus_ambience
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="businessId != null" >
+        business_id,
+      </if>
+      <if test="casual != null" >
+        casual,
+      </if>
+      <if test="classy != null" >
+        classy,
+      </if>
+      <if test="divey != null" >
+        divey,
+      </if>
+      <if test="hipster != null" >
+        hipster,
+      </if>
+      <if test="intimate != null" >
+        intimate,
+      </if>
+      <if test="romantic != null" >
+        romantic,
+      </if>
+      <if test="touristy != null" >
+        touristy,
+      </if>
+      <if test="trendy != null" >
+        trendy,
+      </if>
+      <if test="upscale != null" >
+        upscale,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="businessId != null" >
+        #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="casual != null" >
+        #{casual,jdbcType=BIT},
+      </if>
+      <if test="classy != null" >
+        #{classy,jdbcType=BIT},
+      </if>
+      <if test="divey != null" >
+        #{divey,jdbcType=BIT},
+      </if>
+      <if test="hipster != null" >
+        #{hipster,jdbcType=BIT},
+      </if>
+      <if test="intimate != null" >
+        #{intimate,jdbcType=BIT},
+      </if>
+      <if test="romantic != null" >
+        #{romantic,jdbcType=BIT},
+      </if>
+      <if test="touristy != null" >
+        #{touristy,jdbcType=BIT},
+      </if>
+      <if test="trendy != null" >
+        #{trendy,jdbcType=BIT},
+      </if>
+      <if test="upscale != null" >
+        #{upscale,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.njtu.model.AmbienceExample" resultType="java.lang.Integer" >
+    select count(*) from bus_ambience
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update bus_ambience
+    <set >
+      <if test="record.businessId != null" >
+        business_id = #{record.businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.casual != null" >
+        casual = #{record.casual,jdbcType=BIT},
+      </if>
+      <if test="record.classy != null" >
+        classy = #{record.classy,jdbcType=BIT},
+      </if>
+      <if test="record.divey != null" >
+        divey = #{record.divey,jdbcType=BIT},
+      </if>
+      <if test="record.hipster != null" >
+        hipster = #{record.hipster,jdbcType=BIT},
+      </if>
+      <if test="record.intimate != null" >
+        intimate = #{record.intimate,jdbcType=BIT},
+      </if>
+      <if test="record.romantic != null" >
+        romantic = #{record.romantic,jdbcType=BIT},
+      </if>
+      <if test="record.touristy != null" >
+        touristy = #{record.touristy,jdbcType=BIT},
+      </if>
+      <if test="record.trendy != null" >
+        trendy = #{record.trendy,jdbcType=BIT},
+      </if>
+      <if test="record.upscale != null" >
+        upscale = #{record.upscale,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update bus_ambience
+    set business_id = #{record.businessId,jdbcType=VARCHAR},
+      casual = #{record.casual,jdbcType=BIT},
+      classy = #{record.classy,jdbcType=BIT},
+      divey = #{record.divey,jdbcType=BIT},
+      hipster = #{record.hipster,jdbcType=BIT},
+      intimate = #{record.intimate,jdbcType=BIT},
+      romantic = #{record.romantic,jdbcType=BIT},
+      touristy = #{record.touristy,jdbcType=BIT},
+      trendy = #{record.trendy,jdbcType=BIT},
+      upscale = #{record.upscale,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
