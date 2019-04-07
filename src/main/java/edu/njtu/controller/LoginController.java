@@ -101,7 +101,10 @@ public class LoginController {
     @RequestMapping("/create")
     public String createFile(){
         try {
-            String filePath = this.getClass().getResource("/").getPath()+File.separator;
+            String separator = File.separator;
+            //String filePath = this.getClass().getResource("/").getPath()+File.separator;
+            String filePath = separator+"opt"+separator+"install"+separator+"docker"+separator+"caterecommend"+separator;
+
             logger.info(filePath);
             String fileName= "FilteredReview";
             String formatType = "review";

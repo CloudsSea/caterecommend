@@ -86,7 +86,9 @@ public class InsertTableTools {
 //        Dataset dfs = sqlContext.read().json(filePath);
 //        List<String> jsonList = dfs.toJSON().collectAsList();
         logger.info("=====================================================>开始");
-        String path = this.getClass().getResource("/").getPath()+ File.separator;
+        String separator = File.separator;
+        String path = separator+"opt"+separator+"install"+separator+"docker"+separator+"caterecommend"+separator;
+
 
         for (String fileName : files) {
             if(! fileName.equals(FILTERD_BUSINESS_FORMAT_JSON)){
