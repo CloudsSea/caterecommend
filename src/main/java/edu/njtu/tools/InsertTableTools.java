@@ -91,9 +91,6 @@ public class InsertTableTools {
 
 
         for (String fileName : files) {
-            if(! fileName.equals(FILTERD_BUSINESS_FORMAT_JSON)){
-                continue;
-            }
             List<String> jsonList = toArrayByFileReader1(path+fileName);
             switch (fileName){
                 case FILTERD_BUSINESS_FORMAT_JSON:
