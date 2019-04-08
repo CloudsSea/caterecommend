@@ -22,25 +22,24 @@ public class FileTools {
 
             String content = "";
             int index = 0;
-            int indexSon = 0;
+            int indexSon = 16;
             while ((tempString = reader.readLine()) != null) {
                 // 显示行号
                 //System.out.println("line " + line + ": " + tempString);
-
-                tempString = doFormat(tempString, formatType);
-                content += tempString + "\r\n";
-                logger.info(++index +"");
-                if (index != 1 && index%10000 == 1) {
-                    File newFile = new File(filePath + fileName + indexSon + "_format." + fileType);
-                    BufferedWriter writer = new BufferedWriter(new FileWriter(newFile));
-                    writer.write(content);
-                    writer.close();
-
-                    content = "";
-                    indexSon ++;
+                ++index;
+                if (index > 160001) {
+                    logger.info(index +"");
+                    tempString = doFormat(tempString, formatType);
+                    content += tempString + "\r\n";
+                    //content = "";
+                    //indexSon ++;
                     logger.info(indexSon+"");
                 }
             }
+            File newFile = new File(filePath + fileName + indexSon + "_format." + fileType);
+            BufferedWriter writer = new BufferedWriter(new FileWriter(newFile));
+            writer.write(content);
+            writer.close();
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -76,6 +75,13 @@ public class FileTools {
         }
 
         return result;
+    }
+
+    private void combineFile() throws IOException {
+        String filePathPart = "D:\\Yun\\Yun2018\\软件架构和云服务\\data\\";
+        String fileName = "FilteredReview_format";
+        String fileFormat = ".json";
+        FileWriter fw = new FileWriter(filePathPart+fileName+fileFormat,true);
     }
 
     private static String doFormatReview(String oriString) {

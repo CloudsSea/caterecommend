@@ -93,8 +93,8 @@ public class LoginController {
     @Resource
     public InsertTableTools insertTableTools;
     @RequestMapping("/insert")
-    public String insertTable(){
-        insertTableTools.readFile();
+    public String insertTable(int index){
+        insertTableTools.readFile(index);
         return "index.html";
     }
 
@@ -103,7 +103,8 @@ public class LoginController {
         try {
             String separator = File.separator;
             //String filePath = this.getClass().getResource("/").getPath()+File.separator;
-            String filePath = separator+"opt"+separator+"install"+separator+"docker"+separator+"caterecommend"+separator;
+            //String filePath = separator+"opt"+separator+"install"+separator+"docker"+separator+"caterecommend"+separator;
+            String filePath = "D:\\Yun\\Yun2018\\软件架构和云服务\\data\\";
 
             logger.info(filePath);
             String fileName= "FilteredReview";

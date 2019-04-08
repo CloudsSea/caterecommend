@@ -75,7 +75,7 @@ public class InsertTableTools {
     @Resource
     public PhotoMapper photoMapper;
 
-    public void readFile() {
+    public void readFile(int index) {
         String [] files = new String[]
                 {FILTERD_BUSINESS_FORMAT_JSON, FILTERED_USER_FORMAT_JSON,
                         FILTERED_PHOTO_FORMAT_JSON, FILTERED_REVIEW_FORMAT_JSON};
@@ -89,24 +89,28 @@ public class InsertTableTools {
         String separator = File.separator;
         String path = separator+"opt"+separator+"install"+separator+"docker"+separator+"caterecommend"+separator;
 
-
-        for (String fileName : files) {
+        String fileName = files[index];
+//        for (String fileName : files) {
             List<String> jsonList = toArrayByFileReader1(path+fileName);
             switch (fileName){
                 case FILTERD_BUSINESS_FORMAT_JSON:
+                    logger.info("1");
                     insertBusinessRelatedTable(jsonList);
                     break;
                 case FILTERED_USER_FORMAT_JSON:
+                    logger.info("2");
                     insertUser(jsonList);
                     break;
                 case FILTERED_PHOTO_FORMAT_JSON:
+                    logger.info("3");
                     insertPhoto(jsonList);
                     break;
                 case FILTERED_REVIEW_FORMAT_JSON:
+                    logger.info("4");
                     insertReview(jsonList);
                     break;
             }
-        }
+//        }
         logger.info("=====================================================>结束");
 
     }
@@ -217,29 +221,30 @@ public class InsertTableTools {
             List<String> friends = oriUser.getFriends();
             List<String> elites = oriUser.getElite();
 
-            for (String friendName : friends) {
-
-                //根据  userid作为beuserid查询已经被别人加为好友
-                //如果没有就查询该好友,并insert
-                FriendExample friendExample = new FriendExample();
-                FriendExample.Criteria criteria = friendExample.createCriteria();
-                criteria.andBeUserIdEqualTo(oriUser.getUserId()).andUserNameEqualTo(friendName);
-                List<Friend> beFriends = friendMapper.selectByExample(friendExample);
-                if (0 == beFriends.size()) {
-                    Friend friend = new Friend();
-                    friend.setId(StringUtil.getUUID());
-                    friend.setUserId(oriUser.getUserId());
-                    friend.setUserName(oriUser.getName());
-
-//                    friend.setBeUserId(beFriends.get(0).getUserId());
-                    friend.setBeUserName(friendName);
-                    try {
-                        friendMapper.insertSelective(friend);
-                    } catch (Exception e) {
-                        logger.error("friend insert:", e);
-                    }
-                }
-            }
+//            for (String friendId : friends) {
+//
+//                //根据  userid作为beuserid查询已经被别人加为好友
+//                //如果没有就查询该好友,并insert
+//                FriendExample friendExample = new FriendExample();
+//                FriendExample.Criteria criteria = friendExample.createCriteria();
+//                //好友的表中: 用户名是好友的名字,被加为好友id的是自己
+//                criteria.andBeUserIdEqualTo(oriUser.getUserId()).andUserIdEqualTo(friendId);
+//                List<Friend> beFriends = friendMapper.selectByExample(friendExample);
+//                if (0 == beFriends.size()) {
+//                    Friend friend = new Friend();
+//                    friend.setId(StringUtil.getUUID());
+//                    friend.setUserId(oriUser.getUserId());
+//                    friend.setUserName(oriUser.getName());
+//
+////                    friend.setBeUserId(beFriends.get(0).getUserId());
+//                    friend.setBeUserId(friendId);
+//                    try {
+//                        friendMapper.insertSelective(friend);
+//                    } catch (Exception e) {
+//                        logger.error("friend insert:", e);
+//                    }
+//                }
+//            }
 
             for (String year : elites) {
                 Elite elite = new Elite();
