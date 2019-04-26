@@ -21,6 +21,11 @@
         <hbase.version>1.2.5</hbase.version>
 		<scala.version>2.11</scala.version>
 	</properties>
+<!--	<packaging>pom</packaging>
+
+	<modules>
+		<module>web</module>
+	</modules>-->
 
 	<dependencies>
 		<!--<dependency>
@@ -373,13 +378,35 @@
 			</plugin>
 
 			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>Copy App Content</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>src/main/resources/public</outputDirectory>
+							<overwrite>true</overwrite>
+							<resources>
+								<resource>
+									<directory>web/build</directory>
+									<includes>
+										<include>static/</include>
+										<include>index.html</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<fork>true</fork>
-				</configuration>
 			</plugin>
-
 		</plugins>
 	</build>
 
