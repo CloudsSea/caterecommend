@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Mobx Demo</title>
+</head>
+<body>
+<div id="app"></div>
+<script src="./react-15.1.0.js"></script>
+<script src="./react-dom-15.1.0.js"></script>
+<script src="./babel.min.js"></script>
+<script src="./mobx.umd.js"></script>
+<script src="./mobx-react.js"></script>
+<script type="text/babel">
+const {observable, computed} = mobx;
+const {observer} = mobxReact;
+const {Component} = React;
+const {render}  = ReactDOM
+
+const person = observable({
+  name: "张三",
+  age: 31
+});
+
+const App = observer(
+  ({ person }) => <h1>{ person.name }</h1>
+);
+
+render(<App person={person} />, document.getElementById('app'));
+
+person.name = "李四";
+
+@observer
+class TodoList extends React.Component {
+    render() {
+        const store = this.props.store;
+        return (
+            <div>
+                { store.report }
+                <ul>
+                    { store.todos.map(
+                        (todo, idx) => <TodoView todo={ todo } key={ idx } />
+                    ) }
+                </ul>
+                { store.pendingRequests > 0 ? <marquee>Loading...</marquee> : null }
+                <button onClick={ this.onNewTodo }>New Todo</button>
+                <small> (double-click a todo to edit)</small>
+                <RenderCounter />
+            </div>
+        );
+    }
+
+    onNewTodo = () => {
+        this.props.store.addTodo(prompt('Enter a new todo:','coffee plz'));
+    }
+}
+
+
+@observer
+class TodoView extends React.Component {
+    render() {
+        const todo = this.props.todo;
+        return (
+            <li onDoubleClick={ this.onRename }>
+                <input
+                    type='checkbox'
+                    checked={ todo.completed }
+                    onChange={ this.onToggleCompleted }
+                />
+                { todo.task }
+                { todo.assignee
+                    ? <small>{ todo.assignee.name }</small>
+                    : null
+                }
+                <RenderCounter />
+            </li>
+        );
+    }
+
+    onToggleCompleted = () => {
+        const todo = this.props.todo;
+        todo.completed = !todo.completed;
+    }
+
+    onRename = () => {
+        const todo = this.props.todo;
+        todo.task = prompt('Task name', todo.task) || todo.task;
+    }
+}
+
+ReactDOM.render(
+    <TodoList store={ observableTodoStore } />,
+    document.getElementById('reactjs-app')
+);
+
+</script>
+</body>
+</html>
