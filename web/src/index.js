@@ -9,6 +9,8 @@ import {Route, Router, Switch} from "react-router";
 import {RouterStore, syncHistoryWithStore} from "mobx-react-router";
 import createHashHistory from "history/createHashHistory"
 import Test from "./component/Test"
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap-theme.css';
 let rootStore = {}
 const hashHistory = createHashHistory()
 
