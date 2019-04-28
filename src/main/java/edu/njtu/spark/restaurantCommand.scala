@@ -1,8 +1,8 @@
 package edu.njtu.spark
 
 import org.apache.spark.{SparkConf, SparkContext}
-import org.apache.spark.ml.recommendation
-import org.apache.spark.mllib.recommendation.{ALS, Rating}
+import org.apache.spark.mllib.recommendation.{ALS, MatrixFactorizationModel, Rating}
+
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.SQLContext
 
@@ -27,19 +27,17 @@ object restaurantCommand {
     dfs.printSchema()
     dfs.createOrReplaceTempView("review")
     case class Review(business_id: String, user_id: String,star:Long)
-    val rawRatingsSql = sqlcontext.sql("select business_id,user_id,stars from review")
+    val rawRatingsSql = sqlcontext.sql("select user_id,business_id,stars from review")
     val temp = rawRatingsSql.rdd;
     val rawRatings : RDD[Array[String]] = temp.map { row =>{
       Array(row.get(0).toString,row.get(1).toString,row.get(2).toString)
-    }
-    }
+    }}
     //去掉时间的字段，rawRatings:Array
 //    val rawRatings = rawData.map(_.split("\\t").take(3))
     //user moive rating
-    val ratings = rawRatings.map { case Array(user, movie, rating) => {
-      recommendation.ALS.Rating(user, movie, rating.toFloat)
-    }
-    }
+    val ratings = rawRatings.map { case Array(user, business, rating) => {
+      Rating(user.toInt, business.toInt, rating.toFloat)
+    }}
     //电影
    // val movies: RDD[String] = sc.textFile("file:///E:/spark/ml-100k/u.item")
     //电影ID 电影名
@@ -52,7 +50,8 @@ object restaurantCommand {
       * numItemBlocks: Int = 10,
       * maxIter: Int = 10,   //迭代次数
       */
-    val model = recommendation.ALS.train(ratings, 50, 10,10,10, 0.01)
+    val model = ALS.train(ratings,50,10,0.01)
+
 
     /**
       * 基于用户进行推荐
@@ -65,9 +64,6 @@ object restaurantCommand {
     //  println(mode.predict(789, 123))
 
     //为指定的用户推荐 N 个商品
-    var v1 : RDD[(String, Array[Float])] = model._1;
-    var v2 : RDD[(String, Array[Float])] = model._2;
-    val itemFactors: Array[Array[Float]] = v1.map{case (id, factor) => factor}.collect()
 
 //    val userID = 789
 //    val K = 10

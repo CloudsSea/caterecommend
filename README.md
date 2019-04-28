@@ -9,3 +9,25 @@
   c.分页相关的请求报文XxxxABody报文继承PageABody
   d.分页相关的返回报文XxxxDBody报文继承PageDBody(它继承CommonDbody),其他类型接口的XxxxBody继承CommonDbody
   
+
+Setting up the Project
+First you'll need Node.js and the package manager that comes with it: npm.
+
+Once you've got that working, head to the command line where we'll set up our project.
+
+Clone the Tutorial
+git clone https://github.com/reactjs/react-router-tutorial
+cd react-router-tutorial
+cd lessons/01-setting-up
+npm install
+npm start
+Now open up http://localhost:8080
+
+Feel free to poke around the code to see how we're using webpack and npm scripts to run the app.
+
+You should see a "Hello React Router" message in the browser.
+
+Make Some Changes
+Open up modules/App.js and change the text to something like "Hello ". The browser automatically reloads with your new code.
+
+
