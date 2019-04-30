@@ -9,8 +9,9 @@ import {Route, Router, Switch} from "react-router";
 import {RouterStore, syncHistoryWithStore} from "mobx-react-router";
 import createHashHistory from "history/createHashHistory"
 import Test from "./component/Test"
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/css/bootstrap-theme.css';
+import ToDoapp from "./component/ToDoapp";
+
+
 let rootStore = {}
 const hashHistory = createHashHistory()
 
@@ -25,10 +26,12 @@ ReactDOM.render(
             <p>here is the menu</p>
             <Switch>
                 <Route path={"/test"} component={Test}/>
+                <Route path={"/bs"} component={ToDoapp}/>
                 <Route path={"/"} component={App}/>
             </Switch>
 
         </Router>
+
     </Provider>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

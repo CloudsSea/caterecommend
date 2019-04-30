@@ -3,10 +3,9 @@ import './App.css';
 import logo from './logo.svg';
 import {inject, observer} from "mobx-react";
 import {autobind} from "core-decorators";
-import {Row, Col, ButtonToolbar, Button} from 'react-bootstrap';
 
-@inject("app")
-@autobind
+@inject("app")  //@inject("app")表示注入在index.js中的rootStore的属性app。是由<Provider {...rootStore}>这个标签来实现动态的注入的
+@autobind //@autobind 将组件之间的绑定自动完成
 @observer
 class App extends Component {
     constructor(props) {
@@ -21,43 +20,6 @@ class App extends Component {
         return (
             <div className="App">
                 {todosDiv}
-                <p>abc</p>
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo"/>
-                </header>
-
-                    <Row className="show-grid">
-                        <Col xs={12} md={4}>
-                            <p className="App-intro">
-                                Buttons Demo
-                            </p>
-                        </Col>
-                        <Col xs={6} md={8}>
-                            <ButtonToolbar>
-                                {/* Standard button */}
-                                <Button>Default</Button>
-
-                                {/* Provides extra visual weight and identifies the primary action in a set of buttons */}
-                                <Button bsStyle="primary">Primary</Button>
-
-                                {/* Indicates a successful or positive action */}
-                                <Button bsStyle="success">Success</Button>
-
-                                {/* Contextual button for informational alert messages */}
-                                <Button bsStyle="info">Info</Button>
-
-                                {/* Indicates caution should be taken with this action */}
-                                <Button bsStyle="warning">Warning</Button>
-
-                                {/* Indicates a dangerous or potentially negative action */}
-                                <Button bsStyle="danger">Danger</Button>
-
-                                {/* Deemphasize a button by making it look like a link while maintaining button behavior */}
-                                <Button bsStyle="link">Link</Button>
-                            </ButtonToolbar>
-                        </Col>
-                    </Row>
-
             </div>
         );
     }
