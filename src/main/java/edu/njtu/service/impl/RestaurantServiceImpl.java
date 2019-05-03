@@ -1,5 +1,6 @@
 package edu.njtu.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import edu.njtu.httpbody.restaurant.*;
 import edu.njtu.mapper.BusinessMapper;
 import edu.njtu.model.Business;
@@ -18,11 +19,13 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public RestaurantListDBody getRestaurantList(RestaurantListABody restaurantListABody) {
-        List<Business> businessesList = businessMapper.selectByExample(new BusinessExample());
-        RestaurantListDBody restaurantListDBody = new RestaurantListDBody();
-        restaurantListDBody.setCode("10000");
 
+        RestaurantListDBody restaurantListDBody = new RestaurantListDBody();
+
+        PageHelper.startPage(restaurantListABody.getPageNumber(),restaurantListABody.getPageSize(),false);
+        List<Business> businessesList = businessMapper.selectByExample(new BusinessExample());
         restaurantListDBody.setBusinessList(businessesList);
+        restaurantListDBody.setCode("10000");
         return restaurantListDBody;
     }
 

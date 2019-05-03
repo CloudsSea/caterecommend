@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -37,13 +38,13 @@ public class LoginController {
     }
 
     @ResponseBody
-    @RequestMapping("/login")
+    @RequestMapping(value="/login",method= RequestMethod.POST)
     public LoginDBody login(LoginABody userToLoginRequest) {
         return loginService.login(userToLoginRequest);
     }
 
     @ResponseBody
-    @RequestMapping("/resetpassword")
+    @RequestMapping(value="/resetpassword",method= RequestMethod.PUT)
     public ResetPasswordDBody resetPassword(ResetPasswordABody resetPasswordABody) {
         ResetPasswordDBody resetPasswordDBody = new ResetPasswordDBody();
         try {
@@ -66,55 +67,55 @@ public class LoginController {
 //------------------以下为后台人员相关的登录逻辑-----------------------
 //---------------------------------------------------------------------
 //---------------------------------------------------------------------
-    @RequestMapping("/backindex")
-    public String backLogin() {
-        return "backindex";
-    }
-
-    @ResponseBody
-    @RequestMapping("/backlogin")
-    public LoginDBody backLogin(BackLoginABody backLoginABody) {
-        return loginService.backLogin(backLoginABody);
-    }
-
-    @ResponseBody
-    @RequestMapping("/backresetpassword")
-    public BackResetPasswordDBody backResetPassword(BackResetPasswordABody backResetPasswordABody) {
-        return loginService.backResetPassword(backResetPasswordABody);
-    }
-
-    @ResponseBody
-    @RequestMapping("/userlist")
-    public List<User> getUserList(){
-        return loginService.getUserList();
-    }
-
-
-    @Resource
-    public InsertTableTools insertTableTools;
-    @RequestMapping("/insert")
-    public String insertTable(int index){
-        insertTableTools.readFile(index);
-        return "index.html";
-    }
-
-    @RequestMapping("/create")
-    public String createFile(){
-        try {
-            String separator = File.separator;
-            //String filePath = this.getClass().getResource("/").getPath()+File.separator;
-            //String filePath = separator+"opt"+separator+"install"+separator+"docker"+separator+"caterecommend"+separator;
-            String filePath = "D:\\Yun\\Yun2018\\软件架构和云服务\\data\\";
-
-            logger.info(filePath);
-            String fileName= "FilteredReview";
-            String formatType = "review";
-            FileTools.fileFormat(filePath, fileName, "json", formatType);
-            System.out.println("over4");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "index.html";
-    }
+//    @RequestMapping("/backindex")
+//    public String backLogin() {
+//        return "backindex";
+//    }
+//
+//    @ResponseBody
+//    @RequestMapping("/backlogin")
+//    public LoginDBody backLogin(BackLoginABody backLoginABody) {
+//        return loginService.backLogin(backLoginABody);
+//    }
+//
+//    @ResponseBody
+//    @RequestMapping("/backresetpassword")
+//    public BackResetPasswordDBody backResetPassword(BackResetPasswordABody backResetPasswordABody) {
+//        return loginService.backResetPassword(backResetPasswordABody);
+//    }
+//
+//    @ResponseBody
+//    @RequestMapping("/userlist")
+//    public List<User> getUserList(){
+//        return loginService.getUserList();
+//    }
+//
+//
+//    @Resource
+//    public InsertTableTools insertTableTools;
+//    @RequestMapping("/insert")
+//    public String insertTable(int index){
+//        insertTableTools.readFile(index);
+//        return "index.html";
+//    }
+//
+//    @RequestMapping("/create")
+//    public String createFile(){
+//        try {
+//            String separator = File.separator;
+//            //String filePath = this.getClass().getResource("/").getPath()+File.separator;
+//            //String filePath = separator+"opt"+separator+"install"+separator+"docker"+separator+"caterecommend"+separator;
+//            String filePath = "D:\\Yun\\Yun2018\\软件架构和云服务\\data\\";
+//
+//            logger.info(filePath);
+//            String fileName= "FilteredReview";
+//            String formatType = "review";
+//            FileTools.fileFormat(filePath, fileName, "json", formatType);
+//            System.out.println("over4");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return "index.html";
+//    }
 }
 

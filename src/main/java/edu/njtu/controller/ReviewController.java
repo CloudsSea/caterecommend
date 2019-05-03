@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -20,13 +21,9 @@ public class ReviewController {
     @Resource
     public ReviewService reviewService;
 
-    @RequestMapping("/index")
-    public String login() {
-        return "index";
-    }
 
     @ResponseBody
-    @RequestMapping("/getlist")
+    @RequestMapping(value="/getlist",method= RequestMethod.GET)
     public ReviewListDBody getReviewList(ReviewListABody reviewListABody) {
         ReviewListDBody reviewListDBody = new ReviewListDBody();
         try {

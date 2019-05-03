@@ -2,10 +2,13 @@ package edu.njtu.controller;
 
 import edu.njtu.httpbody.restaurant.*;
 import edu.njtu.service.RestaurantService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -15,19 +18,16 @@ import javax.annotation.Resource;
  */
 @RequestMapping("/restaurant")
 @Controller
+@Api("餐馆api")
 public class RestaurantController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Resource
     public RestaurantService restaurantService;
 
-    @RequestMapping("/index")
-    public String login() {
-        return "index";
-    }
-
+    @ApiOperation(value="获取餐馆列表")
     @ResponseBody
-    @RequestMapping("/getlist")
+    @RequestMapping(value="/getlist",method= RequestMethod.GET)
     public RestaurantListDBody getRestaurantList(RestaurantListABody restaurantListABody) {
         RestaurantListDBody restaurantListDBody = new RestaurantListDBody();
         try {
@@ -45,25 +45,25 @@ public class RestaurantController {
     }
 
     @ResponseBody
-    @RequestMapping("/detail")
+    @RequestMapping(value="/detail",method= RequestMethod.GET)
     public RestaurantDetailDBody restaurantDetail(RestaurantDetailABody restaurantDetailABody) {
         RestaurantDetailDBody restaurantDetailDBody = restaurantService.restaurantDetail(restaurantDetailABody);
         return null;
     }
 
-    @ResponseBody
-    @RequestMapping("/insert")
-    public RestaurantInsertDBody restaurantInsert(RestaurantInsertABody restaurantInsertABody) {
-        RestaurantInsertDBody restaurantInsertDBody = restaurantService.restaurantInsert(restaurantInsertABody);
-        return null;
-    }
-
-    @ResponseBody
-    @RequestMapping("/update")
-    public RestaurantUpdateDBody restaurantUpdate(RestaurantUpdateABody restaurantUpdateABody) {
-        RestaurantUpdateDBody restaurantUpdateDBody =  restaurantService.restaurantUpdate(restaurantUpdateABody);
-        return null;
-    }
+//    @ResponseBody
+//    @RequestMapping(value="/insert")
+//    public RestaurantInsertDBody restaurantInsert(RestaurantInsertABody restaurantInsertABody) {
+//        RestaurantInsertDBody restaurantInsertDBody = restaurantService.restaurantInsert(restaurantInsertABody);
+//        return null;
+//    }
+//
+//    @ResponseBody
+//    @RequestMapping(value="/update")
+//    public RestaurantUpdateDBody restaurantUpdate(RestaurantUpdateABody restaurantUpdateABody) {
+//        RestaurantUpdateDBody restaurantUpdateDBody =  restaurantService.restaurantUpdate(restaurantUpdateABody);
+//        return null;
+//    }
 
 }
 
