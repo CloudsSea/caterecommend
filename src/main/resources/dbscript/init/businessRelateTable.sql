@@ -344,13 +344,28 @@ CREATE TABLE `user_fans` (
 
 
 
+DROP TABLE
+IF EXISTS `recommend_default`;
 
+CREATE TABLE `recommend_default` (
+  `business_id` VARCHAR (22) DEFAULT '' COMMENT '商户id',
+	`business_id_int` bigint(20)  COMMENT '商户id(bigint)',
+	`recommend_value` float  COMMENT '排名',
+  PRIMARY KEY (`business_id`)
+)COMMENT='推荐默认表' ENGINE = INNODB DEFAULT CHARSET = utf8 ROW_FORMAT = COMPACT;
 
+DROP TABLE
+IF EXISTS `recommend_user`;
 
+CREATE TABLE `recommend_user` (
+	`business_id_int` bigint(20) NOT NULL COMMENT '商户id(bigint)',
+  `recommend_value` float  COMMENT '排名',
+  `user_id_int` bigint(20) NOT NULL  COMMENT '用户id(bigint)',
+  PRIMARY KEY (`business_id_int`,`user_id_int`)
+)COMMENT='推荐用户表' ENGINE = INNODB DEFAULT CHARSET = utf8 ROW_FORMAT = COMPACT;
 
 -- DROP TABLE
 -- IF EXISTS `xxx`;
---
 -- CREATE TABLE `xxx` (
 -- 	`id` VARCHAR (22) NOT NULL COMMENT 'id',
 -- 	`xxx`  VARCHAR (22) DEFAULT '' COMMENT 'xxx',
