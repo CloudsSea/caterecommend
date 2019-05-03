@@ -2,10 +2,7 @@ package edu.njtu.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import edu.njtu.httpbody.restaurant.*;
-import edu.njtu.mapper.BusinessMapper;
-import edu.njtu.mapper.RecommendDefaultMapper;
-import edu.njtu.mapper.RecommendUserMapper;
-import edu.njtu.mapper.UserMapper;
+import edu.njtu.mapper.*;
 import edu.njtu.model.*;
 import edu.njtu.service.RestaurantService;
 import org.slf4j.Logger;
@@ -15,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service("restaurantService")
 public class RestaurantServiceImpl implements RestaurantService {
@@ -31,12 +29,16 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Resource
     private UserMapper userMapper;
 
+    @Resource
+    private PhotoMapper photoMapper;
+
     @Override
     public RestaurantListDBody getRestaurantList(RestaurantListABody restaurantListABody) throws Exception {
         RestaurantListDBody restaurantListDBody = new RestaurantListDBody();
         BusinessExample businessExample = new BusinessExample();
         int pageNumber = restaurantListABody.getPageNumber();
         int pageSize = restaurantListABody.getPageSize();
+        PhotoExample photoExample = new PhotoExample();
 
         switch ( null == restaurantListABody.getOptType()? 0:restaurantListABody.getOptType()) {
             case 2://获取默认推荐的  商家列表
@@ -74,12 +76,36 @@ public class RestaurantServiceImpl implements RestaurantService {
                 break;
         }
 
+        if(null != restaurantListDBody.getBusinessList()){
+            restaurantListDBody.getBusinessList().stream().map(business -> {
+                return getBusinessPhoto(photoExample, business);
+            }).collect(Collectors.toList());
+//            restaurantListDBody.setBusinessList(businessList2);
+        }
+        if (null != restaurantListDBody.getBusinessDefaultRecommendList()) {
+            restaurantListDBody.getBusinessDefaultRecommendList().stream().map(business -> {
+                return getBusinessPhoto(photoExample, business);
+            }).collect(Collectors.toList());
+        }
+        if(null != restaurantListDBody.getBusinessUserRecommendList()){
+            restaurantListDBody.getBusinessUserRecommendList().stream().map(business -> {
+                return getBusinessPhoto(photoExample, business);
+            }).collect(Collectors.toList());
+        }
         //成功
         restaurantListDBody.setCode("10000");
         restaurantListDBody.setMsg("SUCCESS");
         return restaurantListDBody;
     }
 
+    private Business getBusinessPhoto(PhotoExample photoExample, Business business) {
+        photoExample.clear();
+        photoExample.createCriteria().andBusinessIdEqualTo(business.getBusinessId());
+        PageHelper.startPage(1, 5, false);
+        List<Photo> photoList = photoMapper.selectByExample(photoExample);
+        business.setPhotoList(photoList);
+        return business;
+    }
 
 
     private List<Business> getRestaurantList(RestaurantListABody restaurantListABody, BusinessExample businessExample) {
