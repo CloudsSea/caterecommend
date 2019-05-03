@@ -1,8 +1,8 @@
 package edu.njtu.spark
 
+import DataStructureAndAlgorithm.DBTools
 import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.mllib.recommendation.{ALS, MatrixFactorizationModel, Rating}
-
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.SQLContext
 
@@ -14,30 +14,30 @@ object restaurantCommand {
     val conf = new SparkConf().setAppName("recommandTest").setMaster("local[*]")
     val sc = new SparkContext(conf)
     /*用户 电影 评分*/
-//    val rawData: RDD[String] = sc.textFile("file:///E:/spark/ml-100k/u.data")
+    val rawData: RDD[String] = sc.textFile("D:\\Yun\\Yun2018\\软件架构和云服务\\data\\data.txt")
+    //user moive rating
+    val rawRatings = rawData.map(_.split("\\t").take(3))
 
-    val sqlcontext = new SQLContext(sc);
-    val dfs = sqlcontext.read.json("D:\\Yun\\Yun2018\\软件架构和云服务\\data\\reviewforscala.json")
-//    查看某一列
+
+    //val model = ALS.train(ratings,50,10,0.01)
+
+
+    //    查看某一列
 //      dfs.select("name").show()
 //    查找年龄大于23（age> 23）的雇员。
 //    dfs.filter(dfs("age") > 23).show()
 //    计算同一年龄的员工人数。
 //    dfs.groupBy("age").count().show()
-    dfs.printSchema()
-    dfs.createOrReplaceTempView("review")
-    case class Review(business_id: String, user_id: String,star:Long)
-    val rawRatingsSql = sqlcontext.sql("select user_id,business_id,stars from review")
-    val temp = rawRatingsSql.rdd;
-    val rawRatings : RDD[Array[String]] = temp.map { row =>{
-      Array(row.get(0).toString,row.get(1).toString,row.get(2).toString)
-    }}
+
     //去掉时间的字段，rawRatings:Array
 //    val rawRatings = rawData.map(_.split("\\t").take(3))
     //user moive rating
-    val ratings = rawRatings.map { case Array(user, business, rating) => {
-      Rating(user.toInt, business.toInt, rating.toFloat)
+
+    val ratings = rawRatings.map{case Array(user, movie, rating) =>{
+      Rating(user.toInt, movie.toInt, rating.toDouble)
     }}
+
+
     //电影
    // val movies: RDD[String] = sc.textFile("file:///E:/spark/ml-100k/u.item")
     //电影ID 电影名
@@ -52,25 +52,58 @@ object restaurantCommand {
       */
     val model = ALS.train(ratings,50,10,0.01)
 
-
     /**
       * 基于用户进行推荐
       */
     //用户因子的数量
-    //  println(mode.userFeatures.count())
+
+    println("----------------->用户因子的数量")
+    println(model.userFeatures.count())
+    val total = model.userFeatures.count();
     //商品因子的数量
-    //  println(mode.productFeatures.count())
+    println("----------------->商品因子的数量")
+    println(model.productFeatures.count())
     //查看某个用户对某个商品的预测评分，ALS模型的初始化是随机的，所以产生的结果可能会不同
-    //  println(mode.predict(789, 123))
+    println("----------------->某个用户对某个商品的预测评分")
+    println(model.predict(789, 123))
+
+
+    val connection = DBTools.getConnection
+    val statement = connection.createStatement()
 
     //为指定的用户推荐 N 个商品
+    val K = 10
+    var a = 1
+    // for 循环
+    do{
+      val topKRecs: Array[Rating] = model.recommendProducts(a, K)
+      println(topKRecs.mkString("\n"))
+      var product : Rating = null
+      for(product <- topKRecs){
+        val business_id = product.product
+        val user_id = product.user
+        val rating = product.rating
+        val theValue = "'"+user_id+"'," + "'"+business_id+"'," + "'"+rating+"'"
+        println("----------------->为指定的用户推荐 N 个商品")
+        try {
+          statement.executeUpdate("INSERT INTO `recommend_user` (`user_id_int`, `business_id_int`,`recommend_value`) VALUES ("+theValue+")")
+        }catch {
+          case e: Exception => e.printStackTrace
+        }
+      }
+      a = a+1
 
-//    val userID = 789
-//    val K = 10
-//    val topKRecs: Array[Rating] = model.recommendProducts(userID, 10)
-//    val oneProduct = topKRecs.apply(0)
 
-    //  println(topKRecs.mkString("\n"))
+    }while(a < 501)
+
+
+
+
+    connection.close()
+
+
+
+
 
 //    //获取指定用户所评价过的电影
 //    val moviesForUser: Seq[Rating] = ratings.keyBy(_.user).lookup(789)
