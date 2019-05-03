@@ -41,7 +41,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("SpringBoot-Swagger2集成和使用-syspayment示例")
+                .title("SpringBoot-Swagger2集成和使用-caterecommend")
                 .description("Hello | API")
                 // 作者信息
                 .contact(new Contact("Yun", "https://www.bjtu.edu.cn/", "18140665@bjtu.edu.cn"))
