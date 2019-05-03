@@ -5,7 +5,9 @@ import edu.njtu.httpbody.login.*;
 import edu.njtu.mapper.UserMapper;
 import edu.njtu.model.User;
 import edu.njtu.model.UserExample;
+import edu.njtu.model.UserKey;
 import edu.njtu.service.LoginService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -49,6 +51,23 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public BackResetPasswordDBody backResetPassword(BackResetPasswordABody backResetPasswordABody) {
         return null;
+    }
+
+    public static User getUserById(UserMapper userMapper,String userId,Long userLongId) throws Exception {
+        UserExample userExample = new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        if (StringUtils.isNotBlank(userId)) {
+            criteria.andUserIdEqualTo(userId);
+        }
+        if (null != userLongId && 0 != userLongId) {
+            criteria.andUserIdIntEqualTo(userLongId);
+        }
+        List<User> userList = userMapper.selectByExample(userExample);
+        if(0 == userList.size()){
+            throw new Exception("无效的用户id");
+        }else{
+            return userList.get(0);
+        }
     }
 
 }

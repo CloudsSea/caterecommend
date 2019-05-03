@@ -20,4 +20,12 @@ public class RecommendUserKey {
     public void setUserIdInt(Long userIdInt) {
         this.userIdInt = userIdInt;
     }
+
+    @Override
+    public String toString() {
+        return "RecommendUserKey{" +
+                "businessIdInt=" + businessIdInt +
+                ", userIdInt=" + userIdInt +
+                '}';
+    }
 }

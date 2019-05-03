@@ -4,7 +4,7 @@ import edu.njtu.httpbody.restaurant.*;
 
 public interface RestaurantService {
 
-    RestaurantListDBody getRestaurantList(RestaurantListABody restaurantListABody);
+    RestaurantListDBody getRestaurantList(RestaurantListABody restaurantListABody) throws Exception;
 
     RestaurantInsertDBody restaurantInsert(RestaurantInsertABody restaurantInsertABody);
 

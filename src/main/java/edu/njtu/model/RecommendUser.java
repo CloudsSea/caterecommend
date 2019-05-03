@@ -10,4 +10,11 @@ public class RecommendUser extends RecommendUserKey {
     public void setRecommendValue(Float recommendValue) {
         this.recommendValue = recommendValue;
     }
+
+    @Override
+    public String toString() {
+        return "RecommendUser{" +
+                "recommendValue=" + recommendValue +super.toString()+
+                '}';
+    }
 }
