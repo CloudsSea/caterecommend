@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.njtu.mapper.RecommendUserMapper" >
+  <resultMap id="BaseResultMap" type="edu.njtu.model.RecommendUser" >
+    <id column="business_id_int" property="businessIdInt" jdbcType="BIGINT" />
+    <id column="user_id_int" property="userIdInt" jdbcType="BIGINT" />
+    <result column="recommend_value" property="recommendValue" jdbcType="REAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    business_id_int, user_id_int, recommend_value
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="edu.njtu.model.RecommendUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from recommend_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="edu.njtu.model.RecommendUserKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from recommend_user
+    where business_id_int = #{businessIdInt,jdbcType=BIGINT}
+      and user_id_int = #{userIdInt,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="edu.njtu.model.RecommendUserKey" >
+    delete from recommend_user
+    where business_id_int = #{businessIdInt,jdbcType=BIGINT}
+      and user_id_int = #{userIdInt,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="edu.njtu.model.RecommendUserExample" >
+    delete from recommend_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="edu.njtu.model.RecommendUser" >
+    insert into recommend_user (business_id_int, user_id_int, recommend_value
+      )
+    values (#{businessIdInt,jdbcType=BIGINT}, #{userIdInt,jdbcType=BIGINT}, #{recommendValue,jdbcType=REAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="edu.njtu.model.RecommendUser" >
+    insert into recommend_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="businessIdInt != null" >
+        business_id_int,
+      </if>
+      <if test="userIdInt != null" >
+        user_id_int,
+      </if>
+      <if test="recommendValue != null" >
+        recommend_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="businessIdInt != null" >
+        #{businessIdInt,jdbcType=BIGINT},
+      </if>
+      <if test="userIdInt != null" >
+        #{userIdInt,jdbcType=BIGINT},
+      </if>
+      <if test="recommendValue != null" >
+        #{recommendValue,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="edu.njtu.model.RecommendUserExample" resultType="java.lang.Integer" >
+    select count(*) from recommend_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update recommend_user
+    <set >
+      <if test="record.businessIdInt != null" >
+        business_id_int = #{record.businessIdInt,jdbcType=BIGINT},
+      </if>
+      <if test="record.userIdInt != null" >
+        user_id_int = #{record.userIdInt,jdbcType=BIGINT},
+      </if>
+      <if test="record.recommendValue != null" >
+        recommend_value = #{record.recommendValue,jdbcType=REAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update recommend_user
+    set business_id_int = #{record.businessIdInt,jdbcType=BIGINT},
+      user_id_int = #{record.userIdInt,jdbcType=BIGINT},
+      recommend_value = #{record.recommendValue,jdbcType=REAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="edu.njtu.model.RecommendUser" >
+    update recommend_user
+    <set >
+      <if test="recommendValue != null" >
+        recommend_value = #{recommendValue,jdbcType=REAL},
+      </if>
+    </set>
+    where business_id_int = #{businessIdInt,jdbcType=BIGINT}
+      and user_id_int = #{userIdInt,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="edu.njtu.model.RecommendUser" >
+    update recommend_user
+    set recommend_value = #{recommendValue,jdbcType=REAL}
+    where business_id_int = #{businessIdInt,jdbcType=BIGINT}
+      and user_id_int = #{userIdInt,jdbcType=BIGINT}
+  </update>
+</mapper>
