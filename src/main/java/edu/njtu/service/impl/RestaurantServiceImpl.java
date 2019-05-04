@@ -5,6 +5,7 @@ import edu.njtu.httpbody.restaurant.*;
 import edu.njtu.mapper.*;
 import edu.njtu.model.*;
 import edu.njtu.service.RestaurantService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Service("restaurantService")
 public class RestaurantServiceImpl implements RestaurantService {
+    public static final String PHOTO_PREFIX = "http://saaswork.oss-cn-beijing.aliyuncs.com/";
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Resource
@@ -99,10 +101,15 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     private Business getBusinessPhoto(PhotoExample photoExample, Business business) {
+
         photoExample.clear();
         photoExample.createCriteria().andBusinessIdEqualTo(business.getBusinessId());
         PageHelper.startPage(1, 5, false);
         List<Photo> photoList = photoMapper.selectByExample(photoExample);
+        photoList.stream().map(photo -> {
+            photo.setPhotoId(PHOTO_PREFIX + photo.getPhotoId()+".jpg");
+            return photo;
+        }).collect(Collectors.toList());
         business.setPhotoList(photoList);
         return business;
     }
