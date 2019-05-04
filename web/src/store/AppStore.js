@@ -12,4 +12,5 @@ class AppStore {
         todos[index].checked = !todos[index].checked
     }
 }
-export default AppStore;
+const appStore = new AppStore()
+export default appStore;

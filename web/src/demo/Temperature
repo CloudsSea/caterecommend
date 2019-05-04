@@ -1,0 +1,61 @@
+class Temperature {
+    id = Math.random()
+    @observable unit = 'C'
+    @observable temperatureCelsius = 25
+    @observable location = 'Amsterdam, NL'
+    @observable loading = true
+
+    constructor (location) {
+        this.location = location
+        this.fetch()
+    }
+    @computed get temperatureKelvin () {
+        console.log('calculating Kelvin')
+        return this.temperatureCelsius * (9 / 5) + 32
+    }
+
+    @computed get temperatureFahrenheit () {
+        console.log('calculating Fahrenheit')
+        return this.temperatureCelsius + 273.15
+    }
+
+    @computed get temperature () {
+        console.log('calculating temperature')
+        switch (this.unit) {
+            case 'K':
+                return this.temperatureKelvin + '°K'
+            case 'F':
+                return this.temperatureFahrenheit + '°F'
+            case 'C':
+                return this.temperatureCelsius + '°C'
+            default:
+                return this.temperatureCelsius + '°C'
+        }
+    }
+
+    @action fetch () {
+        window.fetch(`http://api.openweathermap.org/data/2.5/weather?appid=${APPID}&q=${this.location}`)
+            .then(res => res.json())
+            .then(action(json => {
+                this.temperatureCelsius = json.main.temp - 273.15
+                this.loading = false
+            }))
+    }
+    @action setUnit (newUnit) {
+        this.unit = newUnit
+    }
+
+    @action setCelsius (degrees) {
+        this.temperatureCelsius = degrees
+    }
+
+    @action('update temperature and unit')
+    setTemperatureAndUnit (degrees, unit) {
+        this.setUnit(unit)
+        this.setCelsius(degrees)
+    }
+
+    @action inc() {
+        this.setCelsius(this.temperatureCelsius + 1)
+    }
+}

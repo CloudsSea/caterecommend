@@ -4,7 +4,6 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {Provider} from "mobx-react";
-import AppStore from './store/AppStore'
 import {Route, Router, Switch} from "react-router";
 import {RouterStore, syncHistoryWithStore} from "mobx-react-router";
 import createHashHistory from "history/createHashHistory"
@@ -13,7 +12,7 @@ import ToDoapp from "./component/ToDoapp";
 import Album from "./component/Album";
 import Header from "./component/Header";
 import Footer from "./component/Footer";
-import AlertDismissible from "./component/AlertDismissible";
+import stores from "./store/Stores"
 
 
 let rootStore = {}
@@ -21,11 +20,12 @@ const hashHistory = createHashHistory()
 
 const routerStore = new RouterStore()
 const history = syncHistoryWithStore(hashHistory, routerStore)
-rootStore['app'] = new AppStore()
+
 routerStore['routing'] = routerStore
 
+
 ReactDOM.render(
-    <Provider {...rootStore}>
+    <Provider {...stores}>
         <Router history={history}>
             <Route component={Header}/>
             <Switch>
