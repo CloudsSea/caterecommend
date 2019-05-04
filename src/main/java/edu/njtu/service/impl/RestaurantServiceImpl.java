@@ -36,22 +36,22 @@ public class RestaurantServiceImpl implements RestaurantService {
     public RestaurantListDBody getRestaurantList(RestaurantListABody restaurantListABody) throws Exception {
         RestaurantListDBody restaurantListDBody = new RestaurantListDBody();
         BusinessExample businessExample = new BusinessExample();
-        int pageNumber = restaurantListABody.getPageNumber();
+        int pageNo = restaurantListABody.getPageNo();
         int pageSize = restaurantListABody.getPageSize();
         PhotoExample photoExample = new PhotoExample();
 
         switch ( null == restaurantListABody.getOptType()? 0:restaurantListABody.getOptType()) {
             case 2://获取默认推荐的  商家列表
-                List<Business> businessDefaultRecommendList = getRecommandDefaultRestaurantList(businessExample,restaurantListABody.getPageNumber(),restaurantListABody.getPageSize());
+                List<Business> businessDefaultRecommendList = getRecommandDefaultRestaurantList(businessExample,restaurantListABody.getPageNo(),restaurantListABody.getPageSize());
                 restaurantListDBody.setBusinessDefaultRecommendList(businessDefaultRecommendList);
                 break;
             case 3://获取根据用户推荐的  商家列表
                 User user = LoginServiceImpl.getUserById(userMapper,restaurantListABody.getUserId(),null);
 
-                List<Business> businessUserRecommendList = getRecommandUserRestaurantList(businessExample, user.getUserIdInt(),pageNumber,pageSize);
+                List<Business> businessUserRecommendList = getRecommandUserRestaurantList(businessExample, user.getUserIdInt(),pageNo,pageSize);
                 restaurantListDBody.setBusinessUserRecommendList(businessUserRecommendList);
                 break;
-            case 4://同时获取原生+用户推荐 商家列表, pageSize和pageNumber只作用于  原生 的商户列表
+            case 4://同时获取原生+用户推荐 商家列表, pageSize和pageNo只作用于  原生 的商户列表
             case 5://同时获取原生+默认推荐
                 //原生
                 List<Business> businessesList2 = getRestaurantList(restaurantListABody, businessExample);
@@ -109,13 +109,13 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 
     private List<Business> getRestaurantList(RestaurantListABody restaurantListABody, BusinessExample businessExample) {
-        PageHelper.startPage(restaurantListABody.getPageNumber(),restaurantListABody.getPageSize(),false);
+        PageHelper.startPage(restaurantListABody.getPageNo(),restaurantListABody.getPageSize(),false);
         return businessMapper.selectByExample(businessExample);
     }
 
-    private List<Business> getRecommandDefaultRestaurantList(BusinessExample businessExample,int pageNumber,int pageSize) {
+    private List<Business> getRecommandDefaultRestaurantList(BusinessExample businessExample,int pageNo,int pageSize) {
         List<Business> businessDefaultRecommendList = new ArrayList<Business>();
-        List<RecommendDefault> recommendDefaultList = RecommendServiceImpl.getRecommandDefaultRestaurant(recommendDefaultMapper, pageNumber, pageSize);
+        List<RecommendDefault> recommendDefaultList = RecommendServiceImpl.getRecommandDefaultRestaurant(recommendDefaultMapper, pageNo, pageSize);
         for (RecommendDefault recommendDefault : recommendDefaultList) {
             businessExample.clear();
             businessExample.createCriteria().andBusinessIdEqualTo(recommendDefault.getBusinessId());
@@ -125,9 +125,9 @@ public class RestaurantServiceImpl implements RestaurantService {
         return businessDefaultRecommendList;
     }
 
-    private List<Business>  getRecommandUserRestaurantList(BusinessExample businessExample, Long userId,int pageNumber,int pageSize) {
+    private List<Business>  getRecommandUserRestaurantList(BusinessExample businessExample, Long userId,int pageNo,int pageSize) {
         List<Business> businessUserRecommendList = new ArrayList<Business>();
-        List<RecommendUser> recommendUserList = RecommendServiceImpl.getRecommandUserRestaurant(recommendUserMapper, userId, pageNumber, pageSize);
+        List<RecommendUser> recommendUserList = RecommendServiceImpl.getRecommandUserRestaurant(recommendUserMapper, userId, pageNo, pageSize);
         for (RecommendUser recommendUser : recommendUserList) {
             businessExample.clear();
             logger.info(recommendUser.toString());

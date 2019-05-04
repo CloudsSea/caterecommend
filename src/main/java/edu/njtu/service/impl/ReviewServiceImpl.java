@@ -2,10 +2,7 @@ package edu.njtu.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import edu.njtu.httpbody.review.*;
-import edu.njtu.mapper.RecommendDefaultMapper;
 import edu.njtu.mapper.ReviewMapper;
-import edu.njtu.model.RecommendDefault;
-import edu.njtu.model.RecommendDefaultExample;
 import edu.njtu.model.Review;
 import edu.njtu.model.ReviewExample;
 import edu.njtu.service.ReviewService;
@@ -22,7 +19,7 @@ public class ReviewServiceImpl implements ReviewService{
     @Override
     public ReviewListDBody getReviewList(ReviewListABody reviewListABody) {
         ReviewExample example = new ReviewExample();
-        PageHelper.startPage(reviewListABody.getPageNumber(),reviewListABody.getPageSize(),false);
+        PageHelper.startPage(reviewListABody.getPageNo(),reviewListABody.getPageSize(),false);
         List<Review> reviewList =  reviewMapper.selectByExample(example);
         ReviewListDBody dBody = new ReviewListDBody();
         dBody.setReviewList(reviewList);
