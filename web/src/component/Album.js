@@ -5,6 +5,9 @@ import {observer, inject} from "mobx-react";
 import {Component} from "react";
 import { Button,ToggleButton,Collapse,Pagination,PageItem} from 'react-bootstrap';
 import PaginationSelf from "./PaginationSelf";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {  faCommentAlt,faStar } from '@fortawesome/free-solid-svg-icons'
+import { far } from '@fortawesome/free-regular-svg-icons'
 
 @inject('businessStore')
 @autobind //@autobind 将组件之间的绑定自动完成
@@ -120,15 +123,19 @@ class Business extends Component {
 
                         </p>
                         <div className="d-flex justify-content-between align-items-center">
+
                             <div className="btn-group">
                                 <button type="button"
                                         className="btn btn-sm btn-outline-secondary">View
                                 </button>
                                 <button type="button"
-                                        className="btn btn-sm btn-outline-secondary">Edit
+                                        className="btn btn-sm btn-outline-secondary">Book
                                 </button>
                             </div>
-                            <small className="text-muted">9 mins</small>
+
+
+                            <small className="text-muted"> <GetStars starNum={todo.stars}/>&nbsp;&nbsp;&nbsp;&nbsp;<FontAwesomeIcon icon={faCommentAlt} />{todo.reviewCount} </small>
+
                         </div>
                     </div>
                 </div>
@@ -137,6 +144,20 @@ class Business extends Component {
     }
 
 
+}
+
+function GetStars(props){
+    let starNum = props.starNum;
+    let items = [];
+    for(var i=5;i>=1;i--){
+        if(i <= starNum){
+            items.push( <FontAwesomeIcon  icon={faStar}/>);
+        }else{
+            // items.push( <FontAwesomeIcon icon={['far', 'Star']}/>);
+        }
+    }
+    console.log(items)
+    return items;
 }
 
 function RecommendDefault(props) {
