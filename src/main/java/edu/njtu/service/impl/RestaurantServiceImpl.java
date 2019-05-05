@@ -59,7 +59,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 List<Business> businessesList2 = getRestaurantList(restaurantListABody, businessExample);
                 restaurantListDBody.setBusinessList(businessesList2);
                 if(4 == restaurantListABody.getOptType()){
-                    List<Business> businessDefaultRecommendList2 = getRecommandDefaultRestaurantList(businessExample,1,10);
+                    List<Business> businessDefaultRecommendList2 = getRecommandDefaultRestaurantList(businessExample,1,12);
                     //默认推荐
                     restaurantListDBody.setBusinessDefaultRecommendList(businessDefaultRecommendList2);
 
@@ -67,7 +67,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 }else{
                     User user2 = LoginServiceImpl.getUserById(userMapper,restaurantListABody.getUserId(),null);
 
-                    List<Business> businessUserRecommendList2 = getRecommandUserRestaurantList(businessExample, user2.getUserIdInt(),1,10);
+                    List<Business> businessUserRecommendList2 = getRecommandUserRestaurantList(businessExample, user2.getUserIdInt(),1,12);
                     restaurantListDBody.setBusinessUserRecommendList(businessUserRecommendList2);
                     break;
                 }
