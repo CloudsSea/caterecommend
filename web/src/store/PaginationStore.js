@@ -3,7 +3,7 @@ import {types,flow} from 'mobx-state-tree'
 import { Button,ToggleButton,Collapse,Pagination,PageItem} from 'react-bootstrap';
 
 class PaginationStore {
-    @observable  active = 2;
+    @observable  active = 1;
     @observable  items = [];
     @observable  total = 5;
 

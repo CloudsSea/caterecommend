@@ -6,7 +6,7 @@ class BusinessStore {
     @observable businessUserRecommendList;
 
     constructor() {
-        this.fetchTest()
+        this.fetchMainPage()
     }
 
     @action
@@ -28,9 +28,15 @@ class BusinessStore {
     })
 
     @action
-    fetchTest(){
+    fetchMainPage(optType, userId){
         //window.fetch(`http://api.openweathermap.org/data/2.5/weather?appid=${APPID}&q=${this.location}`)
-        window.fetch(`restaurant/getlist?optType=2&pageNo=1&pageSize=12`)
+        let reqUrl = null;
+        if(null == userId){
+            reqUrl = 'restaurant/getlist?optType=4&pageNo=1&pageSize=12';
+        }else{
+            reqUrl = 'restaurant/getlist?optType=5&userId='+userId+'&pageNo=1&pageSize=12';
+        }
+        window.fetch(reqUrl)
             .then(res => res.json())
             .then(action(json => {
                 //this.temperatureCelsius = json.main.temp - 273.15
@@ -42,16 +48,14 @@ class BusinessStore {
     }
 
     @action
-    fetchBusinessList(props){
+    fetchBusinessList(number){
         //window.fetch(`http://api.openweathermap.org/data/2.5/weather?appid=${APPID}&q=${this.location}`)
-        window.fetch(`restaurant/getlist?optType=1&pageNo=${props.pageNo}&pageSize=12`)
+        window.fetch(`restaurant/getlist?optType=1&pageNo=${number}&pageSize=12`)
             .then(res => res.json())
             .then(action(json => {
                 //this.temperatureCelsius = json.main.temp - 273.15
                 //this.loading = false
                 this.businessList = json.businessList;
-                this.businessDefaultRecommendList = json.businessDefaultRecommendList;
-                this.businessUserRecommendList = json.businessUserRecommendList;
             }))
     }
 

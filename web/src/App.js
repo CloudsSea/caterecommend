@@ -35,7 +35,7 @@ class Todo extends Component {
 
     handleClick() {
         let index = this.props.index
-        this.props.app.handleClick(index)
+        this.props.appStore.handleClick(index)
     };
 
     render() {

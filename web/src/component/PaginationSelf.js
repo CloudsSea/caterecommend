@@ -6,34 +6,33 @@ import {Component} from "react";
 import {Button, ToggleButton, Collapse, Pagination, PageItem} from 'react-bootstrap';
 import {action} from "mobx";
 
-@inject('paginationStore')
+@inject('paginationStore','businessStore')
 @autobind //@autobind 将组件之间的绑定自动完成
 @observer
 class PaginationSelf extends React.Component {
     items = []
     constructor(props) {
         super(props)
-        this.refreshPageLine()
     }
 
-    handleClick() {
+    handleClick(number,e) {
         this.props.paginationStore.handleClick(number)
+        this.props.businessStore.fetchBusinessList(number)
     }
 
-    refreshPageLine() {
+    render() {
+        this.items = []
         let activeNum = this.props.paginationStore.active;
         let total = this.props.paginationStore.total;
         for (let number = 1; number <= total; number++) {
-           this.items.push(
-                <Pagination.Item key={number} active={number === activeNum} onClick={this.handleClick(this,{number})}>
+            this.items.push(
+                <Pagination.Item key={number} active={number === activeNum} onClick={this.handleClick.bind(this,number)}>
                     {number}
                 </Pagination.Item>,
             );
         }
-    }
-    render() {
 
-        // this.props.businessStore.fetchTest();
+        // this.props.businessStore.fetchMainPage();
         return (
 
                 <Pagination>{this.items}</Pagination>

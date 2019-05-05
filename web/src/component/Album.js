@@ -10,22 +10,44 @@ import PaginationSelf from "./PaginationSelf";
 @autobind //@autobind 将组件之间的绑定自动完成
 @observer
 class Album extends React.Component {
+    todosDiv = null;
+    todosDivDefaultRecommend = null;
+    todosDivUsertRecommend = null;
     constructor(props) {
         super(props)
     }
 
+
+
     render() {
         // let todos = this.props.businessStore.businessList;
-        let todos = this.props.businessStore.businessDefaultRecommendList;
-        let todosDiv = null;
-        if(null != todos){
-            todosDiv = todos.map((item, index) => {
-                return (<Business index={index}/>)
-            })
-        }
-        // this.props.businessStore.fetchTest();
-        return (
+        let todos = this.props.businessStore.businessList;
+        let todosDefaultRecommend = this.props.businessStore.businessDefaultRecommendList;
+        let todosUserRecommend = this.props.businessStore.businessUserRecommendList;
 
+        if(null != todos){
+            this.todosDiv = todos.map((item, index) => {
+                return (<Business key={index} index={index} todos={todos}/>)
+            })
+        }else{
+            this.todosDiv = null;
+        }
+        if(null != todosDefaultRecommend){
+            this.todosDivDefaultRecommend = todosDefaultRecommend.map((item, index) => {
+                return (<Business key={index} index={index} todos={todosDefaultRecommend}/>)
+            })
+        }else{
+            this.todosDivDefaultRecommend = null;
+        }
+        if(null != todosUserRecommend){
+            this.todosDivUsertRecommend = todosUserRecommend.map((item, index) => {
+                return (<Business key={index} index={index} todos={todosUserRecommend}/>)
+            })
+        }else{
+            this.todosDivUsertRecommend = null;
+        }
+        // this.props.businessStore.fetchMainPage();
+        return (
             <div>
                 <main role="main">
                     <section className="jumbotron text-center">
@@ -44,47 +66,11 @@ class Album extends React.Component {
 
                     <div className="album py-5 bg-light">
                         <div className="container">
-                            <hr/>
-                            <h2>DEFAULT RECOMMEND</h2>
-                            <hr/>
-                            <div className="row">
-                                {/*<h2 style="font-align:left">默认推荐</h2>*/}
 
-                                {todosDiv}
+                            <RecommendDefault todosDivDefaultRecommend={this.todosDivDefaultRecommend}/>
+                            <RecommendUser todosDivUsertRecommend={this.todosDivUsertRecommend} />
+                            <BusinessList  todosDiv={this.todosDiv}/>
 
-                            </div>
-                            <hr/>
-                            <h2>PERSONAL RECOMMEND</h2>
-                            <hr/>
-                            <div className="row">
-                                {/*<h2>个性推荐</h2>*/}
-
-                            </div>
-                            <hr/>
-                            <h2>RESTAURANT LIST</h2>
-                            <hr/>
-                            <div className="row">
-                                {/*<h2>商户列表</h2>*/}
-
-                                <PaginationSelf/>
-                                {/*<Pagination>*/}
-                                    {/*<Pagination.First />*/}
-                                    {/*<Pagination.Prev />*/}
-                                    {/*<Pagination.Item>{1}</Pagination.Item>*/}
-                                    {/*<Pagination.Ellipsis />*/}
-
-                                    {/*<Pagination.Item>{10}</Pagination.Item>*/}
-                                    {/*<Pagination.Item>{11}</Pagination.Item>*/}
-                                    {/*<Pagination.Item active>{12}</Pagination.Item>*/}
-                                    {/*<Pagination.Item>{13}</Pagination.Item>*/}
-                                    {/*<Pagination.Item disabled>{14}</Pagination.Item>*/}
-
-                                    {/*<Pagination.Ellipsis />*/}
-                                    {/*<Pagination.Item>{20}</Pagination.Item>*/}
-                                    {/*<Pagination.Next />*/}
-                                    {/*<Pagination.Last />*/}
-                                {/*</Pagination>*/}
-                            </div>
 
                         </div>
                         <hr/>
@@ -111,8 +97,8 @@ class Business extends Component {
 
     render() {
         let index = this.props.index
-        let todo = this.props.businessStore.businessDefaultRecommendList[index]
-        let todoPics = this.props.businessStore.businessDefaultRecommendList[index].photoList;
+        let todo = this.props.todos[index]
+        let todoPics = todo.photoList;
         let imageShow = null;
         if (0 == todoPics.length) {
             imageShow = <ShowSVG/>
@@ -151,6 +137,76 @@ class Business extends Component {
     }
 
 
+}
+
+function RecommendDefault(props) {
+    if (null != props.todosDivDefaultRecommend) {
+        return (
+            <div>
+                <hr/>
+                <h2>DEFAULT RECOMMEND</h2>
+                <hr/>
+                <div className="row">
+                    {props.todosDivDefaultRecommend}
+
+                </div>
+            </div>
+        )
+    }else{
+        return null;
+    }
+}
+function RecommendUser(props) {
+    if (null != props.todosDivUsertRecommend) {
+        return (
+            <div>
+                <hr/>
+                <h2>PERSONAL RECOMMEND</h2>
+                <hr/>
+                <div className="row">
+                    {props.todosDivUsertRecommend}
+
+                </div>
+            </div>
+        )
+    }else{
+        return null;
+    }
+}
+function BusinessList(props) {
+    if (null != props.todosDiv) {
+        return (
+            <div>
+                <hr/>
+                <h2>RESTAURANT LIST</h2>
+                <hr/>
+                <div className="row">
+                    {props.todosDiv}
+
+                    <PaginationSelf/>
+                    {/*<Pagination>*/}
+                    {/*<Pagination.First />*/}
+                    {/*<Pagination.Prev />*/}
+                    {/*<Pagination.Item>{1}</Pagination.Item>*/}
+                    {/*<Pagination.Ellipsis />*/}
+
+                    {/*<Pagination.Item>{10}</Pagination.Item>*/}
+                    {/*<Pagination.Item>{11}</Pagination.Item>*/}
+                    {/*<Pagination.Item active>{12}</Pagination.Item>*/}
+                    {/*<Pagination.Item>{13}</Pagination.Item>*/}
+                    {/*<Pagination.Item disabled>{14}</Pagination.Item>*/}
+
+                    {/*<Pagination.Ellipsis />*/}
+                    {/*<Pagination.Item>{20}</Pagination.Item>*/}
+                    {/*<Pagination.Next />*/}
+                    {/*<Pagination.Last />*/}
+                    {/*</Pagination>*/}
+                </div>
+            </div>
+        )
+    }else{
+        return null;
+    }
 }
 
 function  ShowImage(props) {
