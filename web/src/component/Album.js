@@ -1,7 +1,7 @@
 import * as React from "react";
 import './album.css'
 import {autobind} from "core-decorators";
-import {observer,inject} from "mobx-react";
+import {observer, inject} from "mobx-react";
 import {getSearchData} from "../api/apis"
 import {Component} from "react";
 
@@ -32,7 +32,7 @@ class Album extends React.Component {
                                 simply skip over it entirely.</p>
                             <p>
                                 <a href="#" className="btn btn-primary my-2">Main call to action</a>
-                                <a href="#" className="btn btn-secondary my-2" >Secondary action</a>
+                                <a href="#" className="btn btn-secondary my-2">Secondary action</a>
                             </p>
                         </div>
                     </section>
@@ -68,31 +68,18 @@ class Business extends Component {
     }
 
 
-    showImage(props) {
-        return (
-            <img src={props.imageUrl}/>
-        );
-    }
-    showSVG() {
-        return (
-            <svg className="bd-placeholder-img card-img-top" width="100%" height="225"
-                 xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Thumbnail"
-                 preserveAspectRatio="xMidYMid slice" role="img"><title>Placeholder</title>
-                <rect width="100%" height="100%" fill="#55595c"></rect>
-                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-            </svg>
-        );
-    }
+
+
 
     render() {
         let index = this.props.index
         let todo = this.props.businessStore.businessDefaultRecommendList[index]
         let todoPics = this.props.businessStore.businessDefaultRecommendList[index].photoList;
         let imageShow = null;
-        if(0 == todoPics.length){
-            imageShow = this.showSVG()
-        }else{
-            imageShow = this.showImage({imageUrl:todoPics[0]})
+        if (0 == todoPics.length) {
+            imageShow = <ShowSVG/>
+        } else {
+            imageShow = <ShowImage imageUrl={todoPics[0].photoId}/>
         }
 
 
@@ -127,8 +114,22 @@ class Business extends Component {
     }
 
 
+}
 
-
+function  ShowImage(props) {
+    return (
+        <img src={props.imageUrl}/>
+    );
+}
+function ShowSVG() {
+    return (
+        <svg className="bd-placeholder-img card-img-top" width="100%" height="225"
+             xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Thumbnail"
+             preserveAspectRatio="xMidYMid slice" role="img"><title>Placeholder</title>
+            <rect width="100%" height="100%" fill="#55595c"></rect>
+            <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+        </svg>
+    );
 }
 
 export default Album;
