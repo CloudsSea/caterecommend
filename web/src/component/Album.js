@@ -2,8 +2,9 @@ import * as React from "react";
 import './album.css'
 import {autobind} from "core-decorators";
 import {observer, inject} from "mobx-react";
-import {getSearchData} from "../api/apis"
 import {Component} from "react";
+import { Button,ToggleButton,Collapse,Pagination,PageItem} from 'react-bootstrap';
+import PaginationSelf from "./PaginationSelf";
 
 @inject('businessStore')
 @autobind //@autobind 将组件之间的绑定自动完成
@@ -43,13 +44,50 @@ class Album extends React.Component {
 
                     <div className="album py-5 bg-light">
                         <div className="container">
-
+                            <hr/>
+                            <h2>DEFAULT RECOMMEND</h2>
+                            <hr/>
                             <div className="row">
+                                {/*<h2 style="font-align:left">默认推荐</h2>*/}
 
                                 {todosDiv}
 
                             </div>
+                            <hr/>
+                            <h2>PERSONAL RECOMMEND</h2>
+                            <hr/>
+                            <div className="row">
+                                {/*<h2>个性推荐</h2>*/}
+
+                            </div>
+                            <hr/>
+                            <h2>RESTAURANT LIST</h2>
+                            <hr/>
+                            <div className="row">
+                                {/*<h2>商户列表</h2>*/}
+
+                                <PaginationSelf/>
+                                {/*<Pagination>*/}
+                                    {/*<Pagination.First />*/}
+                                    {/*<Pagination.Prev />*/}
+                                    {/*<Pagination.Item>{1}</Pagination.Item>*/}
+                                    {/*<Pagination.Ellipsis />*/}
+
+                                    {/*<Pagination.Item>{10}</Pagination.Item>*/}
+                                    {/*<Pagination.Item>{11}</Pagination.Item>*/}
+                                    {/*<Pagination.Item active>{12}</Pagination.Item>*/}
+                                    {/*<Pagination.Item>{13}</Pagination.Item>*/}
+                                    {/*<Pagination.Item disabled>{14}</Pagination.Item>*/}
+
+                                    {/*<Pagination.Ellipsis />*/}
+                                    {/*<Pagination.Item>{20}</Pagination.Item>*/}
+                                    {/*<Pagination.Next />*/}
+                                    {/*<Pagination.Last />*/}
+                                {/*</Pagination>*/}
+                            </div>
+
                         </div>
+                        <hr/>
                     </div>
 
 
@@ -86,7 +124,6 @@ class Business extends Component {
         return (
             <div className="col-md-4">
                 <div className="card mb-4 shadow-sm">
-
 
                     {imageShow}
 

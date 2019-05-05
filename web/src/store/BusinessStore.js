@@ -30,7 +30,21 @@ class BusinessStore {
     @action
     fetchTest(){
         //window.fetch(`http://api.openweathermap.org/data/2.5/weather?appid=${APPID}&q=${this.location}`)
-        window.fetch(`restaurant/getlist?optType=2&pageNo=1&pageSize=10`)
+        window.fetch(`restaurant/getlist?optType=2&pageNo=1&pageSize=12`)
+            .then(res => res.json())
+            .then(action(json => {
+                //this.temperatureCelsius = json.main.temp - 273.15
+                //this.loading = false
+                this.businessList = json.businessList;
+                this.businessDefaultRecommendList = json.businessDefaultRecommendList;
+                this.businessUserRecommendList = json.businessUserRecommendList;
+            }))
+    }
+
+    @action
+    fetchBusinessList(props){
+        //window.fetch(`http://api.openweathermap.org/data/2.5/weather?appid=${APPID}&q=${this.location}`)
+        window.fetch(`restaurant/getlist?optType=1&pageNo=${props.pageNo}&pageSize=12`)
             .then(res => res.json())
             .then(action(json => {
                 //this.temperatureCelsius = json.main.temp - 273.15
