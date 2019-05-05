@@ -39,8 +39,6 @@ class BusinessStore {
                 this.businessDefaultRecommendList = json.businessDefaultRecommendList;
                 this.businessUserRecommendList = json.businessUserRecommendList;
             }))
-
-        console.log("sesafds")
     }
 
 }

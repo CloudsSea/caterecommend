@@ -16,9 +16,12 @@ class Album extends React.Component {
     render() {
         // let todos = this.props.businessStore.businessList;
         let todos = this.props.businessStore.businessDefaultRecommendList;
-        let todosDiv = todos.map((item, index) => {
-            return (<Business index={index}/>)
-        })
+        let todosDiv = null;
+        if(null != todos){
+            todosDiv = todos.map((item, index) => {
+                return (<Business index={index}/>)
+            })
+        }
         // this.props.businessStore.fetchTest();
         return (
 
@@ -68,9 +71,6 @@ class Business extends Component {
     }
 
 
-
-
-
     render() {
         let index = this.props.index
         let todo = this.props.businessStore.businessDefaultRecommendList[index]
@@ -118,7 +118,8 @@ class Business extends Component {
 
 function  ShowImage(props) {
     return (
-        <img src={props.imageUrl}/>
+        <img className="bd-placeholder-img card-img-top"  width="100%" height="225"
+             src={props.imageUrl}/>
     );
 }
 function ShowSVG() {
@@ -127,7 +128,7 @@ function ShowSVG() {
              xmlns="http://www.w3.org/2000/svg" aria-label="Placeholder: Thumbnail"
              preserveAspectRatio="xMidYMid slice" role="img"><title>Placeholder</title>
             <rect width="100%" height="100%" fill="#55595c"></rect>
-            <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+            <text x="40%" y="50%" fill="#eceeef" dy=".3em">no photo </text>
         </svg>
     );
 }
