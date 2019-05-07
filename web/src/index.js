@@ -13,6 +13,7 @@ import Album from "./component/Album";
 import Header from "./component/Header";
 import Footer from "./component/Footer";
 import stores from "./store/Stores"
+import FormExample from "./demo/FormExample";
 
 
 let rootStore = {}
@@ -32,6 +33,7 @@ ReactDOM.render(
                 <Route path={"/test"} component={Test}/>
                 <Route path={"/bs"} component={ToDoapp}/>
                 <Route path={"/album"} component={Album}/>
+                <Route path={"/form"} component={FormExample}/>
                 <Route path={"/"} component={App}/>
             </Switch>
             <Route component={Footer}/>
