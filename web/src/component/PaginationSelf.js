@@ -34,8 +34,9 @@ class PaginationSelf extends React.Component {
 
         // this.props.businessStore.fetchMainPage();
         return (
-
+            <div className="pageStyle">
                 <Pagination>{this.items}</Pagination>
+            </div>
 
         )
     }

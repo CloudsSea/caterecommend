@@ -32,7 +32,7 @@ class BusinessStore {
         //window.fetch(`http://api.openweathermap.org/data/2.5/weather?appid=${APPID}&q=${this.location}`)
         let reqUrl = null;
         if(null == userId){
-            reqUrl = 'restaurant/getlist?optType=4&pageNo=1&pageSize=12';
+            reqUrl = 'restaurant/getlist?&pageNo=1&pageSize=12';
         }else{
             reqUrl = 'restaurant/getlist?optType=5&userId='+userId+'&pageNo=1&pageSize=12';
         }

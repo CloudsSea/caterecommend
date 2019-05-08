@@ -9,7 +9,7 @@ class AppStore {
 
     @action.bound handleClick(index) {
         let todos = this.todos
-        todos[index].checked = !todos[index].checked
+        todos[index].checked = !todos[index].checkednpm
     }
 }
 const appStore = new AppStore()

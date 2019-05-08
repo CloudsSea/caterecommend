@@ -1,9 +1,10 @@
 html,
-body {
+body #loginDiv{
+  text-align: center;
   height: 100%;
 }
 
-body {
+body #loginDiv{
   display: flex;
   align-items: center;
   padding-top: 40px;

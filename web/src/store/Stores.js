@@ -1,10 +1,12 @@
 import businessStore from './BusinessStore'
 import appStore from "./AppStore";
 import paginationStore from "./PaginationStore";
+import signInStore from "./SignInStore";
 
 const stores = {
     businessStore,
     appStore,
-    paginationStore
+    paginationStore,
+    signInStore
 }
 export default stores;

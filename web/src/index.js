@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {Provider} from "mobx-react";
 import {Route, Router, Switch} from "react-router";
@@ -14,6 +13,7 @@ import Header from "./component/Header";
 import Footer from "./component/Footer";
 import stores from "./store/Stores"
 import FormExample from "./demo/FormExample";
+import SignIn from "./component/SignIn";
 
 
 let rootStore = {}
@@ -32,9 +32,9 @@ ReactDOM.render(
             <Switch>
                 <Route path={"/test"} component={Test}/>
                 <Route path={"/bs"} component={ToDoapp}/>
-                <Route path={"/album"} component={Album}/>
                 <Route path={"/form"} component={FormExample}/>
-                <Route path={"/"} component={App}/>
+                <Route path={"/login"} component={SignIn}/>
+                <Route path={"/"} component={Album}/>
             </Switch>
             <Route component={Footer}/>
         </Router>
