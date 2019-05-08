@@ -5,7 +5,6 @@ import edu.njtu.httpbody.login.*;
 import edu.njtu.mapper.UserMapper;
 import edu.njtu.model.User;
 import edu.njtu.model.UserExample;
-import edu.njtu.model.UserKey;
 import edu.njtu.service.LoginService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -13,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Service("loginService")
@@ -34,8 +34,12 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public LoginDBody login(LoginABody userToLoginRequest) {
-        return null;
+    public LoginDBody login(LoginABody userToLoginRequest, HttpSession session) throws Exception {
+        session.setAttribute("userInfo",LoginServiceImpl.getUserById(userMapper,null,new Long(userToLoginRequest.getUserName())));
+        LoginDBody loginDBody = new LoginDBody();
+        loginDBody.setCode("10000");
+        loginDBody.setMsg("SUCCESS");
+        return loginDBody;
     }
 
     @Override

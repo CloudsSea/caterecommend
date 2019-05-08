@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by Hai on 2019/3/15.
@@ -28,10 +29,10 @@ public class RestaurantController {
     @ApiOperation(value="获取餐馆列表")
     @ResponseBody
     @RequestMapping(value="/getlist",method= RequestMethod.GET)
-    public RestaurantListDBody getRestaurantList(RestaurantListABody restaurantListABody) {
+    public RestaurantListDBody getRestaurantList(RestaurantListABody restaurantListABody, HttpSession session) {
         RestaurantListDBody restaurantListDBody = new RestaurantListDBody();
         try {
-            restaurantListDBody= restaurantService.getRestaurantList(restaurantListABody);
+            restaurantListDBody= restaurantService.getRestaurantList(restaurantListABody,session);
 
         }catch (Exception e){
             logger.error("获取餐馆列表错误:",e);

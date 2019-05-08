@@ -5,6 +5,8 @@ import edu.njtu.model.User;
 import edu.njtu.service.LoginService;
 import edu.njtu.tools.FileTools;
 import edu.njtu.tools.InsertTableTools;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 import java.io.File;
 import java.util.List;
 
@@ -21,6 +25,7 @@ import java.util.List;
  */
 @RequestMapping("/login")
 @Controller
+@Api("用户api")
 public class LoginController {
     //TODO 日志抽象出一个aop
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -28,21 +33,32 @@ public class LoginController {
     @Resource
     public LoginService loginService;
 
-    /**
-     * 登录页面
-     * @return
-     */
-    @RequestMapping("/index")
-    public String login() {
-        return "index";
-    }
 
+    @ApiOperation(value="用户登录")
     @ResponseBody
     @RequestMapping(value="/login",method= RequestMethod.POST)
-    public LoginDBody login(LoginABody userToLoginRequest) {
-        return loginService.login(userToLoginRequest);
+    public LoginDBody login(LoginABody userToLoginRequest, HttpSession session) {
+        LoginDBody loginDBody = new LoginDBody();
+        try {
+            return loginService.login(userToLoginRequest,session);
+        }catch (Exception e){
+            logger.error("获取餐馆列表错误:",e);
+            //FIXME  抽象出一个过滤器,捕捉错误
+            loginDBody.setCode("40000");
+            loginDBody.setMsg("User login fail");
+            loginDBody.setSubCode(e.getMessage());
+            loginDBody.setSubMsg(e.getMessage());
+        }
+        return loginDBody;
     }
 
+    @ApiOperation(value="用户登出")
+    @ResponseBody
+    @RequestMapping(value="/loginout",method= RequestMethod.POST)
+    public void loginOut(HttpSession session) {
+        session.setAttribute("userInfo",null);
+    }
+    @ApiOperation(value="重置密码")
     @ResponseBody
     @RequestMapping(value="/resetpassword",method= RequestMethod.PUT)
     public ResetPasswordDBody resetPassword(ResetPasswordABody resetPasswordABody) {

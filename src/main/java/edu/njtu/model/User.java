@@ -200,4 +200,30 @@ public class User extends UserKey {
     public void setYelpingSince(String yelpingSince) {
         this.yelpingSince = yelpingSince == null ? null : yelpingSince.trim();
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "averageStars=" + averageStars +
+                ", complimentsCool=" + complimentsCool +
+                ", complimentsCute=" + complimentsCute +
+                ", complimentsFunny=" + complimentsFunny +
+                ", complimentsHot=" + complimentsHot +
+                ", complimentsList=" + complimentsList +
+                ", complimentsMore=" + complimentsMore +
+                ", complimentsNote=" + complimentsNote +
+                ", complimentsPhotos=" + complimentsPhotos +
+                ", complimentsPlain=" + complimentsPlain +
+                ", complimentsProfile=" + complimentsProfile +
+                ", complimentsWriter=" + complimentsWriter +
+                ", fans=" + fans +
+                ", name='" + name + '\'' +
+                ", reviewCount=" + reviewCount +
+                ", type='" + type + '\'' +
+                ", votesCool=" + votesCool +
+                ", votesFunny=" + votesFunny +
+                ", votesUseful=" + votesUseful +
+                ", yelpingSince='" + yelpingSince + '\'' +
+                '}';
+    }
 }

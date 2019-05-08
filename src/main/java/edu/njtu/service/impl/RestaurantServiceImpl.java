@@ -5,12 +5,12 @@ import edu.njtu.httpbody.restaurant.*;
 import edu.njtu.mapper.*;
 import edu.njtu.model.*;
 import edu.njtu.service.RestaurantService;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,39 +35,53 @@ public class RestaurantServiceImpl implements RestaurantService {
     private PhotoMapper photoMapper;
 
     @Override
-    public RestaurantListDBody getRestaurantList(RestaurantListABody restaurantListABody) throws Exception {
+    public RestaurantListDBody getRestaurantList(RestaurantListABody restaurantListABody, HttpSession session) throws Exception {
         RestaurantListDBody restaurantListDBody = new RestaurantListDBody();
         BusinessExample businessExample = new BusinessExample();
         int pageNo = restaurantListABody.getPageNo();
         int pageSize = restaurantListABody.getPageSize();
         PhotoExample photoExample = new PhotoExample();
 
-        switch ( null == restaurantListABody.getOptType()? 0:restaurantListABody.getOptType()) {
+        Integer optType  = null;
+        Long userId = null;
+        if(null != restaurantListABody.getOptType()){
+            optType = restaurantListABody.getOptType();
+        }else{
+            User user = (User) session.getAttribute("userInfo");
+            if (null != user) {
+                userId = user.getUserIdInt();
+                logger.info(user.toString());
+                optType = 5;
+            }else{
+                optType = 4;
+            }
+        }
+
+
+        switch ( optType) {
             case 2://获取默认推荐的  商家列表
                 List<Business> businessDefaultRecommendList = getRecommandDefaultRestaurantList(businessExample,restaurantListABody.getPageNo(),restaurantListABody.getPageSize());
                 restaurantListDBody.setBusinessDefaultRecommendList(businessDefaultRecommendList);
                 break;
             case 3://获取根据用户推荐的  商家列表
-                User user = LoginServiceImpl.getUserById(userMapper,restaurantListABody.getUserId(),null);
 
-                List<Business> businessUserRecommendList = getRecommandUserRestaurantList(businessExample, user.getUserIdInt(),pageNo,pageSize);
+
+                List<Business> businessUserRecommendList = getRecommandUserRestaurantList(businessExample, userId,pageNo,pageSize);
                 restaurantListDBody.setBusinessUserRecommendList(businessUserRecommendList);
                 break;
-            case 4://同时获取原生+用户推荐 商家列表, pageSize和pageNo只作用于  原生 的商户列表
-            case 5://同时获取原生+默认推荐
+            case 4://同时获取原生+默认推荐 商家列表, pageSize和pageNo只作用于  原生 的商户列表
+            case 5://同时获取原生+用户推荐
                 //原生
                 List<Business> businessesList2 = getRestaurantList(restaurantListABody, businessExample);
                 restaurantListDBody.setBusinessList(businessesList2);
-                if(4 == restaurantListABody.getOptType()){
+                if(4 == optType){
                     List<Business> businessDefaultRecommendList2 = getRecommandDefaultRestaurantList(businessExample,1,12);
                     //默认推荐
                     restaurantListDBody.setBusinessDefaultRecommendList(businessDefaultRecommendList2);
 
                     break;
                 }else{
-                    User user2 = LoginServiceImpl.getUserById(userMapper,restaurantListABody.getUserId(),null);
-
-                    List<Business> businessUserRecommendList2 = getRecommandUserRestaurantList(businessExample, user2.getUserIdInt(),1,12);
+                    List<Business> businessUserRecommendList2 = getRecommandUserRestaurantList(businessExample, userId,1,12);
                     restaurantListDBody.setBusinessUserRecommendList(businessUserRecommendList2);
                     break;
                 }
