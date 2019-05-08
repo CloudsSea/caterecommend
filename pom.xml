@@ -441,6 +441,28 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<!-- dockerfile-maven-plugin 用于打包和上传 Docker Image：
+				https://blog.csdn.net/hehuanchun0311/article/details/84316194
+				 -->
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>1.1.1</version>
+				<configuration>
+					<imageName>${project.groupId}.${project.artifactId}</imageName>
+					<dockerDirectory>${project.build.outputDirectory}</dockerDirectory>
+<!--
+					<dockerHost>http://39.98.50.114:2375</dockerHost>
+-->
+					<dockerHost>http://localhost:2375</dockerHost>
+					<resources>
+						<resource>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
