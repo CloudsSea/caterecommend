@@ -10,7 +10,8 @@ public class RestaurantListABody extends PageABody {
     private Integer optType;
 //    @ApiModelProperty(value="用户id",required=false,dataType="String",name="userId",example="-Gu3ZZ8FLVxomzlQ98BIBQ",allowableValues = "-Gu3ZZ8FLVxomzlQ98BIBQ,LOGz9_JwuJtGi8PyzAiCg")
 //    private String userId;
-
+    @ApiModelProperty(value="商户名",required=false,dataType="String",name="businessName",example="a",allowableValues = "a,b")
+    private String businessName;
     public Integer getOptType() {
         return optType;
     }
@@ -19,7 +20,15 @@ public class RestaurantListABody extends PageABody {
         this.optType = optType;
     }
 
-//    public String getUserId() {
+    public String getBusinessName() {
+        return businessName;
+    }
+
+    public void setBusinessName(String businessName) {
+        this.businessName = businessName;
+    }
+
+    //    public String getUserId() {
 //        return userId;
 //    }
 //

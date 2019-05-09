@@ -5,6 +5,7 @@ import edu.njtu.httpbody.restaurant.*;
 import edu.njtu.mapper.*;
 import edu.njtu.model.*;
 import edu.njtu.service.RestaurantService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -87,6 +88,9 @@ public class RestaurantServiceImpl implements RestaurantService {
                 }
             case 1://获取原生的  商户列表
             default:
+                if(StringUtils.isNotBlank(restaurantListABody.getBusinessName())){
+                    businessExample.createCriteria().andNameLike("%"+restaurantListABody.getBusinessName()+"%");
+                }
                 List<Business> businessesList = getRestaurantList(restaurantListABody, businessExample);
                 restaurantListDBody.setBusinessList(businessesList);
                 break;
