@@ -48,9 +48,9 @@ class BusinessStore {
     }
 
     @action
-    fetchBusinessList(number){
+    fetchBusinessList(name,number){
         //window.fetch(`http://api.openweathermap.org/data/2.5/weather?appid=${APPID}&q=${this.location}`)
-        window.fetch(`restaurant/getlist?optType=1&pageNo=${number}&pageSize=12`)
+        window.fetch(`restaurant/getlist?businessName=${name}&optType=1&pageNo=${number}&pageSize=12`)
             .then(res => res.json())
             .then(action(json => {
                 //this.temperatureCelsius = json.main.temp - 273.15
