@@ -14,6 +14,7 @@ import Footer from "./component/Footer";
 import stores from "./store/Stores"
 import FormExample from "./demo/FormExample";
 import SignIn from "./component/SignIn";
+import Search from "./component/Search";
 
 
 let rootStore = {}
@@ -34,6 +35,7 @@ ReactDOM.render(
                 <Route path={"/bs"} component={ToDoapp}/>
                 <Route path={"/form"} component={FormExample}/>
                 <Route path={"/login"} component={SignIn}/>
+                <Route path={"/search"} component={Search}/>
                 <Route path={"/"} component={Album}/>
             </Switch>
             <Route component={Footer}/>
