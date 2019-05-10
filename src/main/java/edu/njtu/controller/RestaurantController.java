@@ -30,6 +30,8 @@ public class RestaurantController {
     @ResponseBody
     @RequestMapping(value="/getlist.do",method= RequestMethod.GET)
     public RestaurantListDBody getRestaurantList(RestaurantListABody restaurantListABody, HttpSession session) {
+        logger.info("hello");
+        logger.error("world");
         RestaurantListDBody restaurantListDBody = new RestaurantListDBody();
         try {
             restaurantListDBody= restaurantService.getRestaurantList(restaurantListABody,session);
