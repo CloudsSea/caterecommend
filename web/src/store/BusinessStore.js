@@ -32,9 +32,9 @@ class BusinessStore {
         //window.fetch(`http://api.openweathermap.org/data/2.5/weather?appid=${APPID}&q=${this.location}`)
         let reqUrl = null;
         if(null == userId){
-            reqUrl = 'http://39.98.253.156:30000/restaurant/getlist.do?&pageNo=1&pageSize=12';
+            reqUrl = 'restaurant/getlist.do?&pageNo=1&pageSize=12';
         }else{
-            reqUrl = 'http://39.98.253.156:30000/restaurant/getlist.do?optType=5&userId='+userId+'&pageNo=1&pageSize=12';
+            reqUrl = 'restaurant/getlist.do?optType=5&userId='+userId+'&pageNo=1&pageSize=12';
         }
         window.fetch(reqUrl)
             .then(res => res.json())
@@ -50,7 +50,7 @@ class BusinessStore {
     @action
     fetchBusinessList(name,number){
         //window.fetch(`http://api.openweathermap.org/data/2.5/weather?appid=${APPID}&q=${this.location}`)
-        window.fetch(`http://39.98.253.156:30000/restaurant/getlist.do?businessName=${name}&optType=1&pageNo=${number}&pageSize=12`)
+        window.fetch(`restaurant/getlist.do?businessName=${name}&optType=1&pageNo=${number}&pageSize=12`)
             .then(res => res.json())
             .then(action(json => {
                 //this.temperatureCelsius = json.main.temp - 273.15
