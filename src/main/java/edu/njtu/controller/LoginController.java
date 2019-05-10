@@ -53,6 +53,8 @@ public class LoginController {
     @ResponseBody
     @RequestMapping(value="/loginout.do",method= RequestMethod.POST)
     public void loginOut(HttpSession session) {
+        logger.info("hello");
+        logger.error("world");
         session.setAttribute("userInfo",null);
     }
     @ApiOperation(value="重置密码")
