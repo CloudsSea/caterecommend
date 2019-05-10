@@ -1,7 +1,7 @@
 FROM node:8.9.2
 
-COPY . /web
-WORKDIR ./web
+COPY . /app
+WORKDIR /app
 RUN npm install --registry=https://registry.npm.taobao.org
 
 EXPOSE 3000
