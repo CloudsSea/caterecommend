@@ -20,7 +20,7 @@ class SignIn extends React.Component {
         let formData = new FormData($("#loginForm")[0]);  // 定位到userForm表单，并将表单定位转为FormData对象
         console.log(formData)
         $.ajax({
-            url: '/login/login',   //网络请求url地址
+            url: '/login/login.do',   //网络请求url地址
             type: 'POST',
             data: formData, //表单数据
             cache: false,
