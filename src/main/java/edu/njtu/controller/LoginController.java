@@ -1,10 +1,10 @@
 package edu.njtu.controller;
 
-import edu.njtu.httpbody.login.*;
-import edu.njtu.model.User;
+import edu.njtu.httpbody.login.LoginABody;
+import edu.njtu.httpbody.login.LoginDBody;
+import edu.njtu.httpbody.login.ResetPasswordABody;
+import edu.njtu.httpbody.login.ResetPasswordDBody;
 import edu.njtu.service.LoginService;
-import edu.njtu.tools.FileTools;
-import edu.njtu.tools.InsertTableTools;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -16,9 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
-import java.io.File;
-import java.util.List;
 
 /**
  * Created by Hai on 2019/3/15.
@@ -36,7 +33,7 @@ public class LoginController {
 
     @ApiOperation(value="用户登录")
     @ResponseBody
-    @RequestMapping(value="/login",method= RequestMethod.POST)
+    @RequestMapping(value="/login.do",method= RequestMethod.POST)
     public LoginDBody login(LoginABody userToLoginRequest, HttpSession session) {
         LoginDBody loginDBody = new LoginDBody();
         try {
@@ -54,7 +51,7 @@ public class LoginController {
 
     @ApiOperation(value="用户登出")
     @ResponseBody
-    @RequestMapping(value="/loginout",method= RequestMethod.POST)
+    @RequestMapping(value="/loginout.do",method= RequestMethod.POST)
     public void loginOut(HttpSession session) {
         session.setAttribute("userInfo",null);
     }

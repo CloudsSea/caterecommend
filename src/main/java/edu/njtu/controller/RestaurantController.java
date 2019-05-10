@@ -28,7 +28,7 @@ public class RestaurantController {
 
     @ApiOperation(value="获取餐馆列表")
     @ResponseBody
-    @RequestMapping(value="/getlist",method= RequestMethod.GET)
+    @RequestMapping(value="/getlist.do",method= RequestMethod.GET)
     public RestaurantListDBody getRestaurantList(RestaurantListABody restaurantListABody, HttpSession session) {
         RestaurantListDBody restaurantListDBody = new RestaurantListDBody();
         try {
@@ -46,7 +46,7 @@ public class RestaurantController {
     }
 
     @ResponseBody
-    @RequestMapping(value="/detail",method= RequestMethod.GET)
+    @RequestMapping(value="/detail.do",method= RequestMethod.GET)
     public RestaurantDetailDBody restaurantDetail(RestaurantDetailABody restaurantDetailABody) {
         RestaurantDetailDBody restaurantDetailDBody = restaurantService.restaurantDetail(restaurantDetailABody);
         return null;
