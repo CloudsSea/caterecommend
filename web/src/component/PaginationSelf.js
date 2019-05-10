@@ -6,7 +6,7 @@ import {Component} from "react";
 import {Button, ToggleButton, Collapse, Pagination, PageItem} from 'react-bootstrap';
 import {action} from "mobx";
 
-@inject('paginationStore','businessStore')
+@inject('paginationStore','businessStore','searchStore')
 @autobind //@autobind 将组件之间的绑定自动完成
 @observer
 class PaginationSelf extends React.Component {
@@ -17,7 +17,7 @@ class PaginationSelf extends React.Component {
 
     handleClick(number,e) {
         this.props.paginationStore.handleClick(number)
-        this.props.businessStore.fetchBusinessList(number)
+        this.props.businessStore.fetchBusinessList(this.props.searchStore.keywords,number)
     }
 
     render() {

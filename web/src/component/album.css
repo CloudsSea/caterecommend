@@ -1,9 +1,14 @@
 .pageStyle{
-  text-align: center;
+    text-align: center;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+.search-input{
+    height: 3.5rem;
 }
 .jumbotron {
   padding-top: 3rem;
-  padding-bottom: 3rem;
+  padding-bottom: 3rem !important;
   margin-bottom: 0;
   background-color: #fff;
 }
@@ -23,7 +28,7 @@
 }
 
 .jumbotron .container {
-  max-width: 40rem;
+  max-width: 58rem;
 }
 
 footer {
