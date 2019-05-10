@@ -145,5 +145,5 @@
   "devDependencies": {
     "babel-preset-mobx": "^2.0.0"
   },
-  "proxy": "http://yunmaster:30000/"
+  "proxy": "http://localhost:8080/"
 }
