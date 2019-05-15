@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Button,Alert,ButtonToolbar } from 'react-bootstrap';
-import Album from "./Album";
 
 class AlertDismissible extends React.Component {
     constructor(props) {
