@@ -31,6 +31,8 @@ public class LoginController {
     //TODO 日志抽象出一个aop
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    private static String CODE  = "123";
+
     @Resource
     public LoginService loginService;
 
@@ -85,7 +87,7 @@ public class LoginController {
     @ResponseBody
     @RequestMapping(value="/authcode.do",method= RequestMethod.GET)
     public void authCode(String code, HttpSession session) {
-        session.setAttribute("code",code);
+        CODE = code;
     }
 
     @ApiOperation(value="获取code")
@@ -94,7 +96,7 @@ public class LoginController {
     public String getCode(HttpSession session) {
         String code  = (String) session.getAttribute("code");
         Map<String,String>  result = new HashMap<String,String>();
-        result.put("code", code);
+        result.put("code", CODE);
         return JSONObject.toJSONString(result);
     }
 
