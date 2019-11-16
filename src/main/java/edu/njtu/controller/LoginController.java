@@ -77,6 +77,20 @@ public class LoginController {
 
     }
 
+    @ApiOperation(value="获取code")
+    @ResponseBody
+    @RequestMapping(value="/authcode.do",method= RequestMethod.GET)
+    public void authCode(String code, HttpSession session) {
+        session.setAttribute("code",code);
+    }
+    @ApiOperation(value="获取code")
+    @ResponseBody
+    @RequestMapping(value="/getcode.do",method= RequestMethod.GET)
+    public String getCode(HttpSession session) {
+        String code  = (String) session.getAttribute("code");
+        return code;
+    }
+
 //---------------------------------------------------------------------
 //---------------------------------------------------------------------
 //------------------以下为后台人员相关的登录逻辑-----------------------
