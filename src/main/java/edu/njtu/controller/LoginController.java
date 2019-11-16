@@ -1,5 +1,7 @@
 package edu.njtu.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.google.gson.JsonObject;
 import edu.njtu.httpbody.login.LoginABody;
 import edu.njtu.httpbody.login.LoginDBody;
 import edu.njtu.httpbody.login.ResetPasswordABody;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Hai on 2019/3/15.
@@ -83,12 +87,15 @@ public class LoginController {
     public void authCode(String code, HttpSession session) {
         session.setAttribute("code",code);
     }
+
     @ApiOperation(value="获取code")
     @ResponseBody
     @RequestMapping(value="/getcode.do",method= RequestMethod.GET)
     public String getCode(HttpSession session) {
         String code  = (String) session.getAttribute("code");
-        return code;
+        Map<String,String>  result = new HashMap<String,String>();
+        result.put("code", code);
+        return JSONObject.toJSONString(result);
     }
 
 //---------------------------------------------------------------------
